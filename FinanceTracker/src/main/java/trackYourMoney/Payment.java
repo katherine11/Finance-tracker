@@ -4,22 +4,24 @@ import java.time.LocalDate;
 
 public class Payment {
 	
-	private int id;
+	private int categoryId;
 	private String category;
 	private String repeating;
 	private int reapeatingId;
 	private double amount;
 	private LocalDate date;
 	private String description;
+	private int id;
 	
-	public Payment (int id, String category, String repeating, int reapeatingId, double amount, LocalDate date, String description) {
-		this.id = id;
+	public Payment (int categoryId, String category, String repeating, int reapeatingId, double amount, LocalDate date, String description, int id) {
+		this.categoryId = categoryId;
 		this.category = category;
 		this.repeating = repeating;
 		this.amount = amount;
 		this.date = date;
 		this.description = description;
 		this.reapeatingId = reapeatingId;
+		this.id = id;
 	}
 
 	public int getId() {
@@ -28,6 +30,10 @@ public class Payment {
 
 	public String getCategory() {
 		return category;
+	}
+
+	protected int getCategoryId() {
+		return categoryId;
 	}
 
 	public String getRepeating() {
