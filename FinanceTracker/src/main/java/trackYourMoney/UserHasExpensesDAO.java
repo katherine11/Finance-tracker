@@ -10,47 +10,54 @@ import java.time.LocalDate;
 import java.util.List;
 
 import connections.DBConnection;
-import exceptions.ExpensesExpeption;
+import exceptions.PaymentExpeption;
 
-public class UserHasExpensesDAO {
+public class UserHasExpensesDAO extends UserHasDAO {
 
-	private static final String INSERT_EXPENSE_SQL = "insert into users_has_expenses values (?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_EXPENSE_SQL = "insert into users_has_expenses values (?, ?, ?, ?, ?, ?, null)";
 
-	public void insertExpenses(int userId, Expenses expense) throws ExpensesExpeption {
+	public int insertPayment(int userId, Payment expense) throws PaymentExpeption {
 
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
-			
-			PreparedStatement ps = connection.prepareStatement(INSERT_EXPENSE_SQL, PreparedStatement.RETURN_GENERATED_KEYS);
-			
+
+			PreparedStatement ps = connection.prepareStatement(INSERT_EXPENSE_SQL,
+					PreparedStatement.RETURN_GENERATED_KEYS);
+
 			ps.setInt(1, userId);
-			ps.setInt(2,expense.getId());
+			ps.setInt(2, expense.getId());
 			ps.setInt(3, expense.getReapeatingId());
 			ps.setDouble(4, expense.getAmount());
 			ps.setDate(5, Date.valueOf(expense.getDate()));
-			ps.setString(6,expense.getDescription());
-			
+			ps.setString(6, expense.getDescription());
+
 			ps.executeUpdate();
 
+			ResultSet rs = ps.getGeneratedKeys();
+
+			rs.next();
+			return rs.getInt(1);
+
 		} catch (SQLException e) {
-			throw new ExpensesExpeption("Expense insert failed!");
+			throw new PaymentExpeption("Expense insert failed!");
 		}
 	}
 
-	public void selectAndAddAllExpensesOfUser(User user) throws ExpensesExpeption {
+	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("select e.expenses_id, e.category, "
 					+ "r.value, r.repeating_id, uhe.amount, uhe.date, uhe.description from users u "
-					+ "join users_has_expenses uhe on (uhe.user_id = "+user.getUserId()+" and u.user_id = "+user.getUserId()+") "
+					+ "join users_has_expenses uhe on (uhe.user_id = " + user.getUserId() + " and u.user_id = "
+					+ user.getUserId() + ") "
 					+ "join expenses e on (uhe.expenses_id = e.expenses_id) join repeatings r "
 					+ "on (r.repeating_id = uhe.repeating_id) LIMIT 0, 1000");
 
-			Expenses expense = null;
-			List<Expenses> expenses = null;
+			Expense expense = null;
+			List<Expense> expenses = null;
 			while (rs.next()) {
 				int id = rs.getInt(1);
 				String category = rs.getString(2);
@@ -59,16 +66,22 @@ public class UserHasExpensesDAO {
 				double amount = rs.getDouble(5);
 				LocalDate date = rs.getDate(6).toLocalDate();
 				String description = rs.getString(7);
-				
-				expense = new Expenses(id, category, repeating, reapeatingId, amount, date, description);
+
+				expense = new Expense(id, category, repeating, reapeatingId, amount, date, description);
 				user.addExpense(expense);
-	
+
 			}
 
 		} catch (SQLException e) {
-			throw new ExpensesExpeption("Expenses select failed!");
+			throw new PaymentExpeption("Expenses select failed!");
 		}
 
+	}
+
+	@Override
+	public boolean deletePayment(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -2,7 +2,7 @@ package trackYourMoney;
 
 import java.time.LocalDate;
 
-public class Expenses {
+public class Payment {
 	
 	private int id;
 	private String category;
@@ -12,7 +12,7 @@ public class Expenses {
 	private LocalDate date;
 	private String description;
 	
-	public Expenses(int id, String category, String repeating, int reapeatingId, double amount, LocalDate date, String description) {
+	public Payment (int id, String category, String repeating, int reapeatingId, double amount, LocalDate date, String description) {
 		this.id = id;
 		this.category = category;
 		this.repeating = repeating;

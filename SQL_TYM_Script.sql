@@ -6,11 +6,11 @@ insert into incomes values (null, 'Grants');
 
 insert into repeatings values (null, 'Yearly');
 
-insert into users_has_incomes values (10, 8, 4, 20, NOW(), '');	
+insert into users_has_incomes values (14, 7, 4, 600, curdate(), 'Rent from Apartment');	
 
 select * from users_has_incomes where user_id = 8;
 
-select u.username, i.category, uhi.amount, uhi.date, uhi.description, r.value from users u
+select i.incomes_id, i.category,r.value, uhi.amount, uhi.date, uhi.description from users u
 join users_has_incomes uhi on (uhi.user_id = 8 and u.user_id = 8)
 join incomes i on (i.incomes_id in (select uhi.incomes_id where uhi.user_id = 8))
 join repeatings r on (r.repeating_id in (select uhi.repeating_id where uhi.user_id = 8));
