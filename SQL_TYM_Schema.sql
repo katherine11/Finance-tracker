@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `finance_track_test` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `finance_track_test`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: finance_track_test
@@ -26,10 +24,10 @@ DROP TABLE IF EXISTS `budgets`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `budgets` (
   `budget_id` int(11) NOT NULL AUTO_INCREMENT,
-  `expenses_expenses_id` int(11) NOT NULL,
-  PRIMARY KEY (`budget_id`,`expenses_expenses_id`),
-  KEY `fk_budgets_expenses1_idx` (`expenses_expenses_id`),
-  CONSTRAINT `fk_budgets_expenses1` FOREIGN KEY (`expenses_expenses_id`) REFERENCES `expenses` (`expenses_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `expenses_id` int(11) NOT NULL,
+  PRIMARY KEY (`budget_id`,`expenses_id`),
+  KEY `fk_budgets_expenses1_idx` (`expenses_id`),
+  CONSTRAINT `fk_budgets_expenses1` FOREIGN KEY (`expenses_id`) REFERENCES `expenses` (`expenses_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,7 +52,7 @@ CREATE TABLE `expenses` (
   `category` varchar(45) NOT NULL,
   PRIMARY KEY (`expenses_id`),
   UNIQUE KEY `category_UNIQUE` (`category`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +61,7 @@ CREATE TABLE `expenses` (
 
 LOCK TABLES `expenses` WRITE;
 /*!40000 ALTER TABLE `expenses` DISABLE KEYS */;
+INSERT INTO `expenses` VALUES (3,'Education'),(1,'Foot & Drinks'),(6,'Other'),(4,'Sport'),(5,'Taxes'),(2,'Transport');
 /*!40000 ALTER TABLE `expenses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +76,7 @@ CREATE TABLE `incomes` (
   `incomes_id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(45) NOT NULL,
   PRIMARY KEY (`incomes_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +85,7 @@ CREATE TABLE `incomes` (
 
 LOCK TABLES `incomes` WRITE;
 /*!40000 ALTER TABLE `incomes` DISABLE KEYS */;
-INSERT INTO `incomes` VALUES (6,'Salary'),(7,'Rent'),(8,'Grants');
+INSERT INTO `incomes` VALUES (6,'Salary'),(7,'Rent'),(8,'Grants'),(9,'Other');
 /*!40000 ALTER TABLE `incomes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +101,7 @@ CREATE TABLE `obligations` (
   `category` varchar(45) NOT NULL,
   PRIMARY KEY (`obligation_id`),
   UNIQUE KEY `category_UNIQUE` (`category`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,6 +110,7 @@ CREATE TABLE `obligations` (
 
 LOCK TABLES `obligations` WRITE;
 /*!40000 ALTER TABLE `obligations` DISABLE KEYS */;
+INSERT INTO `obligations` VALUES (1,'Credit'),(3,'Fast Credit'),(2,'Loan'),(4,'Other');
 /*!40000 ALTER TABLE `obligations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,10 +124,9 @@ DROP TABLE IF EXISTS `period`;
 CREATE TABLE `period` (
   `period_id` int(11) NOT NULL AUTO_INCREMENT,
   `period_type` varchar(45) NOT NULL,
-  `quantity` int(10) unsigned NOT NULL,
   PRIMARY KEY (`period_id`),
   UNIQUE KEY `period_type_UNIQUE` (`period_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +135,7 @@ CREATE TABLE `period` (
 
 LOCK TABLES `period` WRITE;
 /*!40000 ALTER TABLE `period` DISABLE KEYS */;
+INSERT INTO `period` VALUES (1,'Days'),(3,'Months'),(2,'Weeks'),(4,'Years');
 /*!40000 ALTER TABLE `period` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,10 +175,10 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (8,'mareto','mareto@abv.bg'),(9,'vasko','vasil_v@abv.bg');
+INSERT INTO `users` VALUES (14,'Pesho','pesho@abv.bg','81dc9bdb52d04dc20036dbd8313ed055'),(15,'Gosho845','gosho@abv.bg','81dc9bdb52d04dc20036dbd8313ed055'),(16,'Gosho570','gosho@abv.bg','81dc9bdb52d04dc20036dbd8313ed055');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,15 +204,14 @@ CREATE TABLE `users_has_budgets` (
   `expenses_id` int(11) NOT NULL,
   `repeating_id` int(11) NOT NULL,
   `amount` double unsigned NOT NULL,
-  `date` datetime DEFAULT NULL,
-  `period_period_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`budget_id`,`expenses_id`),
+  `date` date DEFAULT NULL,
+  `period_id` int(11) DEFAULT NULL,
   KEY `fk_users_has_budgets_budgets1_idx` (`budget_id`,`expenses_id`),
   KEY `fk_users_has_budgets_users1_idx` (`user_id`),
   KEY `fk_users_has_budgets_repeatings1_idx` (`repeating_id`),
-  KEY `fk_users_has_budgets_period1_idx` (`period_period_id`),
-  CONSTRAINT `fk_users_has_budgets_budgets1` FOREIGN KEY (`budget_id`, `expenses_id`) REFERENCES `budgets` (`budget_id`, `expenses_expenses_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_budgets_period1` FOREIGN KEY (`period_period_id`) REFERENCES `period` (`period_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_users_has_budgets_period1_idx` (`period_id`),
+  CONSTRAINT `fk_users_has_budgets_budgets1` FOREIGN KEY (`budget_id`, `expenses_id`) REFERENCES `budgets` (`budget_id`, `expenses_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_has_budgets_period1` FOREIGN KEY (`period_id`) REFERENCES `period` (`period_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_budgets_repeatings1` FOREIGN KEY (`repeating_id`) REFERENCES `repeatings` (`repeating_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_budgets_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -239,10 +238,8 @@ CREATE TABLE `users_has_expenses` (
   `expenses_id` int(11) NOT NULL,
   `repeating_id` int(11) NOT NULL,
   `amount` double unsigned NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `description` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`user_id`,`expenses_id`,`date`),
-  UNIQUE KEY `date_UNIQUE` (`date`),
   KEY `fk_users_has_expenses_expenses1_idx` (`expenses_id`),
   KEY `fk_users_has_expenses_users1_idx` (`user_id`),
   KEY `fk_users_has_expenses_repeatings1_idx` (`repeating_id`),
@@ -258,6 +255,7 @@ CREATE TABLE `users_has_expenses` (
 
 LOCK TABLES `users_has_expenses` WRITE;
 /*!40000 ALTER TABLE `users_has_expenses` DISABLE KEYS */;
+INSERT INTO `users_has_expenses` VALUES (14,4,1,500,'2016-09-01','BMX'),(14,4,1,500,'2016-09-01','BMX'),(14,4,1,500,'2016-09-01','BMX'),(14,4,1,20.33,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-01','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,3,1,20,'2016-09-24','test123'),(14,1,1,20,'2016-09-24','test123'),(14,1,1,20,'2016-09-24','test123');
 /*!40000 ALTER TABLE `users_has_expenses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,10 +270,9 @@ CREATE TABLE `users_has_incomes` (
   `user_id` int(11) NOT NULL,
   `incomes_id` int(11) NOT NULL,
   `repeating_id` int(11) DEFAULT NULL,
-  `amount` int(11) unsigned NOT NULL,
-  `date` datetime NOT NULL,
+  `amount` double unsigned NOT NULL,
+  `date` date NOT NULL,
   `description` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`user_id`,`incomes_id`,`date`),
   KEY `fk_users_has_incomes_incomes1_idx` (`incomes_id`),
   KEY `fk_users_has_incomes_users1_idx` (`user_id`),
   KEY `fk_users_has_incomes_repeatings1_idx` (`repeating_id`),
@@ -291,7 +288,6 @@ CREATE TABLE `users_has_incomes` (
 
 LOCK TABLES `users_has_incomes` WRITE;
 /*!40000 ALTER TABLE `users_has_incomes` DISABLE KEYS */;
-INSERT INTO `users_has_incomes` VALUES (8,6,1,21,'2016-09-21 20:53:44','zaplata ot neshto si'),(8,7,2,150,'2016-09-21 20:54:26','zaplata ot neshto si'),(8,8,4,5,'2016-09-21 21:44:03','drugi prihodi'),(8,8,4,5,'2016-09-21 21:47:37','drugi prihodi'),(8,8,4,5,'2016-09-21 21:47:38','drugi prihodi'),(8,8,4,5,'2016-09-21 21:47:39','drugi prihodi'),(9,7,2,120,'2016-09-21 21:49:42','drugi prihodi'),(9,8,4,20,'2016-09-21 21:49:52','drugi prihodi'),(9,8,4,20,'2016-09-21 21:49:53','drugi prihodi');
 /*!40000 ALTER TABLE `users_has_incomes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,22 +299,22 @@ DROP TABLE IF EXISTS `users_has_obligations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users_has_obligations` (
-  `users_user_id` int(11) NOT NULL,
-  `obligations_obligation_id` int(11) NOT NULL,
-  `repeatings_repeating_id` int(11) NOT NULL,
-  `period_period_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `obligation_id` int(11) NOT NULL,
+  `repeating_id` int(11) DEFAULT NULL,
+  `period_id` int(11) DEFAULT NULL,
   `amount` double unsigned NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `description` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`users_user_id`,`obligations_obligation_id`,`date`),
-  KEY `fk_users_has_obligations_obligations1_idx` (`obligations_obligation_id`),
-  KEY `fk_users_has_obligations_users1_idx` (`users_user_id`),
-  KEY `fk_users_has_obligations_repeatings1_idx` (`repeatings_repeating_id`),
-  KEY `fk_users_has_obligations_period1_idx` (`period_period_id`),
-  CONSTRAINT `fk_users_has_obligations_obligations1` FOREIGN KEY (`obligations_obligation_id`) REFERENCES `obligations` (`obligation_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_obligations_period1` FOREIGN KEY (`period_period_id`) REFERENCES `period` (`period_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_obligations_repeatings1` FOREIGN KEY (`repeatings_repeating_id`) REFERENCES `repeatings` (`repeating_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_obligations_users1` FOREIGN KEY (`users_user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `quantity` int(11) DEFAULT NULL,
+  KEY `fk_users_has_obligations_obligations1_idx` (`obligation_id`),
+  KEY `fk_users_has_obligations_users1_idx` (`user_id`),
+  KEY `fk_users_has_obligations_repeatings1_idx` (`repeating_id`),
+  KEY `fk_users_has_obligations_period1_idx` (`period_id`),
+  CONSTRAINT `fk_users_has_obligations_obligations1` FOREIGN KEY (`obligation_id`) REFERENCES `obligations` (`obligation_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_has_obligations_period1` FOREIGN KEY (`period_id`) REFERENCES `period` (`period_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_has_obligations_repeatings1` FOREIGN KEY (`repeating_id`) REFERENCES `repeatings` (`repeating_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_has_obligations_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -340,4 +336,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-22 15:07:11
+-- Dump completed on 2016-09-24 16:06:47
