@@ -240,13 +240,15 @@ CREATE TABLE `users_has_expenses` (
   `amount` double unsigned NOT NULL,
   `date` date NOT NULL,
   `description` varchar(150) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
   KEY `fk_users_has_expenses_expenses1_idx` (`expenses_id`),
   KEY `fk_users_has_expenses_users1_idx` (`user_id`),
   KEY `fk_users_has_expenses_repeatings1_idx` (`repeating_id`),
   CONSTRAINT `fk_users_has_expenses_expenses1` FOREIGN KEY (`expenses_id`) REFERENCES `expenses` (`expenses_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_expenses_repeatings1` FOREIGN KEY (`repeating_id`) REFERENCES `repeatings` (`repeating_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_expenses_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,7 +257,7 @@ CREATE TABLE `users_has_expenses` (
 
 LOCK TABLES `users_has_expenses` WRITE;
 /*!40000 ALTER TABLE `users_has_expenses` DISABLE KEYS */;
-INSERT INTO `users_has_expenses` VALUES (14,4,1,500,'2016-09-01','BMX'),(14,4,1,500,'2016-09-01','BMX'),(14,4,1,500,'2016-09-01','BMX'),(14,4,1,20.33,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-01','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,4,1,20,'2016-09-24','test123'),(14,3,1,20,'2016-09-24','test123'),(14,1,1,20,'2016-09-24','test123'),(14,1,1,20,'2016-09-24','test123');
+INSERT INTO `users_has_expenses` VALUES (14,4,1,500,'2016-09-01','BMX',1),(14,4,1,500,'2016-09-01','BMX',2),(14,4,1,500,'2016-09-01','BMX',3),(14,4,1,20.33,'2016-09-24','test123',4),(14,4,1,20,'2016-09-24','test123',5),(14,4,1,20,'2016-09-01','test123',6),(14,4,1,20,'2016-09-24','test123',8),(14,4,1,20,'2016-09-24','test123',9),(14,4,1,20,'2016-09-24','test123',10),(14,4,1,20,'2016-09-24','test123',11),(14,3,1,20,'2016-09-24','test123',12),(14,1,1,20,'2016-09-24','test123',13),(14,1,1,20,'2016-09-24','test123',14),(14,1,1,20,'2016-09-24','test123',15),(14,1,1,20,'2016-09-24','Expense description text',16),(14,1,1,20,'2016-09-24','Expense description text',17),(14,1,1,20,'2016-09-24','Expense description text',18),(14,1,1,20,'2016-09-24','Expense description text',19),(14,1,1,20,'2016-09-24','Expense description text',20),(14,1,1,20,'2016-09-24','Expense description text',21),(14,1,1,20,'2016-09-24','Expense description text',22),(14,1,1,20,'2016-09-24','Expense description text',23),(14,1,1,20,'2016-09-24','Expense description text',24),(14,1,1,20,'2016-09-24','Expense description text',25),(14,1,1,20,'2016-09-24','Expense description text',26),(14,1,1,20,'2016-09-24','Expense description text',27),(14,1,1,20,'2016-09-24','Expense description text',28),(14,1,1,20,'2016-09-24','Expense description text',29);
 /*!40000 ALTER TABLE `users_has_expenses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,13 +275,15 @@ CREATE TABLE `users_has_incomes` (
   `amount` double unsigned NOT NULL,
   `date` date NOT NULL,
   `description` varchar(150) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
   KEY `fk_users_has_incomes_incomes1_idx` (`incomes_id`),
   KEY `fk_users_has_incomes_users1_idx` (`user_id`),
   KEY `fk_users_has_incomes_repeatings1_idx` (`repeating_id`),
   CONSTRAINT `fk_users_has_incomes_incomes1` FOREIGN KEY (`incomes_id`) REFERENCES `incomes` (`incomes_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_incomes_repeatings1` FOREIGN KEY (`repeating_id`) REFERENCES `repeatings` (`repeating_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_incomes_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,6 +292,7 @@ CREATE TABLE `users_has_incomes` (
 
 LOCK TABLES `users_has_incomes` WRITE;
 /*!40000 ALTER TABLE `users_has_incomes` DISABLE KEYS */;
+INSERT INTO `users_has_incomes` VALUES (14,6,4,2000,'2016-09-24','MySalary',1),(14,7,4,600,'2016-09-24','Rent from Apartment',2),(14,7,1,350,'2016-09-24','Income Description text',3),(14,7,1,350,'2016-09-24','Income Description text',4),(14,7,1,350,'2016-09-24','Income Description text',5),(14,7,1,350,'2016-09-24','Income Description text',6),(14,7,1,350,'2016-09-24','Income Description text',7),(14,7,1,350,'2016-09-24','Income Description text',8),(14,7,1,350,'2016-09-24','Income Description text',9),(14,7,1,350,'2016-09-24','Income Description text',10),(14,7,1,350,'2016-09-24','Income Description text',11),(14,7,1,350,'2016-09-24','Income Description text',12),(14,7,1,350,'2016-09-24','Income Description text',13),(14,7,1,350,'2016-09-24','Income Description text',14),(14,7,1,350,'2016-09-24','Income Description text',15),(14,7,1,350,'2016-09-24','Income Description text',16),(14,7,1,350,'2016-09-24','Income Description text',17),(14,7,1,350,'2016-09-24','Income Description text',19),(14,7,1,350,'2016-09-24','Income Description text',20);
 /*!40000 ALTER TABLE `users_has_incomes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-24 16:06:47
+-- Dump completed on 2016-09-24 20:38:29
