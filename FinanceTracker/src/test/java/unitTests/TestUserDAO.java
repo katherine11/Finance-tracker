@@ -17,7 +17,7 @@ public class TestUserDAO {
 	
 	@Test
 	public void testUser() throws UserException {
-		User user = new User(0, "Gosho"+randomNumber, "gosho@abv.bg", "1234");
+		User user = new User(0, "Panaiot"+randomNumber, "gosho@abv.bg", "1234");
 		
 		int id = this.userDAO.registerUser(user);
 		assertTrue(id != 0);
