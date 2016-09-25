@@ -2,46 +2,46 @@ package trackYourMoney;
 
 import java.time.LocalDate;
 
-public abstract class Payment {
+public class Budget {
 	
-	private int categoryId;
-	private String category;
+	private int userId;
+	private int expenseId;
+	private String expense;
+	private int repeatingId;
 	private String repeating;
-	private int reapeatingId;
 	private double amount;
 	private LocalDate date;
 	private String description;
-	private int id;
 	
-	public Payment (int categoryId, String category, String repeating, int reapeatingId, double amount, LocalDate date, String description, int id) {
-		this.categoryId = categoryId;
-		this.category = category;
+	public Budget(int userId, int expenseId, String expense, int repeatingId, String repeating, double amount, LocalDate date, String description) {
+		this.userId = userId;
+		this.expenseId = expenseId;
+		this.expense = expense;
+		this.repeatingId = repeatingId;
 		this.repeating = repeating;
 		this.amount = amount;
 		this.date = date;
 		this.description = description;
-		this.reapeatingId = reapeatingId;
-		this.id = id;
 	}
 
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public String getCategory() {
-		return category;
+	public int getExpenseId() {
+		return expenseId;
 	}
 
-	protected int getCategoryId() {
-		return categoryId;
+	public String getExpense() {
+		return expense;
 	}
 
 	public String getRepeating() {
 		return repeating;
 	}
 
-	public int getReapeatingId() {
-		return reapeatingId;
+	public int getRepeatingId() {
+		return repeatingId;
 	}
 
 	public double getAmount() {
@@ -60,7 +60,8 @@ public abstract class Payment {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + expenseId;
+		result = prime * result + userId;
 		return result;
 	}
 
@@ -72,10 +73,12 @@ public abstract class Payment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Payment other = (Payment) obj;
-		if (id != other.id)
+		Budget other = (Budget) obj;
+		if (expenseId != other.expenseId)
+			return false;
+		if (userId != other.userId)
 			return false;
 		return true;
-	}	
+	}
 
 }

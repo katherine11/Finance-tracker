@@ -11,12 +11,11 @@ import java.time.LocalDate;
 import connections.DBConnection;
 import exceptions.PaymentExpeption;
 
-public class UserHasObligationsDAO extends UserHasDAO {
+public class UserHasObligationsDAO implements UserHasDAO {
 	
 	private static final String DELETE_OBLIGATION_SQL = "DELETE FROM `finance_track_test`.`users_has_obligations` WHERE `id`=?;";
 	private static final String INSERT_OBLIGATION_SQL = "insert into users_has_obligations values (?, ?, ?, ?, ?, ?, ?, ?, null)";
 
-	@Override
 	public int insertPayment(int userId, Payment obligation) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -46,7 +45,6 @@ public class UserHasObligationsDAO extends UserHasDAO {
 		}
 	}
 
-	@Override
 	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -86,7 +84,6 @@ public class UserHasObligationsDAO extends UserHasDAO {
 		}		
 	}
 
-	@Override
 	public boolean deletePayment(int id) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
 

@@ -15,6 +15,7 @@ public class User {
 	private Set<Payment> expenses = new LinkedHashSet<Payment>(); 
 	private Set<Payment> incomes = new LinkedHashSet<Payment>(); 
 	private Set<Payment> obligations = new LinkedHashSet<Payment>(); 
+	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
 	
 	public User(int id, String username,String email, String password) {
 		if (isValidString(username) || isValidString(email) || isValidString(password)){
@@ -85,6 +86,9 @@ public class User {
 	public boolean addObligation(Obligation obligation){
 		return this.obligations.add(obligation);
 	}
+	public boolean addBudget(Budget budget){
+		return this.budgets.add(budget);
+	}
 	
 	public Set<Payment> getExpenses() {
 		return Collections.unmodifiableSet(expenses);
@@ -94,6 +98,9 @@ public class User {
 	}
 	public Set<Payment> getObligations() {
 		return Collections.unmodifiableSet(obligations);
+	}
+	public Set<Budget> getBudgets() {
+		return Collections.unmodifiableSet(budgets);
 	}
 
 }

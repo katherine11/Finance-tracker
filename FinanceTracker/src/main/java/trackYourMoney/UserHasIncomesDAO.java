@@ -11,12 +11,11 @@ import java.time.LocalDate;
 import connections.DBConnection;
 import exceptions.PaymentExpeption;
 
-public class UserHasIncomesDAO extends UserHasDAO {
+public class UserHasIncomesDAO implements UserHasDAO {
 
 	private static final String INSERT_INCOME_SQL = "insert into users_has_incomes values (?, ?, ?, ?, ?, ?, null)";
 	private static final String DELETE_INCOME_SQL = "DELETE FROM `finance_track_test`.`users_has_incomes` WHERE `id`=?;";
 
-	@Override
 	public int insertPayment(int userId, Payment income) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -44,7 +43,6 @@ public class UserHasIncomesDAO extends UserHasDAO {
 		
 	}
 
-	@Override
 	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentExpeption {
 		
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -79,7 +77,6 @@ public class UserHasIncomesDAO extends UserHasDAO {
 		
 	}
 
-	@Override
 	public boolean deletePayment(int id) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
 

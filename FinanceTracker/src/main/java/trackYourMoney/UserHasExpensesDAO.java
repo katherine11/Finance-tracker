@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import connections.DBConnection;
 import exceptions.PaymentExpeption;
 
-public class UserHasExpensesDAO extends UserHasDAO {
+public class UserHasExpensesDAO implements UserHasDAO {
 
 	private static final String DELETE_EXPENSE_SQL = "DELETE FROM `finance_track_test`.`users_has_expenses` WHERE `id`=?;";
 	private static final String INSERT_EXPENSE_SQL = "insert into users_has_expenses values (?, ?, ?, ?, ?, ?, null)";
@@ -79,7 +79,6 @@ public class UserHasExpensesDAO extends UserHasDAO {
 
 	}
 
-	@Override
 	public boolean deletePayment(int id) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
 

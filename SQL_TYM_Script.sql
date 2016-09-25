@@ -48,3 +48,21 @@ insert into users values (null, 'Pesho', 'pesho@abv.bg', md5(1234));
 select expenses_id from expenses where category like 'Foot & Drinks';
 
 DELETE FROM `finance_track_test`.`users_has_expenses` WHERE `id`='7';
+
+insert into users_has_obligations values (14, 1, 4, 4, 10000, '2016-09-01', 'Kredit ot OBB', 5, null);
+
+select o.obligation_id, o.category, r.value, r.repeating_id, uho.amount, uho.date, 
+uho.description, uho.id, p.period_id, p.period_type, uho.period_quantity from users u
+join users_has_obligations uho on (uho.user_id = 14 and u.user_id = 14)
+join obligations o on (uho.obligation_id = o.obligation_id)
+join repeatings r on (r.repeating_id = uho.repeating_id)
+join period p on (p.period_id = uho.period_id);
+
+insert into users_has_budgets values (14, 1, 4, 500, '2016-09-25', 'Description text');
+
+DELETE FROM users_has_budgets WHERE user_id = 14 and expense_id = 1;
+
+select e.expenses_id, e.category, r.repeating_id, r.value, uhb.amount, uhb.date, uhb.description from users u
+join users_has_budgets uhb on (uhb.user_id = 14 and u.user_id = 14)
+join expenses e on (uhb.expense_id = e.expenses_id)
+join repeatings r on (r.repeating_id = uhb.repeating_id);
