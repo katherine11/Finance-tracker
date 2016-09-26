@@ -10,9 +10,9 @@ public class DBConnection {
 	
 	private static final String DB_SCHEMA = "finance_track_test?autoReconnect=true&useSSL=false";
 	private static final String DB_PORT = "3306"; 
-	private static final String DB_HOST = "localhost"; // "192.168.8.22"
-	private static final String DB_PASSWORD = "Gangster50!"; // "ittstudent-123"
-	private static final String DB_USERNAME = "root"; // "ittstudent"
+	private static final String DB_HOST = "localhost"; 
+	private static final String DB_PASSWORD = ""; 
+	private static final String DB_USERNAME = "root";
 
 	private Connection connection;
 
