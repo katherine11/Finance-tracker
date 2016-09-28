@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Вход</title>
+</head>
+
+<body>
+	<header>
+		<img alt="logo" src="logo2.1.jpg">
+
+		<a href="index.html"><button type="submit">Начало</button></a>
+		<a href="register.html"><button type="submit">Регистрация</button></a>
+		<a href="http://www.dnes.bg/"><button type="submit">Новини</button></a>
+		
+	</header>
+
+	 <section class="container">
+    <div class="login">
+      <h1>Вход</h1>
+      <form method="post" action="./Login">
+        <p><input type="text" name="username" value="" placeholder="Потребителско име или имейл"></p>
+        <p><input type="password" name="password" value="" placeholder="Парола"></p>
+        <p class="remember_me">
+          <label>
+            <input type="checkbox" name="remember_me" id="remember_me">
+           		Запомни ме на този компютър
+          </label>
+        </p>
+        <p class="submit"><input type="submit" name="commit" value="Вход"></p>
+      </form>
+    </div>
+
+    <div class="login-help">
+      <p>Забравена парола? <a href="index.html">Кликни тук, за да я възстановиш</a>.</p>
+    </div>
+  </section>
+
+</body>
+</html>
