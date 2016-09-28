@@ -26,6 +26,7 @@ public class DBConnection {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
 		DB_SCHEMA = sc.nextLine();
 		DB_PORT = sc.nextLine();
 		DB_HOST = sc.nextLine();	
