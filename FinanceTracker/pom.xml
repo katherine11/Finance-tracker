@@ -19,8 +19,23 @@
     	<artifactId>mysql-connector-java</artifactId>
     	<version>5.1.39</version>
     </dependency>
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>servlet-api</artifactId>
+    	<version>2.5</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>FinanceTracker</finalName>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+                <failOnMissingWebXml>false</failOnMissingWebXml>
+            </configuration>
+        </plugin>
+    </plugins>
   </build>
 </project>

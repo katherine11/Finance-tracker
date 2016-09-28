@@ -18,14 +18,14 @@ public class User {
 	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
 	
 	public User(int id, String username,String email, String password) {
-		if (isValidString(username) || isValidString(email) || isValidString(password)){
-			try {
-				throw new UserException("Invalid user data!");
-			} catch (UserException e) {
-				System.out.println(e.getMessage());
-				return;
-			}
-		}
+//		if (isValidString(username) || isValidString(email) || isValidString(password)){
+//			try {
+//				throw new UserException("Invalid user data!");
+//			} catch (UserException e) {
+//				System.out.println(e.getMessage());
+//				return;
+//			}
+//		}
 		this.userId = id;
 		this.username = username;
 		this.email = email;
