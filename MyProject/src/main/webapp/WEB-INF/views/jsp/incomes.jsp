@@ -27,22 +27,20 @@
 <title>Моите приходи</title>
 
 <style>
-/* The Modal (background) */
 .modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
+	display: none; 
+	position: fixed; 
+	z-index: 1; 
+	padding-top: 100px; 
 	left: 0;
 	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+	width: 100%; 
+	height: 100%; 
+	overflow: auto; 
+	background-color: rgb(0, 0, 0); 
+	background-color: rgba(0, 0, 0, 0.4); 
 }
 
-/* Modal Content */
 .modal-content {
 	background-color: #fefefe;
 	margin: auto;
@@ -51,7 +49,6 @@
 	width: 80%;
 }
 
-/* The Close Button */
 .close {
 	color: #aaaaaa;
 	float: right;
@@ -80,11 +77,12 @@
 		<a href="./logout"><button type="submit">Изход</button></a>
 	</div>
 	<div class="navigation_buttons">
-		<nav> <a href="./home"><button class="n_button"
-				type="submit">Моят профил</button></a> <a href="./incomes"><button
-				class="n_button" type="submit">Приходи</button></a> <a
-			href="/expenses.jsp/">Разходи</a> <a href="/budgets.jsp/">Бюджети</a>
-		<a href="/obligations.jsp/">Задължения</a> <a href="/inquiries.jsp/">Справки</a>
+		<nav> <a href="/inquiries"><button class="n_button" type="submit">Справки</button></a> 
+		<a href="/budgets"><button class="n_button" type="submit">Задължения</button></a> 
+		<a href="/expenses"><button class="n_button" type="submit">Разходи</button></a> 
+		<a href="incomes"><button class="n_button" type="submit">Приходи</button></a> 
+		<a href="/home"><button class="n_button" type="submit">Моят
+				профил</button></a> 
 		</nav>
 	</div>
 	</header>
@@ -99,7 +97,7 @@
 		<h1>Приходи</h1>
 
 		<!-- Trigger/Open The Modal -->
-		<button id="myBtn">Open Modal</button>
+		<button id="myBtn">Добави приход</button>
 
 		<!-- The Modal -->
 		<div id="myModal" class="modal">

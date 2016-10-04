@@ -5,10 +5,11 @@
 
 <div id="navigationBar" class="navigation_buttons">
 	<nav>
-		<a href="./home"><button class="n_button" type="submit">Моят
-				профил</button></a> <a href="./incomes"><button class="n_button"
-				type="submit">Приходи</button></a> <a href="/expenses.jsp/">Разходи</a>
-		<a href="/budgets.jsp/">Бюджети</a> <a href="/obligations.jsp/">Задължения</a>
-		<a href="/inquiries.jsp/">Справки</a>
+		<a href="/inquiries"><button class="n_button" type="submit">Справки</button></a> 
+		<a href="/budgets"><button class="n_button" type="submit">Задължения</button></a> 
+		<a href="/expenses"><button class="n_button" type="submit">Разходи</button></a> 
+		<a href="/incomes"><button class="n_button" type="submit">Приходи</button></a> 
+		<a href="/home"><button class="n_button" type="submit">Моят
+				профил</button></a> 
 	</nav>
 </div>
