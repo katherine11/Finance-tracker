@@ -62,7 +62,7 @@ public class HomePageController {
 		try {
 			model.addAttribute("user", userDAO.registerUser(user));
 		} catch (UserException e) {
-			model.addAttribute("registerFail", "Невалидни данни за регистрация");
+			model.addAttribute("registerFail", "Потребителското име е заето!");
 			return "register";
 		}
 		return "login";

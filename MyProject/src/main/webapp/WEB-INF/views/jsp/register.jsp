@@ -31,9 +31,9 @@
 		
 		<form:form commandName="user">
 			
-			<p><form:input id="email" class="input" path="email" placeholder="Имейл" /></p>
-			<p><form:input id="username" class="input" path="username" placeholder="Потребителско име" /></p>
-			<p><form:password id="password" class="input" path="password" placeholder="Парола"/></p>
+			<p><form:input type="email" id="email" class="input" path="email" placeholder="Имейл" required="required"/></p>
+			<p><form:input id="username" class="input" path="username" placeholder="Потребителско име" minlength="4" maxlength="15" required="required"/></p>
+			<p><form:password id="password" class="input" path="password" placeholder="Парола" minlength="4" maxlength="15" required="required"/></p>
 			
 			<p class="submit"><input type="submit" name="commit" value="Регистрация"></p>
 			

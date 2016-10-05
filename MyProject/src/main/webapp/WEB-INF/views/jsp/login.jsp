@@ -34,11 +34,11 @@
 
 			<p>
 				<form:input id="username" class="input" path="username"
-					placeholder="Потребителско име" />
+					placeholder="Потребителско име" minlength="4" maxlength="15" required="required"/>
 			</p>
 			<p>
 				<form:password id="password" class="input" name="password"
-					path="password" placeholder="Парола" />
+					path="password" placeholder="Парола" minlength="4" maxlength="15" required="required"/>
 			</p>
 
 			<p class="submit">
