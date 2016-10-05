@@ -109,24 +109,44 @@
 				<form:form commandName="income">
 
 					<p>
-						<form:input id="categoryId" class="input" path="categoryId"
-							placeholder="Изберете категория" />
+						<form:label path="categoryId">Изберете категория:</form:label>
+						<form:select id="categoryId" class="input" path="categoryId">
+						<form:option value="6">Заплата</form:option>	
+						
+						<form:option value="7">Наем</form:option>
+						
+						<form:option value="8">Дарения</form:option>
+						
+						<form:option value="9">Друго</form:option>
+							
+						</form:select>
 					</p>
 					<p>
+						<form:label path="amount">Въведете сума:</form:label>
 						<form:input id="amount" class="input" name="amount" path="amount"
 							placeholder="Сума" />
 					</p>
 					<p>
-						<form:input id="repeatingId" class="input" name="repeatingId"
-							path="repeatingId" placeholder="Повторение" />
+						<form:label path="repeatingId">Изберете повторение:</form:label>
+						<form:select id="repeatingId" class="input" name="repeatingId"
+							path="repeatingId">
+							
+						<form:option value="1">Еднократно</form:option>
+						<form:option value="2">Дневно</form:option>
+						<form:option value="3">Седмично</form:option>
+						<form:option value="4">Месечно</form:option>
+						<form:option value="5">Годишно</form:option>
+							
+						</form:select>
+						
 					</p>
 					<p>
-						<%-- <form:input id="date" class="input" name="date" path="date"
-							placeholder="Дата" /> --%>
+						<form:label path="date">Изберете дата:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
 							placeholder="Дата" />
 					</p>
 					<p>
+						<form:label path="description">Въведете описание:</form:label>
 						<form:textarea id="description" class="input" name="description"
 							path="description" placeholder="Описание" />
 					</p>
