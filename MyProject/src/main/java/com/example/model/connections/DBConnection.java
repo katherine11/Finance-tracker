@@ -22,8 +22,8 @@ public class DBConnection {
 	static {
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new File("D:\\IT Talants\\login.properties.txt"));
-//			sc = new Scanner(new File("F:\\katherine\\login.properties.txt"));
+//			sc = new Scanner(new File("D:\\IT Talants\\login.properties.txt"));
+			sc = new Scanner(new File("F:\\katherine\\login.properties.txt"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

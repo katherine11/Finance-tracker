@@ -25,7 +25,7 @@ public class IncomeController {
 	private UserHasIncomesDAO userHasIncomes;
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.POST)
-	public String login(@ModelAttribute Income income, Model model, HttpServletRequest request){
+	public String addIncome(@ModelAttribute Income income, Model model, HttpServletRequest request){
 		if (request.getSession(false) == null){
 			return "index";
 		}
@@ -43,6 +43,8 @@ public class IncomeController {
 			e.printStackTrace();
 		}
 		return "home";
-	}	
+	}
+	
+	
 
 }
