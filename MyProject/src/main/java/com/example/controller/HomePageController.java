@@ -70,8 +70,10 @@ public class HomePageController {
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
-        HttpSession httpSession = request.getSession();
-        httpSession.invalidate();
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession!=null){
+        	httpSession.invalidate();
+        }
         return "redirect:/";
     }
 
