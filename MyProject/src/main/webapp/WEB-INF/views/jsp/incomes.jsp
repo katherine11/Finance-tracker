@@ -124,7 +124,7 @@
 					<p>
 						<form:label path="amount">Въведете сума:</form:label>
 						<form:input id="amount" class="input" name="amount" path="amount"
-							placeholder="Сума" />
+							placeholder="Сума" required="required"/>
 					</p>
 					<p>
 						<form:label path="repeatingId">Изберете повторение:</form:label>
@@ -143,12 +143,12 @@
 					<p>
 						<form:label path="date">Изберете дата:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder="Дата" />
+							placeholder="Дата" required="required"/>
 					</p>
 					<p>
 						<form:label path="description">Въведете описание:</form:label>
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Описание" />
+							path="description" placeholder="Описание" required="required"/>
 					</p>
 
 					<p class="submit">

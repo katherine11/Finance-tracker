@@ -65,7 +65,7 @@ public class HomePageController {
 			model.addAttribute("registerFail", "Невалидни данни за регистрация");
 			return "register";
 		}
-		return "index";
+		return "login";
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
