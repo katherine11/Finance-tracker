@@ -19,6 +19,7 @@ import com.example.model.exceptions.UserException;
 @ContextConfiguration(classes = UserDAO.class)
 public class HomePageController {
 	
+	private static final int SESSION_TIME_IN_SECONDS = 60*60;
 	@Autowired
 	private UserDAO userDAO;
 
@@ -35,11 +36,13 @@ public class HomePageController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute User user, Model model, HttpServletRequest request){
+		
 		HttpSession session = request.getSession();
 		try {
 			User loggedUser = userDAO.loginUser(user);
 			System.out.println(loggedUser.getUsername());
 			session.setAttribute("user", loggedUser);
+			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);
 		} catch (UserException e) {
 			model.addAttribute("loginFail", "Невалидно потребителско име или парола");
@@ -65,6 +68,13 @@ public class HomePageController {
 		return "index";
 	}
 	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request){
+        HttpSession httpSession = request.getSession();
+        httpSession.invalidate();
+        return "redirect:/";
+    }
+
 	
 
 }
