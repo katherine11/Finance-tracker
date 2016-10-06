@@ -26,11 +26,12 @@ public class IncomeController {
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.POST)
 	public String addIncome(@ModelAttribute Income income, Model model, HttpServletRequest request){
-		if (request.getSession(false) == null){
+		User user = (User) request.getSession().getAttribute("user");
+		
+		if (request.getSession(false) == null || user == null || income == null){
 			return "index";
 		}
 		
-		User user = (User) request.getSession().getAttribute("user");
 		System.out.println("UserID="+user.getUserId());
 		System.out.println("Income: " + income.getCategoryId());
 		System.out.println("Income: " + income.getDescription());

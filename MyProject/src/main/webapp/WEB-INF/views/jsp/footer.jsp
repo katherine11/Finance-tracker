@@ -1,3 +1,5 @@
+<%@ page session="false" %>
+
 <div>
 	<br />
 	<hr>

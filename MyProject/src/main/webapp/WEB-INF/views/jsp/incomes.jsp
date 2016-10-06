@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page session="false" %>
+<%@page session="false"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -29,17 +30,17 @@
 
 <style>
 .modal {
-	display: none; 
-	position: fixed; 
-	z-index: 1; 
-	padding-top: 100px; 
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
 	left: 0;
 	top: 0;
-	width: 100%; 
-	height: 100%; 
-	overflow: auto; 
-	background-color: rgb(0, 0, 0); 
-	background-color: rgba(0, 0, 0, 0.4); 
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -67,6 +68,17 @@
 
 </head>
 <body>
+
+	<%
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null)
+			response.sendRedirect("./login");
+	%>
+
 	<header>
 	<div class="logo">
 		<img alt="logo" src="img/logo.jpg">
@@ -78,12 +90,13 @@
 		<a href="./logout"><button type="submit">Изход</button></a>
 	</div>
 	<div class="navigation_buttons">
-		<nav> <a href="/inquiries"><button class="n_button" type="submit">Справки</button></a> 
-		<a href="./budgets"><button class="n_button" type="submit">Задължения</button></a> 
-		<a href="./expenses"><button class="n_button" type="submit">Разходи</button></a> 
-		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a> 
-		<a href="./home"><button class="n_button" type="submit">Моят профил</button></a> 
-		</nav>
+		<nav> <a href="/inquiries"><button class="n_button"
+				type="submit">Справки</button></a> <a href="./budgets"><button
+				class="n_button" type="submit">Задължения</button></a> <a
+			href="./expenses"><button class="n_button" type="submit">Разходи</button></a>
+		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a>
+		<a href="./home"><button class="n_button" type="submit">Моят
+				профил</button></a> </nav>
 	</div>
 	</header>
 
@@ -111,44 +124,45 @@
 					<p>
 						<form:label path="categoryId">Изберете категория:</form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
-						<form:option value="6">Заплата</form:option>	
-						
-						<form:option value="7">Наем</form:option>
-						
-						<form:option value="8">Дарения</form:option>
-						
-						<form:option value="9">Друго</form:option>
-							
+							<form:option value="6">Заплата</form:option>
+
+							<form:option value="7">Наем</form:option>
+
+							<form:option value="8">Дарения</form:option>
+
+							<form:option value="9">Друго</form:option>
+
 						</form:select>
 					</p>
 					<p>
 						<form:label path="amount">Въведете сума:</form:label>
-						<form:input type="number" min="0.01" step="0.01" value="1.00" max="1000000" id="amount" class="input" name="amount" path="amount"
-							placeholder="Сума" required="required"/>
+						<form:input type="number" min="0.01" step="0.01" value="1.00"
+							max="1000000" id="amount" class="input" name="amount"
+							path="amount" placeholder="Сума" required="required" />
 					</p>
 					<p>
 						<form:label path="repeatingId">Изберете повторение:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
-							
-						<form:option value="1">Еднократно</form:option>
-						<form:option value="2">Дневно</form:option>
-						<form:option value="3">Седмично</form:option>
-						<form:option value="4">Месечно</form:option>
-						<form:option value="5">Годишно</form:option>
-							
+
+							<form:option value="1">Еднократно</form:option>
+							<form:option value="2">Дневно</form:option>
+							<form:option value="3">Седмично</form:option>
+							<form:option value="4">Месечно</form:option>
+							<form:option value="5">Годишно</form:option>
+
 						</form:select>
-						
+
 					</p>
 					<p>
 						<form:label path="date">Изберете дата:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder="Дата" required="required"/>
+							placeholder="Дата" required="required" />
 					</p>
 					<p>
 						<form:label path="description">Въведете описание:</form:label>
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Описание" required="required"/>
+							path="description" placeholder="Описание" required="required" />
 					</p>
 
 					<p class="submit">

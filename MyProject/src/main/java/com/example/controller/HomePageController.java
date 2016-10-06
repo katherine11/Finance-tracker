@@ -30,7 +30,9 @@ public class HomePageController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String loginPage(Model model) {
-		model.addAttribute(new User());
+		if (!model.containsAttribute("user")){
+			model.addAttribute(new User());
+		}
 		return "login";
 	}	
 	

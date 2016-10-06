@@ -16,6 +16,17 @@
 
 </head>
 <body>
+	
+	<%
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null)
+			response.sendRedirect("./login");
+	%>
+
 	<header>
 	<div class="logo">
 		<img alt="logo" src="img/logo.jpg">
