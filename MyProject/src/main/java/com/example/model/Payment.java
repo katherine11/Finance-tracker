@@ -106,6 +106,12 @@ public abstract class Payment {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Payment [category=" + category + ", repeating=" + repeating + ", amount=" + amount + ", date=" + date
+				+ ", description=" + description + "]";
 	}	
 
 }

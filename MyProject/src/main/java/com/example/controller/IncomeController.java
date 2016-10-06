@@ -42,6 +42,7 @@ public class IncomeController {
 			model.addAttribute("income", userHasIncomes.insertPayment(user.getUserId(), income));
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
+			return "error";
 		}
 		return "home";
 	}

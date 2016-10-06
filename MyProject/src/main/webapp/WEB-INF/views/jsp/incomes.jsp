@@ -108,6 +108,17 @@
 	<section class="">
 	<div class="">
 		<h1>Приходи</h1>
+		
+		<c:if test="${ empty user }"> <p>Losha rabota.</p> </c:if> 
+		
+		<p>
+			
+		<c:forEach items="${user.incomes}" var="income">
+			<c:out value="${income}"></c:out> 
+			<br />
+		</c:forEach>
+			
+		</p>
 
 		<!-- Trigger/Open The Modal -->
 		<button id="myBtn">Добави приход</button>
@@ -170,25 +181,6 @@
 					</p>
 
 				</form:form>
-
-				<%-- <form method="post" action="index.html">
-					<p>
-						<input type="text" name="login" value=""
-							placeholder="Потребителско име или имейл">
-					</p>
-					<p>
-						<input type="password" name="password" value=""
-							placeholder="Парола">
-					</p>
-					<p class="remember_me">
-						<label> <input type="checkbox" name="remember_me"
-							id="remember_me"> Запомни ме на този компютър
-						</label>
-					</p>
-					<p class="submit">
-						<input type="submit" name="commit" value="Вход">
-					</p>
-				</form> --%>
 
 			</div>
 
