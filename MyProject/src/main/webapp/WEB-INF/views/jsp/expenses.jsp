@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page session="false"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -61,6 +65,18 @@
 
 </head>
 <body>
+
+	<%
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null)
+			response.sendRedirect("./login");
+	%>
+	
+
 	<header>
 	<div class="logo">
 		<img alt="logo" src="img/logo.jpg">
@@ -120,8 +136,9 @@
 					</p>
 					<p>
 						<form:label path="amount">Въведете сума:</form:label>
-						<form:input id="amount" class="input" name="amount" path="amount"
-							placeholder="Сума" required="required" />
+						<form:input type="number" min="0.01" step="0.01" value="1.00"
+							max="1000000" id="amount" class="input" name="amount"
+							path="amount" placeholder="Сума" required="required" />
 					</p>
 					<p>
 						<form:label path="repeatingId">Изберете повторение:</form:label>

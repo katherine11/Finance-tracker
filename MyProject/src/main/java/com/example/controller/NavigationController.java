@@ -43,7 +43,7 @@ public class NavigationController {
 		return "incomes";
 	}
 	
-	@RequestMapping(value="/expense", method = RequestMethod.GET)
+	@RequestMapping(value="/expenses", method = RequestMethod.GET)
 	public String expenses(Model model, HttpServletRequest request) {
 		if (request.getSession(false) == null){
 			return "index";

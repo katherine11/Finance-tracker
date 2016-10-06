@@ -91,14 +91,15 @@
 	</div>
 	<div class="navigation_buttons">
 
-		<nav> <a href="/inquiries"><button class="n_button" type="submit">Справки</button></a>
-		<a href="/home"><button class="n_button" type="submit">Бюджет</button></a>   
-		<a href="./budgets"><button class="n_button" type="submit">Задължения</button></a> 
-		<a href="./expenses"><button class="n_button" type="submit">Разходи</button></a> 
-		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a> 
-		<a href="./home"><button class="n_button" type="submit">Моят профил</button></a> 
-		</nav>
-		
+		<nav> <a href="/inquiries"><button class="n_button"
+				type="submit">Справки</button></a> <a href="/home"><button
+				class="n_button" type="submit">Бюджет</button></a> <a href="./budgets"><button
+				class="n_button" type="submit">Задължения</button></a> <a
+			href="./expenses"><button class="n_button" type="submit">Разходи</button></a>
+		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a>
+		<a href="./home"><button class="n_button" type="submit">Моят
+				профил</button></a> </nav>
+
 	</div>
 	</header>
 
@@ -110,16 +111,20 @@
 	<section class="">
 	<div class="">
 		<h1>Приходи</h1>
-		
-		<c:if test="${ empty user }"> <p>Losha rabota.</p> </c:if> 
-		
+
+		<c:if test="${ empty user }">
+			<p>Losha rabota.</p>
+		</c:if>
+
 		<p>
-			
-		<c:forEach items="${user.incomes}" var="income">
-			<c:out value="${income}"></c:out> 
-			<br />
-		</c:forEach>
-			
+
+			<form:form>
+				<c:forEach items="${user.incomes}" var="income">
+					<input type="checkbox" />
+					<c:out value="${income}"></c:out>
+					<br />
+				</c:forEach>
+			</form:form>
 		</p>
 
 		<button id="myBtn">Добави приход</button>
