@@ -18,7 +18,7 @@ import com.example.model.UserHasIncomesDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
 @Controller
-@ContextConfiguration(classes = UserHasIncomesDAO.class)
+@ContextConfiguration(classes = UserHasExpensesDAO.class)
 @Scope("session")
 public class ExpenseController {
 	
@@ -42,8 +42,10 @@ public class ExpenseController {
 			model.addAttribute("expense", userHasExpensesDAO.insertPayment(user.getUserId(), expense));
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
+			return "error";
 		}
-		return "home";
+		
+		return "redirect:/expenses";
 	}
 
 }

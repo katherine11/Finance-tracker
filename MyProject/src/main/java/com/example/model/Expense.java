@@ -9,4 +9,8 @@ public class Expense extends Payment {
 		super(categoryId, category, repeating, reapeatingId, amount, date, description, id);
 	}
 
+	public Expense() {
+		
+	}
+
 }

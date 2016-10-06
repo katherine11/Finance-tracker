@@ -8,9 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.model.Expense;
 import com.example.model.Income;
-import com.example.model.Payment;
 import com.example.model.User;
+import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
@@ -18,7 +19,10 @@ import com.example.model.exceptions.PaymentExpeption;
 public class NavigationController {
 	
 	@Autowired
-	private UserHasIncomesDAO userHasIncomes;
+	private UserHasIncomesDAO userHasIncomesDAO;
+	
+	@Autowired
+	private UserHasExpensesDAO userHasExpensesDAO;
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.GET)
 	public String incomes(Model model, HttpServletRequest request) {
@@ -30,12 +34,32 @@ public class NavigationController {
 		model.addAttribute("user", user);
 		model.addAttribute(new Income());
 		try {
-			userHasIncomes.selectAndAddAllPaymentsOfUser(user);
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
+			
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
 		}
 		return "incomes";
+	}
+	
+	@RequestMapping(value="/expense", method = RequestMethod.GET)
+	public String expenses(Model model, HttpServletRequest request) {
+		if (request.getSession(false) == null){
+			return "index";
+		}
+		
+		User user = (User) request.getSession().getAttribute("user");
+		model.addAttribute("user", user);
+		model.addAttribute(new Expense());
+		
+		try {
+			 userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
+		} catch (PaymentExpeption e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "expenses";
 	}
 	
 	@RequestMapping(value="/home", method = RequestMethod.GET)

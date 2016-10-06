@@ -99,7 +99,7 @@
 			<div class="modal-content">
 				<span class="close">затвори</span>
 
-				<form:form commandName="income">
+				<form:form commandName="expense">
 
 					<p>
 						<form:label path="categoryId">Изберете категория:</form:label>
