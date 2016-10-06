@@ -114,12 +114,10 @@
 		<c:if test="${ empty user }"> <p>Losha rabota.</p> </c:if> 
 		
 		<p>
-			
 		<c:forEach items="${user.incomes}" var="income">
 			<c:out value="${income}"></c:out> 
 			<br />
-		</c:forEach>
-			
+		</c:forEach>	
 		</p>
 
 		<button id="myBtn">Добави приход</button>

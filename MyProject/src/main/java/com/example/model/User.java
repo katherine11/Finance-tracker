@@ -22,6 +22,7 @@ public class User {
 	private Set<Payment> incomes = new LinkedHashSet<Payment>(); 
 	private Set<Payment> obligations = new LinkedHashSet<Payment>(); 
 	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
+	private double balance;
 	
 	public User() {
 	}
@@ -89,9 +90,11 @@ public class User {
 	}
 	
 	public boolean addExpense(Expense expense){
+		this.balance -= expense.getAmount();
 		return this.expenses.add(expense);
 	}
 	public boolean addIncome(Income income){
+		this.balance += income.getAmount();
 		return this.incomes.add(income);
 	}
 	public boolean addObligation(Obligation obligation){
