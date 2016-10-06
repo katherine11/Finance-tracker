@@ -8,9 +8,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 	<div class="header_buttons">
-		<a href="./"><button type="submit">Начало</button></a> <a
-			href="./login"><button type="submit">Вход</button></a> <a
-			href="http://www.dnes.bg/"><button type="submit">Новини</button></a>
+		<a href="./"><button type="submit">Home</button></a> <a
+			href="./login"><button type="submit">Login</button></a> <a
+			href="http://www.dnes.bg/"><button type="submit">News</button></a>
 	</div>
 
 	</header>
@@ -27,7 +27,7 @@
 			<p class="invalid_input"><c:out value="${registerFail}"></c:out><p>
 		</c:if> 
 	
-		<h1>Регистрация</h1>
+		<h1>Register</h1>
 		
 		<form:form commandName="user">
 			
@@ -35,27 +35,10 @@
 			<p><form:input id="username" class="input" path="username" placeholder="Потребителско име" minlength="4" maxlength="15" required="required"/></p>
 			<p><form:password id="password" class="input" path="password" placeholder="Парола" minlength="4" maxlength="15" required="required"/></p>
 			
-			<p class="submit"><input type="submit" name="commit" value="Регистрация"></p>
+			<p class="submit"><input type="submit" name="commit" value="Register"></p>
 			
 		</form:form>
 		
-		<%-- <form method="post" action="./Register">
-			<p>
-				<input type="text" name="username" value=""
-					placeholder="Потребителско име">
-			</p>
-			<p>
-				<input type="email" name="email" value="" placeholder="Имейл">
-			</p>
-			<p>
-				<input type="password" name="password" value=""
-					placeholder="Минимум 6 символа">
-			</p>
-
-			<p class="submit">
-				<input type="submit" name="commit" value="Регистрация">
-			</p>
-		</form> --%>
 	</div>
 	</section>
 

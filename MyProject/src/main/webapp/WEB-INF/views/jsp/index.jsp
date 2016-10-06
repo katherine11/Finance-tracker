@@ -9,9 +9,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 
     <div class="header_buttons">
-      <a href="./login"><button type="submit">Вход</button></a>
-  		<a href="./register"><button type="submit">Регистрация</button></a>
-  		<a href="http://www.dnes.bg/"><button type="submit">Новини</button></a>
+      <a href="./login"><button type="submit">Login</button></a>
+  		<a href="./register"><button type="submit">Register</button></a>
+  		<a href="http://www.dnes.bg/"><button type="submit">News</button></a>
     </div>
 
 	</header>

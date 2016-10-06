@@ -24,7 +24,7 @@
 </script>
 
 
-<title>Моите разходи</title>
+<title>My expenses</title>
 
 <style>
 .modal {
@@ -82,20 +82,22 @@
 		<img alt="logo" src="img/logo.jpg">
 	</div>
 	<div class="title-text">
-		<h1>Контролирай лесно парите си!</h1>
+		<h1>Get a full control over your money!</h1>
 	</div>
 	<div class="header_buttons">
-		<a href="./logout"><button type="submit">Изход</button></a>
+		<a href="./logout"><button type="submit">Log out</button></a>
 	</div>
 	<div class="navigation_buttons">
 		<nav> <a href="/inquiries"><button class="n_button"
-				type="submit">Справки</button></a> <a href="/home"><button
-				class="n_button" type="submit">Бюджет</button></a> <a href="./budgets"><button
-				class="n_button" type="submit">Задължения</button></a> <a
-			href="./expenses"><button class="n_button" type="submit">Разходи</button></a>
-		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a>
-		<a href="./home"><button class="n_button" type="submit">Моят
-				профил</button></a> </nav>
+				type="submit">Inquiries</button></a> 
+				<a href="budgets"><button
+				class="n_button" type="submit">Budget</button></a> 
+				<a href="obligations"><button
+				class="n_button" type="submit">Obligations</button></a> <a
+			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
+		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
+		<a href="./home"><button class="n_button" type="submit">My
+				profile</button></a> </nav>
 	</div>
 	</header>
 
@@ -106,67 +108,67 @@
 
 	<section class="">
 	<div class="">
-		<h1>Разходи</h1>
+		<h1>Expenses</h1>
 
-		<button id="myBtn">Добави разход</button>
+		<button id="myBtn">Add expense</button>
 
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
-				<span class="close">затвори</span>
+				<span class="close">close</span>
 
 				<form:form commandName="expense">
 
 					<p>
-						<form:label path="categoryId">Изберете категория:</form:label>
+						<form:label path="categoryId">Choose category:</form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
-							<form:option value="1">Храни и напитки</form:option>
+							<form:option value="1">Food&Drinks</form:option>
 
-							<form:option value="2">Транспорт</form:option>
+							<form:option value="2">Transport</form:option>
 
-							<form:option value="3">Образование</form:option>
+							<form:option value="3">Education</form:option>
 
-							<form:option value="4">Спорт</form:option>
+							<form:option value="4">Sport</form:option>
 
-							<form:option value="5">Такси</form:option>
+							<form:option value="5">Bills</form:option>
 
-							<form:option value="6">Друго</form:option>
+							<form:option value="6">Other</form:option>
 
 						</form:select>
 					</p>
 					<p>
-						<form:label path="amount">Въведете сума:</form:label>
+						<form:label path="amount">Enter ammount of money:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
-							path="amount" placeholder="Сума" required="required" />
+							path="amount" placeholder="Money" required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Изберете повторение:</form:label>
+						<form:label path="repeatingId">Choose a stage of repeating:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
-							<form:option value="1">Еднократно</form:option>
-							<form:option value="2">Дневно</form:option>
-							<form:option value="3">Седмично</form:option>
-							<form:option value="4">Месечно</form:option>
-							<form:option value="5">Годишно</form:option>
+							<form:option value="1">Once</form:option>
+							<form:option value="2">Daily</form:option>
+							<form:option value="3">Weekly</form:option>
+							<form:option value="4">Monthly</form:option>
+							<form:option value="5">Yearly</form:option>
 
 						</form:select>
 
 					</p>
 					<p>
-						<form:label path="date">Изберете дата:</form:label>
+						<form:label path="date">Choose a date:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder="Дата" required="required" />
+							placeholder="Date" required="required" />
 					</p>
 					<p>
-						<form:label path="description">Въведете описание:</form:label>
+						<form:label path="description">Enter a description:</form:label>
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Описание" required="required" />
+							path="description" placeholder="Description" required="required" />
 					</p>
 
 					<p class="submit">
-						<input type="submit" name="commit" value="Добави">
+						<input type="submit" name="commit" value="Add">
 					</p>
 
 				</form:form>

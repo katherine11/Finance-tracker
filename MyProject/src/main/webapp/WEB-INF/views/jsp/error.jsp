@@ -8,9 +8,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Грешка</title>
+<title>Error</title>
 </head>
 <body>
-	<h1>Съжаляваме но възникна грешка моля опитайте отново!</h1>
+	<h1>Something went wrong.We sincerely apologise for this error, please try again later!</h1>
 </body>
 </html>

@@ -8,9 +8,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 	<div class="header_buttons">
-		<a href="./"><button type="submit">Начало</button></a> <a
-			href="./register"><button type="submit">Регистрация</button></a> <a
-			href="http://www.dnes.bg/"><button type="submit">Новини</button></a>
+		<a href="./"><button type="submit">Home</button></a> <a
+			href="./register"><button type="submit">Register</button></a> <a
+			href="http://www.dnes.bg/"><button type="submit">News</button></a>
 	</div>
 
 	</header>
@@ -29,7 +29,7 @@
 			<p>
 		</c:if>
 
-		<h1>Вход</h1>
+		<h1>Login</h1>
 		<form:form commandName="user">
 
 			<p>
@@ -41,34 +41,19 @@
 					path="password" placeholder="Парола" minlength="4" maxlength="15" required="required"/>
 			</p>
 
+			<p>
+				<input type="checkbox" name="commit" value="Remember me">
+			</p>
+			
 			<p class="submit">
-				<input type="submit" name="commit" value="Вход">
+				<input type="submit" name="commit" value="Login">
 			</p>
 
 		</form:form>
 
-		<%-- <form method="post" action="./Login">
-			<p>
-			
-				<input type="text" name="username" value=""
-					placeholder="Потребителско име">
-			</p>
-			<p>
-				<input type="password" name="password" value="" placeholder="Парола">
-			</p>
-			<p class="remember_me">
-				<label> <input type="checkbox" name="remember_me"
-					id="remember_me"> Запомни ме на този компютър
-				</label>
-			</p>
-			<p class="submit">
-				<input type="submit" name="commit" value="Вход">
-			</p>
-		</form> --%>
-
 		<div class="login-help">
 			<p>
-				Забравена парола? <a href="./">Кликни тук, за да я възстановиш</a>.
+				Password forgotten? <a href="./">Click here to reset it</a>.
 			</p>
 		</div>
 	</div>

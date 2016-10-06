@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<title>Добре дошли в TYM!</title>
+<title>Welcome in TYM!</title>
 
 
 </head>
@@ -32,18 +32,19 @@
 		<img alt="logo" src="img/logo.jpg">
 	</div>
 	<div class="title-text">
-		<h1>Контролирай лесно парите си!</h1>
+		<h1>Get a full control over your money!</h1>
 	</div>
 	<div class="header_buttons">
-		<a href="./logout"><button type="submit">Изход</button></a>
+		<a href="./logout"><button type="submit">Log out</button></a>
 	</div>
 
 	<div id="navigationBar" class="navigation_buttons">
-		<nav><a href="/inquiries"><button class="n_button" type="submit">Справки</button></a> 
-		<a href="./budgets"><button class="n_button" type="submit">Задължения</button></a> 
-		<a href="./expenses"><button class="n_button" type="submit">Разходи</button></a> 
-		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a> 
-		<a href="./home"><button class="n_button" type="submit">Моят профил</button></a> 
+		<nav><a href="/inquiries"><button class="n_button" type="submit">Inquiries</button></a>
+		<a href="budgets"><button class="n_button" type="submit">Budget</button></a> 
+		<a href="./budgets"><button class="n_button" type="submit">Obligations</button></a> 
+		<a href="./expenses"><button class="n_button" type="submit">Expenses</button></a> 
+		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a> 
+		<a href="./home"><button class="n_button" type="submit">My profile</button></a> 
 		</nav>
 	</div>
 
@@ -56,7 +57,7 @@
 
 	<section class="">
 	<div class="">
-		<h1>Моят Профил</h1>
+		<h1>My profile</h1>
 
 	</div>
 	</section>
