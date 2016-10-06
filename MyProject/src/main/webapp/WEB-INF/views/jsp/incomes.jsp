@@ -90,13 +90,15 @@
 		<a href="./logout"><button type="submit">Изход</button></a>
 	</div>
 	<div class="navigation_buttons">
-		<nav> <a href="/inquiries"><button class="n_button"
-				type="submit">Справки</button></a> <a href="./budgets"><button
-				class="n_button" type="submit">Задължения</button></a> <a
-			href="./expenses"><button class="n_button" type="submit">Разходи</button></a>
-		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a>
-		<a href="./home"><button class="n_button" type="submit">Моят
-				профил</button></a> </nav>
+
+		<nav> <a href="/inquiries"><button class="n_button" type="submit">Справки</button></a>
+		<a href="/home"><button class="n_button" type="submit">Бюджет</button></a>   
+		<a href="./budgets"><button class="n_button" type="submit">Задължения</button></a> 
+		<a href="./expenses"><button class="n_button" type="submit">Разходи</button></a> 
+		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a> 
+		<a href="./home"><button class="n_button" type="submit">Моят профил</button></a> 
+		</nav>
+		
 	</div>
 	</header>
 
@@ -120,13 +122,10 @@
 			
 		</p>
 
-		<!-- Trigger/Open The Modal -->
 		<button id="myBtn">Добави приход</button>
 
-		<!-- The Modal -->
 		<div id="myModal" class="modal">
 
-			<!-- Modal content -->
 			<div class="modal-content">
 				<span class="close">затвори</span>
 
