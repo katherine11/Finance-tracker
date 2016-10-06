@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.model.connections;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.model.Expense;
-import com.example.model.Income;
 import com.example.model.User;
+import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
 @Controller
 @ContextConfiguration(classes = UserHasIncomesDAO.class)
 @Scope("session")
-public class IncomeController {
+public class ExpenseController {
 	
 	@Autowired
-	private UserHasIncomesDAO userHasIncomes;
+	private UserHasExpensesDAO userHasExpensesDAO;
 	
-	@RequestMapping(value="/incomes", method = RequestMethod.POST)
-	public String addIncome(@ModelAttribute Income income, Model model, HttpServletRequest request){
+	@RequestMapping(value="/expenses", method = RequestMethod.POST)
+	public String addExpense(@ModelAttribute Expense expense, Model model, HttpServletRequest request){
 		if (request.getSession(false) == null){
 			return "index";
 		}
@@ -39,14 +39,11 @@ public class IncomeController {
 //		System.out.println("Income: " + income.getRepeatingId());
 //		System.out.println("Income: " + income.getDate());
 		try {
-			model.addAttribute("income", userHasIncomes.insertPayment(user.getUserId(), income));
+			model.addAttribute("expense", userHasExpensesDAO.insertPayment(user.getUserId(), expense));
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 		}
 		return "home";
 	}
-	
-	
-	
 
 }

@@ -78,7 +78,8 @@
 		<a href="./logout"><button type="submit">Изход</button></a>
 	</div>
 	<div class="navigation_buttons">
-		<nav> <a href="/inquiries"><button class="n_button" type="submit">Справки</button></a> 
+		<nav> <a href="/inquiries"><button class="n_button" type="submit">Справки</button></a>
+		<a href="/home"><button class="n_button" type="submit">Бюджет</button></a>   
 		<a href="./budgets"><button class="n_button" type="submit">Задължения</button></a> 
 		<a href="./expenses"><button class="n_button" type="submit">Разходи</button></a> 
 		<a href="./incomes"><button class="n_button" type="submit">Приходи</button></a> 
@@ -96,13 +97,10 @@
 	<div class="">
 		<h1>Приходи</h1>
 
-		<!-- Trigger/Open The Modal -->
 		<button id="myBtn">Добави приход</button>
 
-		<!-- The Modal -->
 		<div id="myModal" class="modal">
 
-			<!-- Modal content -->
 			<div class="modal-content">
 				<span class="close">затвори</span>
 
@@ -156,25 +154,6 @@
 					</p>
 
 				</form:form>
-
-				<%-- <form method="post" action="index.html">
-					<p>
-						<input type="text" name="login" value=""
-							placeholder="Потребителско име или имейл">
-					</p>
-					<p>
-						<input type="password" name="password" value=""
-							placeholder="Парола">
-					</p>
-					<p class="remember_me">
-						<label> <input type="checkbox" name="remember_me"
-							id="remember_me"> Запомни ме на този компютър
-						</label>
-					</p>
-					<p class="submit">
-						<input type="submit" name="commit" value="Вход">
-					</p>
-				</form> --%>
 
 			</div>
 
