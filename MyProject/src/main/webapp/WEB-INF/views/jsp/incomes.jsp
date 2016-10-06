@@ -19,10 +19,36 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		$("#datepicker").datepicker();
 	});
+	
+	$(document).ready(function() {
+
+	    $('#main').change(function() {
+
+	        if ($(this).is(':checked')) {
+	        $('input[name="current_income"]:checkbox').prop('checked', true);        
+
+	        } else {
+
+	            $('input[name="current_income"]:checkbox').prop('checked', false);
+	        }
+	    });
+
+
+	$('input[name="current_income"]:checkbox').change(function() {
+	        var chkLength = $('input[name="current_income"]:checkbox').length;
+	        var checkedLen = $('input[name="current_income"]:checkbox:checked').length;    
+	        if (chkLength == checkedLen) {
+	            $('#main').prop('checked', true);
+	        } else {
+	            $('#main').prop('checked', false);
+	        }
+	    });
+	});
+	
 </script>
 
 
@@ -117,10 +143,11 @@
 
 		<p>
 			<form:form>
-				<input type="checkbox"/> Delete selected
+				<a href="./incomes">Delete selected</a>
 				<br />
+				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.incomes}" var="income">
-					<input type="checkbox" />
+					<input type="checkbox" name="current_income"/>
 					<c:out value="${income}"></c:out>
 					<br />
 				</c:forEach>
