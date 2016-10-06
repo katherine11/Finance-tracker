@@ -123,7 +123,7 @@
 					</p>
 					<p>
 						<form:label path="amount">Въведете сума:</form:label>
-						<form:input id="amount" class="input" name="amount" path="amount"
+						<form:input type="number" min="0.01" step="0.01" value="1.00" max="1000000" id="amount" class="input" name="amount" path="amount"
 							placeholder="Сума" required="required"/>
 					</p>
 					<p>
