@@ -31,9 +31,6 @@ public class NavigationController {
 		model.addAttribute(new Income());
 		try {
 			userHasIncomes.selectAndAddAllPaymentsOfUser(user);
-			for (Payment payment : user.getIncomes()){
-				System.out.println(payment);
-			}
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
