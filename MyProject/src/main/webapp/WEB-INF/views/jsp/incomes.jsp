@@ -117,6 +117,8 @@
 
 		<p>
 			<form:form>
+				<input type="checkbox"/> Delete selected
+				<br />
 				<c:forEach items="${user.incomes}" var="income">
 					<input type="checkbox" />
 					<c:out value="${income}"></c:out>

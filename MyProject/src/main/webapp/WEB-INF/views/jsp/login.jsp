@@ -42,7 +42,8 @@
 			</p>
 
 			<p>
-				<input type="checkbox" name="commit" value="Remember me">
+				<input type="checkbox" name="commit">
+				<label>Remember me</label>
 			</p>
 			
 			<p class="submit">
