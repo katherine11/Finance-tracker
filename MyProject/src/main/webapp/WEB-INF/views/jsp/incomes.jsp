@@ -147,13 +147,10 @@
 
 		<p>
 			<form:form>
-				<a href="./incomes" id="delete">Delete selected</a>
-				<br />
+				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.incomes}" var="income">
-						<%-- <c:if test="${('#' + id).is(':checked'}">
-							
-						</c:if>	 --%>			
+									
 					<input type="checkbox" name="current_income" id="${income.id}"/>
 					<c:out value="${income}"></c:out>
 					<br />

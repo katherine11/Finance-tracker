@@ -110,6 +110,24 @@
 	<div class="">
 		<h1>Expenses</h1>
 
+	<c:if test="${ empty user }">
+			<p> This profile does not exist!</p>
+		</c:if>
+
+		<p>
+			<form:form>
+				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
+				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
+				<c:forEach items="${user.expenses}" var="expense">
+									
+					<input type="checkbox" name="current_expense" id="${expense.id}"/>
+					<c:out value="${expense}"></c:out>
+					<br />
+				</c:forEach>
+			</form:form>
+		</p>
+
+
 		<button id="myBtn">Add expense</button>
 
 		<div id="myModal" class="modal">
