@@ -88,11 +88,11 @@
 		<a href="./logout"><button type="submit">Log out</button></a>
 	</div>
 	<div class="navigation_buttons">
-		<nav> <a href="/inquiries"><button class="n_button"
+		<nav> <a href="./inquiries"><button class="n_button"
 				type="submit">Inquiries</button></a> 
-				<a href="budgets"><button
+				<a href="./budgets"><button
 				class="n_button" type="submit">Budget</button></a> 
-				<a href="obligations"><button
+				<a href="./obligations"><button
 				class="n_button" type="submit">Obligations</button></a> <a
 			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
 		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>

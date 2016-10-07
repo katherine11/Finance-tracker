@@ -17,7 +17,7 @@ import com.example.model.exceptions.PaymentExpeption;
 public class UserHasExpensesDAO implements UserHasDAO {
 
 	private static final String DELETE_EXPENSE_SQL = "DELETE FROM `finance_track_test`.`users_has_expenses` WHERE `id`=?;";
-	private static final String INSERT_EXPENSE_SQL = "insert into users_has_expenses values (?, ?, ?, ?, ?, ?, null)";
+	private static final String INSERT_EXPENSE_SQL = "INSERT INTO users_has_expenses VALUES (?, ?, ?, ?, ?, ?, null)";
 
 	public int insertPayment(int userId, Payment expense) throws PaymentExpeption {
 
@@ -43,7 +43,7 @@ public class UserHasExpensesDAO implements UserHasDAO {
 			return rs.getInt(1);
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Expense insert failed!");
+			throw new PaymentExpeption("Expense insert failed!",e);
 		}
 	}
 
@@ -52,12 +52,12 @@ public class UserHasExpensesDAO implements UserHasDAO {
 
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select e.expenses_id, e.category, "
-					+ "r.value, r.repeating_id, uhe.amount, uhe.date, uhe.description, uhe.id from users u "
-					+ "join users_has_expenses uhe on (uhe.user_id = " + user.getUserId() + " and u.user_id = "
+			ResultSet rs = stmt.executeQuery("SELECT e.expenses_id, e.category, "
+					+ "r.value, r.repeating_id, uhe.amount, uhe.date, uhe.description, uhe.id FROM users u "
+					+ "JOIN users_has_expenses uhe ON (uhe.user_id = " + user.getUserId() + " AND u.user_id = "
 					+ user.getUserId() + ") "
-					+ "join expenses e on (uhe.expenses_id = e.expenses_id) join repeatings r "
-					+ "on (r.repeating_id = uhe.repeating_id) LIMIT 0, 1000");
+					+ "JOIN expenses e ON (uhe.expenses_id = e.expenses_id) JOIN repeatings r "
+					+ "ON (r.repeating_id = uhe.repeating_id) LIMIT 0, 1000");
 
 			Expense expense = null;
 
@@ -77,7 +77,7 @@ public class UserHasExpensesDAO implements UserHasDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Expenses select failed!");
+			throw new PaymentExpeption("Expenses select failed!",e);
 		}
 
 	}
@@ -96,7 +96,7 @@ public class UserHasExpensesDAO implements UserHasDAO {
 			return true;
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption ("Someting went wrong!");
+			throw new PaymentExpeption ("Someting went wrong!",e);
 		} 
 	}
 

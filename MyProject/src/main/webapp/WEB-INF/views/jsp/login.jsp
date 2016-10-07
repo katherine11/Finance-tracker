@@ -38,7 +38,7 @@
 			</p>
 			<p>
 				<form:password id="password" class="input" name="password"
-					path="password" placeholder="Парола" minlength="4" maxlength="15" required="required"/>
+					path="password" placeholder="Password" minlength="4" maxlength="15" required="required"/>
 			</p>
 
 			<p>

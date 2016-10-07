@@ -47,7 +47,7 @@ public class HomePageController {
 			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);
 		} catch (UserException e) {
-			model.addAttribute("loginFail", "Невалидно потребителско име или парола");
+			model.addAttribute("loginFail", "Invalid username or password");
 			return "login";
 		}
 		return "home";
@@ -64,7 +64,7 @@ public class HomePageController {
 		try {
 			model.addAttribute("user", userDAO.registerUser(user));
 		} catch (UserException e) {
-			model.addAttribute("registerFail", "Потребителското име е заето!");
+			model.addAttribute("registerFail", "The username has been already chosen!");
 			return "register";
 		}
 		return "login";

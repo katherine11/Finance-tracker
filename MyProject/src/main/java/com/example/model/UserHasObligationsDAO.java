@@ -8,9 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
 import com.example.model.connections.DBConnection;
 import com.example.model.exceptions.PaymentExpeption;
 
+@Component
 public class UserHasObligationsDAO implements UserHasDAO {
 	
 	private static final String DELETE_OBLIGATION_SQL = "DELETE FROM `finance_track_test`.`users_has_obligations` WHERE `id`=?;";
@@ -41,7 +44,7 @@ public class UserHasObligationsDAO implements UserHasDAO {
 			return rs.getInt(1);
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Obligation insert failed!");
+			throw new PaymentExpeption("Obligation insert failed!",e);
 		}
 	}
 
@@ -80,7 +83,7 @@ public class UserHasObligationsDAO implements UserHasDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Expenses select failed!");
+			throw new PaymentExpeption("Expenses select failed!",e);
 		}		
 	}
 
@@ -98,7 +101,7 @@ public class UserHasObligationsDAO implements UserHasDAO {
 			return true;
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption ("Someting went wrong!");
+			throw new PaymentExpeption ("Someting went wrong!",e);
 		} 
 	}
 
