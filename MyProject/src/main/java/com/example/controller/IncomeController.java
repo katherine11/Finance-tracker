@@ -51,6 +51,7 @@ public class IncomeController {
 			e.printStackTrace();
 			return "error";
 		}
+		
 		return "redirect:/incomes";
 	}
 	
