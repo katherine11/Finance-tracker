@@ -24,6 +24,11 @@ public class User {
 	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
 	private double balance;
 	
+	public double getBalance() {
+		return balance;
+	}
+
+
 	public User() {
 	}
 
@@ -132,5 +137,15 @@ public class User {
 		this.email = email;
 	}
 
+
+	public void removeIncome(int id) {
+		for (Payment income : incomes){
+			if (income.getId() == id){
+				incomes.remove(income);				
+				return;
+			}
+		}
+	}
+	
 }
 

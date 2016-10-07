@@ -52,18 +52,26 @@ public class IncomeController {
 			return "error";
 		}
 		return "redirect:/incomes";
-	}
+	}	
 	
-	
-	@RequestMapping(value="/incomes", method = RequestMethod.DELETE)
-	protected void deleteIncome(HttpServletRequest req) {
-		int id = Integer.parseInt(req.getParameter("id"));
-		try {
-			userHasIncomes.deletePayment(id);
-		} catch (PaymentExpeption e) {
-			System.out.println(e.getMessage());
-			return;
+	@RequestMapping(value="/deleteIncome", method = RequestMethod.POST)
+	public String deleteIncome(HttpServletRequest req) {
+		User user = (User) req.getSession().getAttribute("user");
+		String [] ids = req.getParameterValues("id");
+		int id;
+		for (int index = 0; index < ids.length; index++){
+			id = Integer.parseInt(ids[index]);
+			try {
+				if(userHasIncomes.deletePayment(id)){
+					user.removeIncome(id);
+				}
+			} catch (PaymentExpeption e) {
+				e.printStackTrace();
+				return "error";
+			}
 		}
+			
+		return "redirect:/incomes";
 	}
 	
 

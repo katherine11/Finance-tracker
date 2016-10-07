@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.model.Expense;
+import com.example.model.Income;
 import com.example.model.User;
 import com.example.model.UserDAO;
+import com.example.model.UserHasExpensesDAO;
+import com.example.model.UserHasIncomesDAO;
+import com.example.model.exceptions.PaymentExpeption;
 import com.example.model.exceptions.UserException;
 
 @Controller
@@ -22,6 +27,10 @@ public class HomePageController {
 	private static final int SESSION_TIME_IN_SECONDS = 60*60;
 	@Autowired
 	private UserDAO userDAO;
+	@Autowired
+	private UserHasIncomesDAO userHasIncomesDAO;
+	@Autowired
+	private UserHasExpensesDAO userHasExpensesDAO;
 
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String homePage() {
@@ -33,6 +42,8 @@ public class HomePageController {
 		if (!model.containsAttribute("user")){
 			model.addAttribute(new User());
 		}
+		model.addAttribute(new Expense());
+		model.addAttribute(new Income());
 		return "login";
 	}	
 	
@@ -46,11 +57,17 @@ public class HomePageController {
 			session.setAttribute("user", loggedUser);
 			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
+			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (UserException e) {
 			model.addAttribute("loginFail", "Невалидно потребителско име или парола");
 			return "login";
+		} catch (PaymentExpeption e) {
+			e.printStackTrace();
+			return "error";
 		}
-		return "home";
+		
+		return "redirect:/home";
 	}	
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)

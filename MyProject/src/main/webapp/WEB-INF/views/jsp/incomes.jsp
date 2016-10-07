@@ -29,18 +29,18 @@
 	    $('#main').change(function() {
 
 	        if ($(this).is(':checked')) {
-	        $('input[name="current_income"]:checkbox').prop('checked', true);        
+	        $('input[name="id"]:checkbox').prop('checked', true);        
 
 	        } else {
 
-	            $('input[name="current_income"]:checkbox').prop('checked', false);
+	            $('input[name="id"]:checkbox').prop('checked', false);
 	        }
 	    });
 
 
-	$('input[name="current_income"]:checkbox').change(function() {
-	        var chkLength = $('input[name="current_income"]:checkbox').length;
-	        var checkedLen = $('input[name="current_income"]:checkbox:checked').length;    
+	$('input[name="id"]:checkbox').change(function() {
+	        var chkLength = $('input[name="id"]:checkbox').length;
+	        var checkedLen = $('input[name="id"]:checkbox:checked').length;    
 	        if (chkLength == checkedLen) {
 	            $('#main').prop('checked', true);
 	        } else {
@@ -146,12 +146,12 @@
 		</c:if>
 
 		<p>
-			<form:form>
+			<form:form action="./deleteIncome">
 				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.incomes}" var="income">
 									
-					<input type="checkbox" name="current_income" id="${income.id}"/>
+					<input type="checkbox" name="id" id="${income.id}" value="${income.id}"/>
 					<c:out value="${income}"></c:out>
 					<br />
 				</c:forEach>
