@@ -32,4 +32,12 @@ public class Obligation extends Payment {
 		return periodQuantity;
 	}
 
+	public void setPeriodId(int periodId) {
+		this.periodId = periodId;
+	}
+
+	public void setPeriodQuantity(int periodQuantity) {
+		this.periodQuantity = periodQuantity;
+	}
+
 }
