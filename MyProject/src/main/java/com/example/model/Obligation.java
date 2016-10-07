@@ -16,6 +16,10 @@ public class Obligation extends Payment {
 		this.periodQuantity = periodQuantity;
 	}
 
+	public Obligation() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getPeriodId() {
 		return periodId;
 	}

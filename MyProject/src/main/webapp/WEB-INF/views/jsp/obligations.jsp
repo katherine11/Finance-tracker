@@ -1,15 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="false"%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -29,18 +26,18 @@
 	    $('#main').change(function() {
 
 	        if ($(this).is(':checked')) {
-	        $('input[name="id"]:checkbox').prop('checked', true);        
+	        $('input[name="current_income"]:checkbox').prop('checked', true);        
 
 	        } else {
 
-	            $('input[name="id"]:checkbox').prop('checked', false);
+	            $('input[name="current_income"]:checkbox').prop('checked', false);
 	        }
 	    });
 
 
-	$('input[name="id"]:checkbox').change(function() {
-	        var chkLength = $('input[name="id"]:checkbox').length;
-	        var checkedLen = $('input[name="id"]:checkbox:checked').length;    
+	$('input[name="current_income"]:checkbox').change(function() {
+	        var chkLength = $('input[name="current_income"]:checkbox').length;
+	        var checkedLen = $('input[name="current_income"]:checkbox:checked').length;    
 	        if (chkLength == checkedLen) {
 	            $('#main').prop('checked', true);
 	        } else {
@@ -49,15 +46,14 @@
 	    });
 	});
 	
-	/* 
-	$('#delete').click(function () {
+	/* $('#delete').click(function () {
 	    $(".checkbox input:selected").parent().remove();
 	}); */
 	
 </script>
 
 
-<title>My incomes</title>
+<title>My obligations</title>
 
 <style>
 .modal {
@@ -123,8 +119,10 @@
 	<div class="navigation_buttons">
 
 		<nav> <a href="/inquiries"><button class="n_button"
-				type="submit">Inquiries</button></a> <a href=".budgets"><button
-				class="n_button" type="submit">Budget</button></a> <a href="./obligations"><button
+				type="submit">Inquiries</button></a> 
+				<a href="/home"><button
+				class="n_button" type="submit">Budget</button></a> 
+				<a href="./obligations"><button
 				class="n_button" type="submit">Obligations</button></a> <a
 			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
 		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
@@ -140,44 +138,44 @@
 
 	<section class="">
 	<div class="">
-		<h1>Incomes</h1>
+		<h1>Obligations</h1>
 
 		<c:if test="${ empty user }">
 			<p> This profile does not exist!</p>
 		</c:if>
 
 		<p>
-			<form:form action="./deleteIncome">
+			<form:form>
 				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
-				<c:forEach items="${user.incomes}" var="income">
+				<c:forEach items="${user.obligations}" var="obligation">
 									
-					<input type="checkbox" name="id" id="${income.id}" value="${income.id}"/>
-					<c:out value="${income}"></c:out>
+					<input type="checkbox" name="current_income" id="${obligation.id}"/>
+					<c:out value="${obligation}"></c:out>
 					<br />
 				</c:forEach>
 			</form:form>
 		</p>
 
-		<button id="myBtn">Add income</button>
+		<button id="myBtn">Add obligation</button>
 
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
 				<span class="close">close</span>
 
-				<form:form commandName="income">
+				<form:form commandName="obligation">
 
 					<p>
 						<form:label path="categoryId">Choose category:</form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
-							<form:option value="6">Salary</form:option>
+							<form:option value="1">Credit</form:option>
 
-							<form:option value="7">Rent</form:option>
+							<form:option value="2">Loan</form:option>
 
-							<form:option value="8">Grants</form:option>
+							<form:option value="3">Fast Credit</form:option>
 
-							<form:option value="9">Other</form:option>
+							<form:option value="4">Other</form:option>
 
 						</form:select>
 					</p>
@@ -206,6 +204,28 @@
 						<form:input id="datepicker" class="input" name="date" path="date"
 							placeholder="Date" required="required" />
 					</p>
+					
+					<p>
+						<form:label path="periodQuantity">Choose a period quantity:</form:label>
+						<form:input id="periodQuantity" class="input" name="periodQuantity" path="periodQuantity"
+							placeholder="Quantity" required="required" />
+					</p>
+					
+					
+					<p>
+						<form:label path="periodId">Choose a period:</form:label>
+						<form:select id="periodId" class="input" path="periodId">
+							<form:option value="1">Days</form:option>
+
+							<form:option value="2">Weeks</form:option>
+
+							<form:option value="3">Months</form:option>
+
+							<form:option value="4">Years</form:option>
+
+						</form:select>
+					</p>
+					
 					<p>
 						<form:label path="description">Enter a description:</form:label>
 						<form:textarea id="description" class="input" name="description"

@@ -14,7 +14,7 @@ import com.example.model.exceptions.PaymentExpeption;
 public class UserHasBudgetsDAO  {
 	
 	private static final String DELETE_BUDGET_SQL = "DELETE FROM users_has_budgets WHERE user_id = ? and expense_id = ?;";
-	private static final String INSERT_BUDGET_SQL = "insert into users_has_budgets values (?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_BUDGET_SQL = "INSERT INTO users_has_budgets VALUES (?, ?, ?, ?, ?, ?)";
 
 	public boolean insertBudget(Budget budget) throws PaymentExpeption {
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -35,7 +35,7 @@ public class UserHasBudgetsDAO  {
 			return (insert >=1);
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Budget insert failed!");
+			throw new PaymentExpeption("Budget insert failed!",e);
 		}
 	}
 
@@ -44,11 +44,11 @@ public class UserHasBudgetsDAO  {
 
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select e.expenses_id, e.category, r.repeating_id, r.value, uhb.amount, "
-					+ "uhb.date, uhb.description from users u "
-					+ "join users_has_budgets uhb on (uhb.user_id = "+user.getUserId()+" and u.user_id = "+user.getUserId()+") "
-					+ "join expenses e on (uhb.expense_id = e.expenses_id) "
-					+ "join repeatings r on (r.repeating_id = uhb.repeating_id) LIMIT 0, 1000");
+			ResultSet rs = stmt.executeQuery("SELECT e.expenses_id, e.category, r.repeating_id, r.value, uhb.amount, "
+					+ "uhb.date, uhb.description FROM users u "
+					+ "JOIN users_has_budgets uhb ON (uhb.user_id = "+user.getUserId()+" AND u.user_id = "+user.getUserId()+") "
+					+ "JOIN expenses e ON (uhb.expense_id = e.expenses_id) "
+					+ "JOIN repeatings r ON (r.repeating_id = uhb.repeating_id) LIMIT 0, 1000");
 
 			Budget budget = null;
 

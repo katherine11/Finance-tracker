@@ -16,7 +16,7 @@ import com.example.model.exceptions.PaymentExpeption;
 @Component
 public class UserHasIncomesDAO implements UserHasDAO {
 
-	private static final String INSERT_INCOME_SQL = "insert into users_has_incomes values (?, ?, ?, ?, ?, ?, null)";
+	private static final String INSERT_INCOME_SQL = "INSERT INTO users_has_incomes VALUES (?, ?, ?, ?, ?, ?, null)";
 	private static final String DELETE_INCOME_SQL = "DELETE FROM `finance_track_test`.`users_has_incomes` WHERE `id`=?;";
 
 	public int insertPayment(int userId, Payment income) throws PaymentExpeption {
@@ -41,7 +41,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			return rs.getInt(1);
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Income insert failed!");
+			throw new PaymentExpeption("Income insert failed!",e);
 		}
 		
 	}
@@ -52,11 +52,11 @@ public class UserHasIncomesDAO implements UserHasDAO {
 
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select i.incomes_id, i.category,r.value, r.repeating_id, "
-					+ "uhi.amount, uhi.date, uhi.description, uhi.id from users u "
-					+ "join users_has_incomes uhi on (uhi.user_id = "+user.getUserId()+" and u.user_id = "+user.getUserId()+") "
-					+ "join incomes i on (uhi.incomes_id = i.incomes_id) "
-					+ "join repeatings r on (r.repeating_id = uhi.repeating_id) LIMIT 0, 1000");
+			ResultSet rs = stmt.executeQuery("SELECT i.incomes_id, i.category,r.value, r.repeating_id, "
+					+ "uhi.amount, uhi.date, uhi.description, uhi.id FROM users u "
+					+ "JOIN users_has_incomes uhi ON (uhi.user_id = "+user.getUserId()+" AND u.user_id = "+user.getUserId()+") "
+					+ "JOIN incomes i ON (uhi.incomes_id = i.incomes_id) "
+					+ "JOIN repeatings r ON (r.repeating_id = uhi.repeating_id) LIMIT 0, 1000");
 
 			Income income = null;
 			while (rs.next()) {
@@ -75,7 +75,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Incomes select failed!");
+			throw new PaymentExpeption("Incomes select failed!",e);
 		}
 		
 	}
@@ -94,7 +94,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			return true;
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption ("Someting went wrong!");
+			throw new PaymentExpeption ("Someting went wrong!",e);
 		} 
 	}
 

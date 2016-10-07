@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.model.Expense;
 import com.example.model.Income;
+import com.example.model.Obligation;
 import com.example.model.User;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
+import com.example.model.UserHasObligationsDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
 @Controller
@@ -23,6 +25,9 @@ public class NavigationController {
 	
 	@Autowired
 	private UserHasExpensesDAO userHasExpensesDAO;
+	
+	@Autowired
+	private UserHasObligationsDAO userHasObligationsDAO;
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.GET)
 	public String incomes(Model model, HttpServletRequest request) {
@@ -60,6 +65,25 @@ public class NavigationController {
 			return "error";
 		}
 		return "expenses";
+	}
+	
+	@RequestMapping(value="/obligations", method = RequestMethod.GET)
+	public String obligations(Model model, HttpServletRequest request) {
+		if (request.getSession(false) == null){
+			return "index";
+		}
+		
+		User user = (User) request.getSession().getAttribute("user");
+		model.addAttribute("user", user);
+		model.addAttribute(new Obligation());
+		
+		try {
+			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
+		} catch (PaymentExpeption e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "obligations";
 	}
 	
 	@RequestMapping(value="/home", method = RequestMethod.GET)
