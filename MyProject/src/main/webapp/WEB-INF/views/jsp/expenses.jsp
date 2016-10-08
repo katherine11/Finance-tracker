@@ -301,10 +301,10 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<td align="right" colspan="2" style="padding-top: 14px";><strong>Total
+								<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
 										amount:</strong></td>
-								<td align="right" style="padding-top: 14px"><strong><c:out
-											value="${user.totalExpenses}"></strong> </c:out>&nbsp;$</td>
+								<td align="right" style="padding-top: 14px"><strong>
+								<c:out value="${user.totalExpenses}"></c:out> &nbsp;$ </strong> </td>
 
 							</tr>
 						</tfoot>
@@ -326,6 +326,15 @@
 					</tr>
 				</c:forEach>
 					</tbody>
+					<tfoot>
+							<tr>
+								<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
+										amount:</strong></td>
+								<td align="right" style="padding-top: 14px"><strong>
+								<c:out value="${totalAmount}"></c:out> &nbsp;$ </strong> </td>
+
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 			</c:otherwise>
