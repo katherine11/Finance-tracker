@@ -94,6 +94,8 @@ public class ExpenseController{
 		}
 		model.addAttribute("expenses", expenses);
 		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("user", user);
+		model.addAttribute(new Expense());
 		
 		return "expenses";
 	}
