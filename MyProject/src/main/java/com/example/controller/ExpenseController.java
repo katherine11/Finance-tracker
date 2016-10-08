@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,27 @@ public class ExpenseController{
 		}
 			
 		return "redirect:/expenses";
+	}
+	
+	@RequestMapping(value="/getExpensesBy", method = RequestMethod.GET)
+	public String getExpenses(Expense expense, Model model, HttpServletRequest request) {
+		if(request.getSession(false) == null){
+			return "index";
+		}
+		
+		User user = (User) request.getSession().getAttribute("user");
+		String id = request.getParameter("categoryId");
+		int categoryId = Integer.parseInt(id);
+		String from = request.getParameter("from");
+		String to = request.getParameter("to");
+		
+		Set<Payment> expenses = user.getExpensesBy(from, to, categoryId);
+		for (Payment expense2 : expenses){
+			System.out.println(expense2);
+		}
+		model.addAttribute("expenses", expenses);
+		
+		return "expenses";
 	}
 	
 

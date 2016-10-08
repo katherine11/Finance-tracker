@@ -61,6 +61,7 @@
 		
 		<p> Total incomes: <c:out value="${user.totalIncomes}"></c:out> </p>
 		<p> Total expenses: <c:out value="${user.totalExpenses}"></c:out> </p>
+		<p> Balance: <c:out value="${user.balance}"></c:out> </p>
 
 	</div>
 	</section>

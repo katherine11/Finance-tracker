@@ -39,5 +39,10 @@ public class Obligation extends Payment {
 	public void setPeriodQuantity(int periodQuantity) {
 		this.periodQuantity = periodQuantity;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", Period="+periodQuantity+" "+period;
+	}
 
 }

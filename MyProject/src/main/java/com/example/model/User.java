@@ -1,5 +1,7 @@
 package com.example.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,8 +25,8 @@ public class User {
 	private Set<Payment> obligations = new LinkedHashSet<Payment>(); 
 	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
 	private double balance;
-	private double totalIncomes;
-	private double totalExpenses;
+//	private double totalIncomes;
+//	private double totalExpenses;
 
 	public User() {
 	}
@@ -179,7 +181,34 @@ public class User {
 		return totalIncomes;
 	}
 
-
+	public Set<Payment> getExpensesBy(int categoryId) {
+		Set<Payment> ExpensesByCategory = new LinkedHashSet<Payment>(); 
+		for (Payment expense : expenses){
+			if (expense.getCategoryId() == categoryId){
+				ExpensesByCategory.add(expense);
+			}
+		}
+		return Collections.unmodifiableSet(ExpensesByCategory);
+	} 
+	
+	public Set<Payment> getExpensesBy(String from, String to, int categoryId) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		LocalDate parsedDateFrom = LocalDate.parse(from, formatter);
+		LocalDate parsedDateTo = LocalDate.parse(to, formatter);
+		Set<Payment> ExpensesBy = new LinkedHashSet<Payment>(); 
+		for (Payment expense : expenses){
+			if (!expense.getDate().isBefore(parsedDateFrom) && !expense.getDate().isAfter(parsedDateTo)){
+				if (categoryId != 0){
+					if (expense.getCategoryId() == categoryId){
+						ExpensesBy.add(expense);
+					}
+					continue;
+				}
+				ExpensesBy.add(expense);
+			}
+		}
+		return Collections.unmodifiableSet(ExpensesBy);
+	} 
 	
 	
 }
