@@ -58,6 +58,9 @@
 	<section class="">
 	<div class="">
 		<h1>My profile</h1>
+		
+		<p> Total incomes: <c:out value="${user.totalIncomes}"></c:out> </p>
+		<p> Total expenses: <c:out value="${user.totalExpenses}"></c:out> </p>
 
 	</div>
 	</section>

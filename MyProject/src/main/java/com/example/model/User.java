@@ -23,11 +23,8 @@ public class User {
 	private Set<Payment> obligations = new LinkedHashSet<Payment>(); 
 	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
 	private double balance;
-	
-	public double getBalance() {
-		return balance;
-	}
-
+	private double totalIncomes;
+	private double totalExpenses;
 
 	public User() {
 	}
@@ -95,11 +92,11 @@ public class User {
 	}
 	
 	public boolean addExpense(Expense expense){
-		this.balance -= expense.getAmount();
+//		this.balance -= expense.getAmount();
 		return this.expenses.add(expense);
 	}
 	public boolean addIncome(Income income){
-		this.balance += income.getAmount();
+//		this.balance += income.getAmount();
 		return this.incomes.add(income);
 	}
 	public boolean addObligation(Obligation obligation){
@@ -146,6 +143,44 @@ public class User {
 			}
 		}
 	}
+	
+	public void removeExpense(int id) {
+		for (Payment expense : expenses){
+			if (expense.getId() == id){
+				expenses.remove(expense);				
+				return;
+			}
+		}
+		
+	}
+	
+	public double getBalance () {
+	
+		this.balance += getTotalIncomes();
+		this.balance -= getTotalExpenses();
+		
+		return this.balance;
+		
+	}
+
+	public double getTotalExpenses() {
+		double totalExpenses = 0;
+		for (Payment expense : expenses){
+			totalExpenses += expense.getAmount();
+		}
+		return totalExpenses;
+	}
+
+	public double getTotalIncomes() {
+		double totalIncomes = 0;
+		for (Payment income : incomes){
+			totalIncomes += income.getAmount();
+		}
+		return totalIncomes;
+	}
+
+
+	
 	
 }
 

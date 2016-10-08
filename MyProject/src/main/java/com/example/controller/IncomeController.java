@@ -23,7 +23,7 @@ public class IncomeController {
 	
 	
 	@Autowired
-	private UserHasIncomesDAO userHasIncomes;
+	private UserHasIncomesDAO userHasIncomesDAO;
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.POST)
 	public String addIncome(@ModelAttribute Income income, Model model, HttpServletRequest request){
@@ -39,9 +39,10 @@ public class IncomeController {
 //		System.out.println("Income: " + income.getAmount());
 //		System.out.println("Income: " + income.getRepeatingId());
 //		System.out.println("Income: " + income.getDate());
-
+		
 		try {
-			model.addAttribute("income", userHasIncomes.insertPayment(user.getUserId(), income));
+			model.addAttribute("income", userHasIncomesDAO.insertPayment(user.getUserId(), income));
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
@@ -58,7 +59,7 @@ public class IncomeController {
 		for (int index = 0; index < ids.length; index++){
 			id = Integer.parseInt(ids[index]);
 			try {
-				if(userHasIncomes.deletePayment(id)){
+				if(userHasIncomesDAO.deletePayment(id)){
 					user.removeIncome(id);
 				}
 			} catch (PaymentExpeption e) {
@@ -66,7 +67,12 @@ public class IncomeController {
 				return "error";
 			}
 		}
-			
+		try {
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
+		} catch (PaymentExpeption e) {
+			e.printStackTrace();
+			return "error";
+		}
 		return "redirect:/incomes";
 	}
 	

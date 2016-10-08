@@ -21,6 +21,37 @@
 	$(document).ready(function() {
 		$("#datepicker").datepicker();
 	});
+	
+	$(document).ready(function() {
+
+	    $('#main').change(function() {
+
+	        if ($(this).is(':checked')) {
+	        $('input[name="id"]:checkbox').prop('checked', true);        
+
+	        } else {
+
+	            $('input[name="id"]:checkbox').prop('checked', false);
+	        }
+	    });
+
+
+	$('input[name="id"]:checkbox').change(function() {
+	        var chkLength = $('input[name="id"]:checkbox').length;
+	        var checkedLen = $('input[name="id"]:checkbox:checked').length;    
+	        if (chkLength == checkedLen) {
+	            $('#main').prop('checked', true);
+	        } else {
+	            $('#main').prop('checked', false);
+	        }
+	    });
+	});
+	
+	/* 
+	$('#delete').click(function () {
+	    $(".checkbox input:selected").parent().remove();
+	}); */
+	
 </script>
 
 
@@ -115,12 +146,12 @@
 		</c:if>
 
 		<p>
-			<form:form>
+			<form:form action="./deleteExpense">
 				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.expenses}" var="expense">
 									
-					<input type="checkbox" name="current_expense" id="${expense.id}"/>
+					<input type="checkbox" name="id" id="${expense.id}" value="${expense.id}"/>
 					<c:out value="${expense}"></c:out>
 					<br />
 				</c:forEach>

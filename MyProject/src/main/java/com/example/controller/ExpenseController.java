@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.model.Expense;
 import com.example.model.User;
 import com.example.model.UserHasExpensesDAO;
-import com.example.model.UserHasIncomesDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
 @Controller
@@ -40,11 +39,39 @@ public class ExpenseController {
 //		System.out.println("Income: " + income.getDate());
 		try {
 			model.addAttribute("expense", userHasExpensesDAO.insertPayment(user.getUserId(), expense));
+			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
 		}
 		
+		return "redirect:/expenses";
+	}
+	
+	@RequestMapping(value="/deleteExpense", method = RequestMethod.POST)
+	public String deleteExpense(HttpServletRequest req) {
+		User user = (User) req.getSession().getAttribute("user");
+		String [] ids = req.getParameterValues("id");
+		int id;
+		for (int index = 0; index < ids.length; index++){
+			id = Integer.parseInt(ids[index]);
+			try {
+				if(userHasExpensesDAO.deletePayment(id)){
+					user.removeExpense(id);
+				}
+			} catch (PaymentExpeption e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
+		try {
+			
+			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
+		} catch (PaymentExpeption e) {
+			e.printStackTrace();
+			return "error";
+		}
+			
 		return "redirect:/expenses";
 	}
 

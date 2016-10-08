@@ -34,6 +34,7 @@ public class ObligationController {
 
 		try {
 			model.addAttribute("obligation", userHasObligationsDAO.insertPayment(user.getUserId(), obligation));
+			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";

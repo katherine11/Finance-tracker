@@ -17,6 +17,7 @@ import com.example.model.User;
 import com.example.model.UserDAO;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
+import com.example.model.UserHasObligationsDAO;
 import com.example.model.exceptions.PaymentExpeption;
 import com.example.model.exceptions.UserException;
 
@@ -31,6 +32,8 @@ public class HomePageController {
 	private UserHasIncomesDAO userHasIncomesDAO;
 	@Autowired
 	private UserHasExpensesDAO userHasExpensesDAO;
+	@Autowired
+	private UserHasObligationsDAO userHasObligationsDAO;
 
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String homePage() {
@@ -53,12 +56,14 @@ public class HomePageController {
 		HttpSession session = request.getSession();
 		try {
 			User loggedUser = userDAO.loginUser(user);
-			System.out.println(loggedUser.getUsername());
+//			System.out.println(loggedUser.getUsername());
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			session.setAttribute("user", loggedUser);
 			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);
-			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
-			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
+			
 		} catch (UserException e) {
 			model.addAttribute("loginFail", "Invalid username or password");
 			return "login";
