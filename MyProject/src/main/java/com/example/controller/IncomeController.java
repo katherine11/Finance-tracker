@@ -2,55 +2,48 @@ package com.example.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.model.Income;
+import com.example.model.Payment;
 import com.example.model.User;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
-@Controller
 @ContextConfiguration(classes = UserHasIncomesDAO.class)
-@Scope("session")
-public class IncomeController {
-	
-	
-	@Autowired
-	private UserHasIncomesDAO userHasIncomesDAO;
+public class IncomeController extends PaymentController{
+
+	@Override
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.POST)
-	public String addIncome(@ModelAttribute Income income, Model model, HttpServletRequest request){
-		User user = (User) request.getSession().getAttribute("user");
+	public String addPayment(Payment payment, Model model, HttpServletRequest request) {
 		
-		if (request.getSession(false) == null || user == null || income == null){
+		if(request.getSession(false) == null){
 			return "index";
 		}
 		
-//		System.out.println("UserID="+user.getUserId());
-//		System.out.println("Income: " + income.getCategoryId());
-//		System.out.println("Income: " + income.getDescription());
-//		System.out.println("Income: " + income.getAmount());
-//		System.out.println("Income: " + income.getRepeatingId());
-//		System.out.println("Income: " + income.getDate());
+		User user = (User) request.getSession().getAttribute("user");
 		
 		try {
-			model.addAttribute("income", userHasIncomesDAO.insertPayment(user.getUserId(), income));
-			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
+			addPayments(payment, model, user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
 		}
 		
 		return "redirect:/incomes";
-	}	
+	}
 	
+	@Override
+	@RequestMapping(value="/deleteIncome", method = RequestMethod.POST)
+	public String deletePayment(HttpServletRequest request) {
+		
+		return "";
+		
+	}
+
 	@RequestMapping(value="/deleteIncome", method = RequestMethod.POST)
 	public String deleteIncome(HttpServletRequest req) {
 		User user = (User) req.getSession().getAttribute("user");
@@ -59,7 +52,7 @@ public class IncomeController {
 		for (int index = 0; index < ids.length; index++){
 			id = Integer.parseInt(ids[index]);
 			try {
-				if(userHasIncomesDAO.deletePayment(id)){
+				if(userHasDAO.deletePayment(id)){
 					user.removeIncome(id);
 				}
 			} catch (PaymentExpeption e) {
@@ -68,7 +61,7 @@ public class IncomeController {
 			}
 		}
 		try {
-			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
+			userHasDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
