@@ -34,7 +34,7 @@
 
 			<p>
 				<form:input id="username" class="input" path="username"
-					placeholder="Потребителско име" minlength="4" maxlength="15" required="required"/>
+					placeholder="Username" minlength="4" maxlength="15" required="required"/>
 			</p>
 			<p>
 				<form:password id="password" class="input" name="password"
@@ -54,7 +54,7 @@
 
 		<div class="login-help">
 			<p>
-				Password forgotten? <a href="./">Click here to reset it</a>.
+				Password forgotten? <a href="./forgottenPassword">Click here to reset it</a>.
 			</p>
 		</div>
 	</div>
