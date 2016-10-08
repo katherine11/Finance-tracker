@@ -198,5 +198,15 @@ public class User {
 		return Collections.unmodifiableSet(ExpensesBy);
 	} 
 	
+	public double getAmoutByExpenseCategoryId(int categoryId){
+		double exp = 0;
+		for (Payment expense : expenses){
+			if (expense.getCategoryId() == categoryId){
+				exp += expense.getAmount();
+			}
+		}
+		return exp;
+	}
+	
 }
 

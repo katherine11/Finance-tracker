@@ -10,7 +10,8 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
-
+<script type="text/javascript" src="js/canvasjs.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -53,7 +54,44 @@
 	    $(".checkbox input:selected").parent().remove();
 	}); */
 </script>
-
+<script type="text/javascript">
+window.onload = function () {
+	var foodAndDrinks = ${user.getAmoutByExpenseCategoryId(1)};
+	var transport = ${user.getAmoutByExpenseCategoryId(2)};
+	var education = ${user.getAmoutByExpenseCategoryId(3)};
+	var sport = ${user.getAmoutByExpenseCategoryId(4)};
+	var bills = ${user.getAmoutByExpenseCategoryId(5)};
+	var other = ${user.getAmoutByExpenseCategoryId(6)};
+	
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		title:{
+			text: "Percentage expenses by  type"
+		},
+                animationEnabled: true,
+		data: [
+		{
+			type: "doughnut",
+			startAngle: 60,
+			toolTipContent: "{legendText}: {y} - <strong>#percent% </strong>",
+			showInLegend: true,
+          explodeOnClick: true, 
+			dataPoints: [
+				{y: foodAndDrinks, indexLabel: "Food&Drinks #percent%", legendText: "Food&Drinks" },
+				{y: transport, indexLabel: "Transport #percent%", legendText: "Transport" },
+				{y: education,  indexLabel: "Education #percent%", legendText: "Education" },
+				{y: sport, indexLabel: "Sport #percent%", legendText: "Sport" },
+				{y: bills, indexLabel: "Bills #percent%", legendText: "Bills" },
+				{y: other,  indexLabel: "Other #percent%", legendText: "Other" }
+			]
+		}
+		]
+	});
+	chart.render();
+	}
+	</script>
+	<script src="../../canvasjs.min.js"></script>
+	<title>CanvasJS Example</title>
 
 <title>My expenses</title>
 
@@ -137,7 +175,9 @@
 
 	<section class="">
 	<div class="">
-		<h1>Expenses</h1>
+		<!-- <h1>Expenses</h1> -->
+		
+		<div id="chartContainer" style="height: 400px; width: 60%;"></div>
 
 		<button id="myBtn">Add expense</button>
 
