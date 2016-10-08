@@ -21,37 +21,35 @@
 	$(document).ready(function() {
 		$("#datepicker").datepicker();
 	});
-	
+
 	$(document).ready(function() {
 
-	    $('#main').change(function() {
+		$('#main').change(function() {
 
-	        if ($(this).is(':checked')) {
-	        $('input[name="id"]:checkbox').prop('checked', true);        
+			if ($(this).is(':checked')) {
+				$('input[name="id"]:checkbox').prop('checked', true);
 
-	        } else {
+			} else {
 
-	            $('input[name="id"]:checkbox').prop('checked', false);
-	        }
-	    });
+				$('input[name="id"]:checkbox').prop('checked', false);
+			}
+		});
 
-
-	$('input[name="id"]:checkbox').change(function() {
-	        var chkLength = $('input[name="id"]:checkbox').length;
-	        var checkedLen = $('input[name="id"]:checkbox:checked').length;    
-	        if (chkLength == checkedLen) {
-	            $('#main').prop('checked', true);
-	        } else {
-	            $('#main').prop('checked', false);
-	        }
-	    });
+		$('input[name="id"]:checkbox').change(function() {
+			var chkLength = $('input[name="id"]:checkbox').length;
+			var checkedLen = $('input[name="id"]:checkbox:checked').length;
+			if (chkLength == checkedLen) {
+				$('#main').prop('checked', true);
+			} else {
+				$('#main').prop('checked', false);
+			}
+		});
 	});
-	
+
 	/* 
 	$('#delete').click(function () {
 	    $(".checkbox input:selected").parent().remove();
 	}); */
-	
 </script>
 
 
@@ -106,7 +104,7 @@
 		if (session.getAttribute("user") == null)
 			response.sendRedirect("./login");
 	%>
-	
+
 
 	<header>
 	<div class="logo">
@@ -120,12 +118,10 @@
 	</div>
 	<div class="navigation_buttons">
 		<nav> <a href="./inquiries"><button class="n_button"
-				type="submit">Inquiries</button></a> 
-				<a href="./budgets"><button
-				class="n_button" type="submit">Budget</button></a> 
-				<a href="./obligations"><button
-				class="n_button" type="submit">Obligations</button></a> <a
-			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
+				type="submit">Inquiries</button></a> <a href="./budgets"><button
+				class="n_button" type="submit">Budget</button></a> <a
+			href="./obligations"><button class="n_button" type="submit">Obligations</button></a>
+		<a href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
 		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
 		<a href="./home"><button class="n_button" type="submit">My
 				profile</button></a> </nav>
@@ -140,25 +136,7 @@
 	<section class="">
 	<div class="">
 		<h1>Expenses</h1>
-
-	<c:if test="${ empty user }">
-			<p> This profile does not exist!</p>
-		</c:if>
-
-		<p>
-			<form:form action="./deleteExpense">
-				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
-				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
-				<c:forEach items="${user.expenses}" var="expense">
-									
-					<input type="checkbox" name="id" id="${expense.id}" value="${expense.id}"/>
-					<c:out value="${expense}"></c:out>
-					<br />
-				</c:forEach>
-			</form:form>
-		</p>
-
-
+		
 		<button id="myBtn">Add expense</button>
 
 		<div id="myModal" class="modal">
@@ -224,6 +202,51 @@
 
 			</div>
 
+		</div>
+		
+		<c:if test="${ empty user }">
+			<p>This profile does not exist!</p>
+		</c:if>
+		
+		<div class="Tables">
+			<table class="table" name="expense_table" cellspacing="0"
+				cellpadding="2" width="80%">
+				<caption><h2>All expenses</h2></caption>
+				<thead>
+                <tr>
+               		<th><input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br /></th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+            	</thead>
+            	<tbody>
+				<p>
+					<form:form action="./deleteExpense">
+						
+						<c:forEach items="${user.expenses}" var="expense">
+						<tr>
+							<td align="center">	<input type="checkbox" name="id" id="${expense.id}" value="${expense.id}" /> </td>
+							<td align="left">	<c:out value="${expense.category}"></c:out> </td>
+							<td align="right">	<c:out value="${expense.amount}"></c:out>&nbsp;$ </td>
+							<td align="center"> from: <c:out value="${expense.date}"></c:out> </td>
+							<td align="center"> (<c:out value="${expense.description}"></c:out>) </td>
+						</tr>
+						</c:forEach>
+						<input type="submit" id="delete" name="commit"
+							value="Delete selected">
+					</form:form>
+				</p>
+				</tbody>
+				<tfoot>
+              <tr>
+                <td align="right" colspan="2" style="padding-top: 14px";><strong>Total amount:</strong></td>
+                <td align="right" style="padding-top: 14px"><strong><c:out value="${user.totalExpenses}"></strong></c:out>&nbsp;$</td>
+                
+              </tr>
+            </tfoot>
+			</table>
 		</div>
 
 		<script>
