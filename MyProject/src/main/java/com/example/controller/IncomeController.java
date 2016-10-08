@@ -2,23 +2,29 @@ package com.example.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.model.Payment;
+import com.example.model.Income;
 import com.example.model.User;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
+@Controller
 @ContextConfiguration(classes = UserHasIncomesDAO.class)
-public class IncomeController extends PaymentController{
+@Scope("session")
+public class IncomeController{
 
-	@Override
+	@Autowired
+	private UserHasIncomesDAO userHasIncomesDAO;
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.POST)
-	public String addPayment(Payment payment, Model model, HttpServletRequest request) {
+	public String addIncome(Income income, Model model, HttpServletRequest request) {
 		
 		if(request.getSession(false) == null){
 			return "index";
@@ -27,21 +33,14 @@ public class IncomeController extends PaymentController{
 		User user = (User) request.getSession().getAttribute("user");
 		
 		try {
-			addPayments(payment, model, user);
+			model.addAttribute("income", userHasIncomesDAO.insertPayment(user.getUserId(), income));
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
 		}
 		
 		return "redirect:/incomes";
-	}
-	
-	@Override
-	@RequestMapping(value="/deleteIncome", method = RequestMethod.POST)
-	public String deletePayment(HttpServletRequest request) {
-		
-		return "";
-		
 	}
 
 	@RequestMapping(value="/deleteIncome", method = RequestMethod.POST)
@@ -52,7 +51,7 @@ public class IncomeController extends PaymentController{
 		for (int index = 0; index < ids.length; index++){
 			id = Integer.parseInt(ids[index]);
 			try {
-				if(userHasDAO.deletePayment(id)){
+				if(userHasIncomesDAO.deletePayment(id)){
 					user.removeIncome(id);
 				}
 			} catch (PaymentExpeption e) {
@@ -61,7 +60,7 @@ public class IncomeController extends PaymentController{
 			}
 		}
 		try {
-			userHasDAO.selectAndAddAllPaymentsOfUser(user);
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";

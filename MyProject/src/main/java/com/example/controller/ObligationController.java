@@ -1,22 +1,29 @@
 package com.example.controller;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.model.Payment;
+import com.example.model.Obligation;
 import com.example.model.User;
 import com.example.model.UserHasObligationsDAO;
 import com.example.model.exceptions.PaymentExpeption;
 
+@Controller
 @ContextConfiguration(classes = UserHasObligationsDAO.class)
-public class ObligationController extends PaymentController{
+@Scope("session")
+public class ObligationController{
 
-	@Override
+	@Autowired
+	private UserHasObligationsDAO userHasObligationsDAO;
+	
 	@RequestMapping(value="/obligations", method = RequestMethod.POST)
-	public String addPayment(Payment payment, Model model, HttpServletRequest request) {
+	public String addObligation(Obligation obligation, Model model, HttpServletRequest request) {
 		if(request.getSession(false) == null){
 			return "index";
 		}
@@ -24,7 +31,10 @@ public class ObligationController extends PaymentController{
 		User user = (User) request.getSession().getAttribute("user");
 		
 		try {
-			addPayments(payment, model, user);
+			
+			model.addAttribute("obligation", userHasObligationsDAO.insertPayment(user.getUserId(), obligation));
+			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
+			
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();
 			return "error";
@@ -32,15 +42,5 @@ public class ObligationController extends PaymentController{
 		
 		return "redirect:/obligations";
 	}
-
-	@Override
-	public String deletePayment(HttpServletRequest request) {
-		return "";
-	}
-	
-
-	
-	
-	
 
 }
