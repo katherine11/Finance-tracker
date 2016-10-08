@@ -58,7 +58,7 @@ public class UserHasObligationsDAO implements UserHasDAO {
 					+ "join users_has_obligations uho on (uho.user_id = " + user.getUserId() + " and u.user_id = " + user.getUserId() + ") "
 					+ "join obligations o on (uho.obligation_id = o.obligation_id) "
 					+ "join repeatings r on (r.repeating_id = uho.repeating_id) "
-					+ "join period p on (p.period_id = uho.period_id) LIMIT 0, 1000");
+					+ "join period p on (p.period_id = uho.period_id) order by date LIMIT 0, 1000");
 
 			Obligation obligation = null;
 

@@ -56,7 +56,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 					+ "uhi.amount, uhi.date, uhi.description, uhi.id FROM users u "
 					+ "JOIN users_has_incomes uhi ON (uhi.user_id = "+user.getUserId()+" AND u.user_id = "+user.getUserId()+") "
 					+ "JOIN incomes i ON (uhi.incomes_id = i.incomes_id) "
-					+ "JOIN repeatings r ON (r.repeating_id = uhi.repeating_id) LIMIT 0, 1000");
+					+ "JOIN repeatings r ON (r.repeating_id = uhi.repeating_id) order by date LIMIT 0, 1000");
 
 			Income income = null;
 			while (rs.next()) {

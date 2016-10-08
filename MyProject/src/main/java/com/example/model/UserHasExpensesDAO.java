@@ -57,7 +57,7 @@ public class UserHasExpensesDAO implements UserHasDAO {
 					+ "JOIN users_has_expenses uhe ON (uhe.user_id = " + user.getUserId() + " AND u.user_id = "
 					+ user.getUserId() + ") "
 					+ "JOIN expenses e ON (uhe.expenses_id = e.expenses_id) JOIN repeatings r "
-					+ "ON (r.repeating_id = uhe.repeating_id) LIMIT 0, 1000");
+					+ "ON (r.repeating_id = uhe.repeating_id) order by date LIMIT 0, 1000");
 
 			Expense expense = null;
 
