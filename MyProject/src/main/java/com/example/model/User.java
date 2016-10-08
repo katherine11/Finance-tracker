@@ -24,7 +24,7 @@ public class User {
 	private Set<Payment> incomes = new LinkedHashSet<Payment>(); 
 	private Set<Payment> obligations = new LinkedHashSet<Payment>(); 
 	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
-	private double balance;
+//	private double balance;
 //	private double totalIncomes;
 //	private double totalExpenses;
 
@@ -157,11 +157,9 @@ public class User {
 	}
 	
 	public double getBalance () {
-	
-		this.balance += getTotalIncomes();
-		this.balance -= getTotalExpenses();
+		double balance = getTotalIncomes() - getTotalExpenses();
 		
-		return this.balance;
+		return balance;
 		
 	}
 
@@ -180,16 +178,6 @@ public class User {
 		}
 		return totalIncomes;
 	}
-
-	public Set<Payment> getExpensesBy(int categoryId) {
-		Set<Payment> ExpensesByCategory = new LinkedHashSet<Payment>(); 
-		for (Payment expense : expenses){
-			if (expense.getCategoryId() == categoryId){
-				ExpensesByCategory.add(expense);
-			}
-		}
-		return Collections.unmodifiableSet(ExpensesByCategory);
-	} 
 	
 	public Set<Payment> getExpensesBy(String from, String to, int categoryId) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -209,7 +197,6 @@ public class User {
 		}
 		return Collections.unmodifiableSet(ExpensesBy);
 	} 
-	
 	
 }
 
