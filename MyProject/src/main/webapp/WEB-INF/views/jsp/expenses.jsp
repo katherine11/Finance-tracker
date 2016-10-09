@@ -168,11 +168,12 @@ window.onload = function () {
 		<br />
 	</div>
 
-	<section class="">
+	<section class="section_home">
+	
+	<div id="chartContainer" style="height: 400px; width: 100%;"></div>	
+	
 	<div class="">
 		<!-- <h1>Expenses</h1> -->
-		
-		<div id="chartContainer" style="height: 400px; width: 60%;"></div>
 
 		<button id="myBtn">Add expense</button>
 
@@ -422,6 +423,7 @@ window.onload = function () {
 		<br />
 		<hr>
 	</div>
+		
 	<footer>
 	<div id="footer">
 		<p>Webpage made by Vasil and Katerina, IT Talents Training Camp,
