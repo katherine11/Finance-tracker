@@ -42,7 +42,32 @@ public class BudgetController {
 		
 		return "redirect:/budgets";
 	}
-
+	
+	@RequestMapping(value="/deleteBudget", method = RequestMethod.POST)
+	public String deleteBudget(HttpServletRequest req, Model model) {
+		User user = (User) req.getSession().getAttribute("user");
+		String [] ids = req.getParameterValues("expenseId");
+		int expenseId;
+		for (int index = 0; index < ids.length; index++){
+			expenseId = Integer.parseInt(ids[index]);
+			try {
+				if(userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)){
+					user.removeBudget(expenseId);
+				}
+			} catch (PaymentExpeption e) {
+				model.addAttribute("insertFail", "Already exist budget for this category");
+				return "budgets";
+			}
+		}
+		try {			
+			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
+		} catch (PaymentExpeption e) {
+			e.printStackTrace();
+			return "error";
+		}
+			
+		return "redirect:/budgets";
+	}
 
 	
 

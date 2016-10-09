@@ -137,8 +137,10 @@
 	<div class="">
 		<h1>Budgets</h1>
 
-		<c:if test="${ empty user }">
-			<p> This profile does not exist!</p>
+		<c:if test="${ not empty insertFail }">
+			<p class="invalid_input">
+				<c:out value="${insertFail}"></c:out>
+			<p>
 		</c:if>
 
 		<p>
@@ -147,7 +149,7 @@
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.budgets}" var="budget">
 									
-					<input type="checkbox" name="id" id="${budget.expenseId}" value="${budget.expenseId}"/>
+					<input type="checkbox" name="expenseId" id="${budget.expenseId}" value="${budget.expenseId}"/>
 					<c:out value="${budget}"></c:out>
 					<br />
 				</c:forEach>

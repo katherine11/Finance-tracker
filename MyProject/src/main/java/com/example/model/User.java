@@ -156,6 +156,15 @@ public class User {
 		
 	}
 	
+	public void removeBudget(int expenseId) {
+		for (Budget budget : budgets){
+			if (budget.getExpenseId() == expenseId){
+				budgets.remove(budget);				
+				return;
+			}
+		}
+	}
+	
 	public double getBalance () {
 		double balance = getTotalIncomes() - getTotalExpenses();
 		
@@ -207,6 +216,9 @@ public class User {
 		}
 		return exp;
 	}
+
+
+	
 	
 }
 
