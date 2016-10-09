@@ -216,7 +216,16 @@ public class User {
 		}
 		return exp;
 	}
-
+	
+	public double getAmoutByIncomeCategoryId(int categoryId){
+		double inc = 0;
+		for (Payment income : incomes){
+			if (income.getCategoryId() == categoryId){
+				inc += income.getAmount();
+			}
+		}
+		return inc;
+	}
 
 	
 	
