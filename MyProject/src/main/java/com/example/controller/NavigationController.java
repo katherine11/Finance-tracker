@@ -14,6 +14,7 @@ import com.example.model.Expense;
 import com.example.model.Income;
 import com.example.model.Obligation;
 import com.example.model.User;
+import com.example.model.UserHasBudgetsDAO;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.UserHasObligationsDAO;
@@ -30,6 +31,10 @@ public class NavigationController {
 //	
 //	@Autowired
 //	private UserHasObligationsDAO userHasObligationsDAO;
+	
+	
+	@Autowired 
+	private UserHasBudgetsDAO userHasBudgetsDAO;
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.GET)
 	public String incomes(Model model, HttpServletRequest request) {

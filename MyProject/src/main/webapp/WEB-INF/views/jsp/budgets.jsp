@@ -163,21 +163,26 @@
 
 				<form:form commandName="budget">
 
-					<%-- <p>
-						<form:label path="categoryId">Choose category:</form:label>
-						<form:select id="categoryId" class="input" path="categoryId">
-							<form:option value="6">Salary</form:option>
+				<p>
+						<form:label path="${expense.categoryId}">Choose an expense category:</form:label>
+						<form:select id="categoryId" class="input" path="${expense.categoryId}">
+							<form:option value="1">Food&Drinks</form:option>
 
-							<form:option value="7">Rent</form:option>
+							<form:option value="2">Transport</form:option>
 
-							<form:option value="8">Grants</form:option>
+							<form:option value="3">Education</form:option>
 
-							<form:option value="9">Other</form:option>
+							<form:option value="4">Sport</form:option>
+
+							<form:option value="5">Bills</form:option>
+
+							<form:option value="6">Other</form:option>
 
 						</form:select>
-					</p> --%>
+					</p>
+					
 					<p>
-						<form:label path="amount">Enter an ammount of money:</form:label>
+						<form:label path="amount">Enter an amount of money:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />

@@ -1,6 +1,7 @@
 package com.example.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Budget {
 	
@@ -56,6 +57,41 @@ public class Budget {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public void setExpenseId(int expenseId) {
+		this.expenseId = expenseId;
+	}
+
+	public void setExpense(String expense) {
+		this.expense = expense;
+	}
+
+	public void setRepeatingId(int repeatingId) {
+		this.repeatingId = repeatingId;
+	}
+
+	public void setRepeating(String repeating) {
+		this.repeating = repeating;
+	}
+
+	public void setDate(String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		LocalDate parsedDate = LocalDate.parse(date, formatter);
+		this.date = parsedDate;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

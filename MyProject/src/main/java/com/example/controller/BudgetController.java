@@ -33,7 +33,8 @@ public class BudgetController {
 		User user = (User) request.getSession().getAttribute("user");
 		
 		try {
-			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(budget));
+			System.out.println(user.getUserId());
+			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(user.getUserId(), budget));
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
 		} catch (PaymentExpeption e) {
 			e.printStackTrace();

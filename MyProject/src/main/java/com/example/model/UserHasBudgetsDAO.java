@@ -19,14 +19,14 @@ public class UserHasBudgetsDAO  {
 	private static final String DELETE_BUDGET_SQL = "DELETE FROM users_has_budgets WHERE user_id = ? and expense_id = ?;";
 	private static final String INSERT_BUDGET_SQL = "INSERT INTO users_has_budgets VALUES (?, ?, ?, ?, ?, ?)";
 
-	public boolean insertBudget(Budget budget) throws PaymentExpeption {
+	public boolean insertBudget(int userId, Budget budget) throws PaymentExpeption {
+		System.out.println(userId);
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
 
-			PreparedStatement ps = connection.prepareStatement(INSERT_BUDGET_SQL);
-
-			ps.setInt(1, budget.getUserId());
+			PreparedStatement ps = connection.prepareStatement(INSERT_BUDGET_SQL);	
+			ps.setInt(1, userId);
 			ps.setInt(2, budget.getExpenseId());
 			ps.setInt(3, budget.getRepeatingId());
 			ps.setDouble(4, budget.getAmount());
