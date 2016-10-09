@@ -165,7 +165,7 @@ public class User {
 		}
 	}
 	
-	public double getBalance () {
+	public double getBalance() {
 		double balance = getTotalIncomes() - getTotalExpenses();
 		
 		return balance;

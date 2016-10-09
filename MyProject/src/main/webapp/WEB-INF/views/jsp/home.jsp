@@ -11,53 +11,52 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/canvasjs.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+	var incomes = ${user.getTotalIncomes()};
+	var expenses = ${user.getTotalExpenses()};
+	var balance = ${user.getBalance()};
+	
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		title:{
+			text: "Overview"
+		},
+                animationEnabled: true,
+		data: [
+		{
+			type: "doughnut",
+			startAngle: 60,
+			toolTipContent: "{legendText}: {y} - <strong>#percent% </strong>",
+			showInLegend: true,
+          explodeOnClick: true, 
+			dataPoints: [
+				{y: incomes, indexLabel: "Total incomes #percent%", legendText: "Total incomes" },
+				{y: expenses, indexLabel: "Total expenses #percent%", legendText: "Total expenses" },
+				{y: balance,  indexLabel: "Balance #percent%", legendText: "Balance" },
+			]
+		}
+		]
+	});
+	chart.render();
+	}
+	</script>
+	<script src="../../canvasjs.min.js"></script>
 <title>Welcome in TYM!</title>
-
 
 </head>
 <body>
 	
-	<%
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Cache-Control", "no-store");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null)
-			response.sendRedirect("./login");
-	%>
+	<jsp:include page="home.header.jsp"></jsp:include>
 
-	<header>
-	<div class="logo">
-		<img alt="logo" src="img/logo.jpg">
-	</div>
-	<div class="title-text">
-		<h1>Get a full control over your money!</h1>
-	</div>
-	<div class="header_buttons">
-		<a href="./logout"><button type="submit">Log out</button></a>
-	</div>
-
-	<div id="navigationBar" class="navigation_buttons">
-		<nav><a href="./inquiries"><button class="n_button" type="submit">Inquiries</button></a>
-		<a href="./budgets"><button class="n_button" type="submit">Budget</button></a> 
-		<a href="./obligations"><button class="n_button" type="submit">Obligations</button></a> 
-		<a href="./expenses"><button class="n_button" type="submit">Expenses</button></a> 
-		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a> 
-		<a href="./home"><button class="n_button" type="submit">My profile</button></a> 
-		</nav>
-	</div>
-
-	</header>
-
-	<div>
-		<hr>
-		<br />
-	</div>
-
-	<section class="">
-	<div class="">
-		<h1>My profile</h1>
+	<section class="section_home">
+	
+	<div id="chartContainer" style="height: 400px; width: 100%;"></div>	
+	
+	<div class="table">
+		<h1>Overview</h1>
 		
 		<p> Total incomes: <c:out value="${user.totalIncomes}"></c:out> </p>
 		<p> Total expenses: <c:out value="${user.totalExpenses}"></c:out> </p>
