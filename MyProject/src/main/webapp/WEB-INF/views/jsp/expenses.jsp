@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/jquery.canvasjs.min.js"></script>
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<!-- <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script> -->
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -219,22 +219,22 @@ window.onload = function () {
 
 		</div>
 		
-				<div class="Tables">
-					<table class="table" name="expense_table" cellspacing="0"
+		<div class="Tables">
+			<table class="table" name="expense_table" cellspacing="0"
 						cellpadding="2" width="100%">
 						
-						<thead>
-							<tr style="height: 35px;">
-								<th><input name="selectALL" type="checkbox" value=""
-									id="main" />&nbsp;Select all<br /></th>
-								<th align="left">Category</th>
-								<th align="right">Amount</th>
-								<th>Date</th>
-								<th align="left">Description</th>
-							</tr>
-						</thead>
-						<br />
-						<tbody>
+				<thead>
+					<tr style="height: 35px;">
+						<th><input name="selectALL" type="checkbox" value=""
+							id="main" />&nbsp;Select all<br /></th>
+						<th align="left">Category</th>
+						<th align="right">Amount</th>
+						<th>Date</th>
+						<th align="left">Description</th>
+					</tr>
+				</thead>
+				<br />
+				<tbody>
 		<c:choose>
 			<c:when test="${empty expenses }">
 						<caption>
