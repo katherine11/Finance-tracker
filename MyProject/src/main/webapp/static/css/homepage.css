@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .main_heading {
-	color: #3366ff;
+	color: #2eb82e;
 	background-color: white;
 	font-family : 'Droid serif', serif;
 	font-size: 36px;
@@ -14,7 +14,7 @@
 }
 
 .sub_heading {
-	color: #66ff66;
+	color: #004F79;
 	background-color:white;
 	font-family: 'Droid Sans', sans-serif;
 	font-size: 50px;
