@@ -147,7 +147,7 @@
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.budgets}" var="budget">
 									
-					<input type="checkbox" name="id" id="${budget.id}" value="${budget.id}"/>
+					<input type="checkbox" name="id" id="${budget.expenseId}" value="${budget.expenseId}"/>
 					<c:out value="${budget}"></c:out>
 					<br />
 				</c:forEach>
@@ -164,8 +164,8 @@
 				<form:form commandName="budget">
 
 				<p>
-						<form:label path="${expense.categoryId}">Choose an expense category:</form:label>
-						<form:select id="categoryId" class="input" path="${expense.categoryId}">
+						<form:label path="expenseId">Choose an expense category:</form:label>
+						<form:select id="expenseId" class="input" path="expenseId">
 							<form:option value="1">Food&Drinks</form:option>
 
 							<form:option value="2">Transport</form:option>

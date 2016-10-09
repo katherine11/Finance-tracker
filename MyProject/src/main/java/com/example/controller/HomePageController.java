@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.model.Budget;
 import com.example.model.Expense;
 import com.example.model.Income;
+import com.example.model.Obligation;
 import com.example.model.User;
 import com.example.model.UserDAO;
+import com.example.model.UserHasBudgetsDAO;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.UserHasObligationsDAO;
@@ -34,6 +37,8 @@ public class HomePageController {
 	private UserHasExpensesDAO userHasExpensesDAO;
 	@Autowired
 	private UserHasObligationsDAO userHasObligationsDAO;
+	@Autowired 
+	private UserHasBudgetsDAO userHasBudgetsDAO;
 
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String homePage() {
@@ -47,6 +52,9 @@ public class HomePageController {
 		}
 		model.addAttribute(new Expense());
 		model.addAttribute(new Income());
+		model.addAttribute(new Obligation());
+		model.addAttribute(new Budget());
+		
 		return "login";
 	}	
 	
@@ -60,6 +68,7 @@ public class HomePageController {
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(loggedUser);
 			session.setAttribute("user", loggedUser);
 			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);

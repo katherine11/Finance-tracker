@@ -23,19 +23,6 @@ import com.example.model.exceptions.PaymentExpeption;
 @Controller
 public class NavigationController {
 	
-//	@Autowired
-//	private UserHasIncomesDAO userHasIncomesDAO;
-//	
-//	@Autowired
-//	private UserHasExpensesDAO userHasExpensesDAO;
-//	
-//	@Autowired
-//	private UserHasObligationsDAO userHasObligationsDAO;
-	
-	
-	@Autowired 
-	private UserHasBudgetsDAO userHasBudgetsDAO;
-	
 	@RequestMapping(value="/incomes", method = RequestMethod.GET)
 	public String incomes(Model model, HttpServletRequest request) {
 		if (request.getSession(false) == null){
@@ -45,13 +32,7 @@ public class NavigationController {
 		User user = (User) request.getSession().getAttribute("user");
 		model.addAttribute("user", user);
 		model.addAttribute(new Income());
-//		try {
-//			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
-//			
-//		} catch (PaymentExpeption e) {
-//			e.printStackTrace();
-//			return "error";
-//		}
+
 		return "incomes";
 	}
 	
@@ -65,12 +46,6 @@ public class NavigationController {
 		model.addAttribute("user", user);
 		model.addAttribute(new Expense());
 		
-//		try {
-//			 userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
-//		} catch (PaymentExpeption e) {
-//			e.printStackTrace();
-//			return "error";
-//		}
 		return "expenses";
 	}
 	
@@ -84,12 +59,6 @@ public class NavigationController {
 		model.addAttribute("user", user);
 		model.addAttribute(new Obligation());
 		
-//		try {
-//			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
-//		} catch (PaymentExpeption e) {
-//			e.printStackTrace();
-//			return "error";
-//		}
 		return "obligations";
 	}
 	

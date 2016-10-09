@@ -28,6 +28,7 @@ public class ExpenseController{
 	
 	@RequestMapping(value="/expenses", method = RequestMethod.POST)
 	public String addExpense(Expense expense, Model model, HttpServletRequest request) {
+		
 		if(request.getSession(false) == null){
 			return "index";
 		}
@@ -35,7 +36,6 @@ public class ExpenseController{
 		User user = (User) request.getSession().getAttribute("user");
 		
 		try {
-			
 			model.addAttribute("expense", userHasExpensesDAO.insertPayment(user.getUserId(), expense));
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 			
