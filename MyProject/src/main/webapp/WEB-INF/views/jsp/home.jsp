@@ -49,7 +49,7 @@ window.onload = function () {
 </head>
 <body>
 	
-	<jsp:include page="home.header.jsp"></jsp:include>
+	<jsp:include page="home.header.jsp"></jsp:include> 
 
 	<section class="section_home">
 	
