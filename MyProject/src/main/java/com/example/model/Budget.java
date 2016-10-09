@@ -24,6 +24,8 @@ public class Budget {
 		this.description = description;
 	}
 
+	public Budget() {}
+
 	public int getUserId() {
 		return userId;
 	}
@@ -80,5 +82,13 @@ public class Budget {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Budget [expense=" + expense + ", repeating=" + repeating + ", amount=" + amount + ", date=" + date + ", description="
+				+ description + "]";
+	}
+	
+	
 
 }

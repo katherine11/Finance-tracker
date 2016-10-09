@@ -48,11 +48,7 @@
 			}
 		});
 	});
-
-	/* 
-	$('#delete').click(function () {
-	    $(".checkbox input:selected").parent().remove();
-	}); */
+	
 </script>
 <script type="text/javascript">
 window.onload = function () {
@@ -91,7 +87,6 @@ window.onload = function () {
 	}
 	</script>
 	<script src="../../canvasjs.min.js"></script>
-	<title>CanvasJS Example</title>
 
 <title>My expenses</title>
 
@@ -206,7 +201,7 @@ window.onload = function () {
 						</form:select>
 					</p>
 					<p>
-						<form:label path="amount">Enter ammount of money:</form:label>
+						<form:label path="amount">Enter amount of money:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />

@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="false"%>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -49,7 +52,7 @@
 </script>
 
 
-<title>My obligations</title>
+<title>My budgets</title>
 
 <style>
 .modal {
@@ -115,10 +118,8 @@
 	<div class="navigation_buttons">
 
 		<nav> <a href="./inquiries"><button class="n_button"
-				type="submit">Inquiries</button></a> 
-				<a href="./budgets"><button
-				class="n_button" type="submit">Budget</button></a> 
-				<a href="./obligations"><button
+				type="submit">Inquiries</button></a> <a href="./budgets"><button
+				class="n_button" type="submit">Budgets</button></a> <a href="./obligations"><button
 				class="n_button" type="submit">Obligations</button></a> <a
 			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
 		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
@@ -134,49 +135,49 @@
 
 	<section class="">
 	<div class="">
-		<h1>Obligations</h1>
+		<h1>Budgets</h1>
 
 		<c:if test="${ empty user }">
 			<p> This profile does not exist!</p>
 		</c:if>
 
 		<p>
-			<form:form>
+			<form:form action="./deleteBudget">
 				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
-				<c:forEach items="${user.obligations}" var="obligation">
+				<c:forEach items="${user.budgets}" var="budget">
 									
-					<input type="checkbox" name="current_obligation" id="${obligation.id}"/>
-					<c:out value="${obligation}"></c:out>
+					<input type="checkbox" name="id" id="${budget.id}" value="${budget.id}"/>
+					<c:out value="${budget}"></c:out>
 					<br />
 				</c:forEach>
 			</form:form>
 		</p>
 
-		<button id="myBtn">Add obligation</button>
+		<button id="myBtn">Add budget</button>
 
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
 				<span class="close">close</span>
 
-				<form:form commandName="obligation">
+				<form:form commandName="budget">
 
-					<p>
+					<%-- <p>
 						<form:label path="categoryId">Choose category:</form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
-							<form:option value="1">Credit</form:option>
+							<form:option value="6">Salary</form:option>
 
-							<form:option value="2">Loan</form:option>
+							<form:option value="7">Rent</form:option>
 
-							<form:option value="3">Fast Credit</form:option>
+							<form:option value="8">Grants</form:option>
 
-							<form:option value="4">Other</form:option>
+							<form:option value="9">Other</form:option>
 
 						</form:select>
-					</p>
+					</p> --%>
 					<p>
-						<form:label path="amount">Enter an amount of money:</form:label>
+						<form:label path="amount">Enter an ammount of money:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />
@@ -200,28 +201,6 @@
 						<form:input id="datepicker" class="input" name="date" path="date"
 							placeholder="Date" required="required" />
 					</p>
-					
-					<p>
-						<form:label path="periodQuantity">Choose a period quantity:</form:label>
-						<form:input id="periodQuantity" class="input" name="periodQuantity" path="periodQuantity"
-							placeholder="Quantity" required="required" />
-					</p>
-					
-					
-					<p>
-						<form:label path="periodId">Choose a period:</form:label>
-						<form:select id="periodId" class="input" path="periodId">
-							<form:option value="1">Days</form:option>
-
-							<form:option value="2">Weeks</form:option>
-
-							<form:option value="3">Months</form:option>
-
-							<form:option value="4">Years</form:option>
-
-						</form:select>
-					</p>
-					
 					<p>
 						<form:label path="description">Enter a description:</form:label>
 						<form:textarea id="description" class="input" name="description"

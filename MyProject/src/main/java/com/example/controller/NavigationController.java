@@ -5,9 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.model.Budget;
 import com.example.model.Expense;
 import com.example.model.Income;
 import com.example.model.Obligation;
@@ -84,6 +86,19 @@ public class NavigationController {
 //			return "error";
 //		}
 		return "obligations";
+	}
+	
+	@RequestMapping(value="/budgets", method = RequestMethod.GET)
+	public String budgets(Model model, HttpServletRequest request){
+		if(request.getSession(false) == null){
+			return "index";
+		}
+		
+		User user = (User) request.getSession().getAttribute("user");
+		model.addAttribute("user", user);
+		model.addAttribute(new Budget());
+		
+		return "budgets";
 	}
 	
 	@RequestMapping(value="/home", method = RequestMethod.GET)

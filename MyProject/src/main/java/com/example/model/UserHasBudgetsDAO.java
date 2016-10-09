@@ -8,9 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
 import com.example.model.connections.DBConnection;
 import com.example.model.exceptions.PaymentExpeption;
 
+@Component
 public class UserHasBudgetsDAO  {
 	
 	private static final String DELETE_BUDGET_SQL = "DELETE FROM users_has_budgets WHERE user_id = ? and expense_id = ?;";

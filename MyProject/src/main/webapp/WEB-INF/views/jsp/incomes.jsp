@@ -49,11 +49,6 @@
 	    });
 	});
 	
-	/* 
-	$('#delete').click(function () {
-	    $(".checkbox input:selected").parent().remove();
-	}); */
-	
 </script>
 
 
@@ -122,9 +117,10 @@
 	</div>
 	<div class="navigation_buttons">
 
-		<nav> <a href="/inquiries"><button class="n_button"
-				type="submit">Inquiries</button></a> <a href=".budgets"><button
-				class="n_button" type="submit">Budget</button></a> <a href="./obligations"><button
+		<nav> <a href="./inquiries"><button class="n_button"
+				type="submit">Inquiries</button></a> 
+				<a href="./budgets"><button class="n_button" type="submit">Budget</button></a> 
+				<a href="./obligations"><button
 				class="n_button" type="submit">Obligations</button></a> <a
 			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
 		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
@@ -182,7 +178,7 @@
 						</form:select>
 					</p>
 					<p>
-						<form:label path="amount">Enter an ammount of money:</form:label>
+						<form:label path="amount">Enter an amount of money:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />
