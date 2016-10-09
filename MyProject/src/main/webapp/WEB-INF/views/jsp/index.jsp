@@ -10,9 +10,9 @@
 
 
 <div class="header_buttons">
-	<a href="./login"><button type="submit">Login</button></a> <a
-		href="./register"><button type="submit">Register</button></a> <a
-		href="http://www.dnes.bg/"><button type="submit">News</button></a>
+	<a href="./login" ><span class="glyphicons glyphicons-lock"></span><button type="submit" class="h_butt">Login </button></a>
+	<a href="./register" ><button type="submit" class="h_butt">Register</button></a> <a
+		href="http://www.dnes.bg/"><button type="submit" class="h_butt">News</button></a>
 </div>
 
 </header>

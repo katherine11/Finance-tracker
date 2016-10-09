@@ -34,10 +34,12 @@ header {
   float: left;
   margin-left: 2em;
 }
-.header_buttons {
+ .header_buttons {
  /*  border: 2px solid red; */
   float: right;
   padding-top: 8px;
+  font-weight: bold;
+  
 }
 
 .section {
@@ -68,11 +70,12 @@ button {
 	background-color: #69A543;
 	border-radius: 15px;
     color: black;
+    font-weight: bold;
     padding: 15px 10px;
     text-align: center;
     display: block;
     font-size: 16px;
-    margin: 4px 6px;
+    margin: 15px 10px;
     cursor: pointer;
     top:0;
 }
