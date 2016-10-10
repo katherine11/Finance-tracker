@@ -23,7 +23,7 @@
 		<!-- <h1>Get a full control over your money!</h1> -->
 	</div>
 	<div class="header_buttons">
-		<a href="./logout"><button type="submit">Log out</button></a>
+		<a href="./logout"><button type="submit" class="h_butt">Log out</button></a>
 	</div>
 	<div class="navigation_buttons">
 		<nav>

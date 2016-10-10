@@ -8,9 +8,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 	<div class="header_buttons">
-		<a href="./"><button type="submit">Home</button></a> <a
-			href="./register"><button type="submit">Register</button></a> <a
-			href="http://www.dnes.bg/"><button type="submit">News</button></a>
+		<a href="./"><button type="submit" class="h_butt">Home</button></a> <a
+			href="./register"><button type="submit" class="h_butt">Register</button></a> <a
+			href="http://www.dnes.bg/"><button type="submit" class="h_butt">News</button></a>
 	</div>
 
 	</header>
