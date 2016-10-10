@@ -22,9 +22,9 @@
 	<br />
 </div>
 
-<div class="test">
-
-	<div class="main_heading">
+<section class="section">
+<%-- <div class="test">
+		<div class="main_heading">
 		<h2>Welcome to our cool site for managing your own money!</h2>
 	</div>
 
@@ -38,5 +38,6 @@
 		<a href="#" class="myButton">Set your own budget for each kind of
 			expense</a><br />
 	</div>
-</div>
+</div> --%>
+</section>
 <jsp:include page="footer.jsp"></jsp:include>
