@@ -2,10 +2,8 @@ package com.example.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,11 +12,6 @@ import com.example.model.Expense;
 import com.example.model.Income;
 import com.example.model.Obligation;
 import com.example.model.User;
-import com.example.model.UserHasBudgetsDAO;
-import com.example.model.UserHasExpensesDAO;
-import com.example.model.UserHasIncomesDAO;
-import com.example.model.UserHasObligationsDAO;
-import com.example.model.exceptions.PaymentExpeption;
 
 @Controller
 public class NavigationController {
@@ -54,7 +47,6 @@ public class NavigationController {
 		if (request.getSession(false) == null){
 			return "index";
 		}
-		
 		User user = (User) request.getSession().getAttribute("user");
 		model.addAttribute("user", user);
 		model.addAttribute(new Obligation());

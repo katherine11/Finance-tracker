@@ -79,11 +79,11 @@
 						}, {
 							y : Grants,
 							indexLabel : "Grants #percent%",
-							Grants : "Grants"
+							legendText : "Grants"
 						}, {
 							y : Other,
 							indexLabel : "Other #percent%",
-							Other : "Other"
+							legendText : "Other"
 						} ]
 					} ]
 				});
@@ -93,9 +93,6 @@
 <script src="../../canvasjs.min.js"></script>
 
 <title>My incomes</title>
-
-
-
 
 </head>
 <body>
@@ -109,10 +106,6 @@
 	<div class="">
 		<!-- <h1>Incomes</h1> -->
 		<button id="myBtn">Add income</button>
-
-		<c:if test="${ empty user }">
-			<p>This profile does not exist!</p>
-		</c:if>
 
 		<div class="Tables">
 			<table class="table" name="expense_table" cellspacing="0"

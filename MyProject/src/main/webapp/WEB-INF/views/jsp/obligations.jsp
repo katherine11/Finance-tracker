@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
-
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -51,94 +51,14 @@
 
 <title>My obligations</title>
 
-<style>
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	padding-top: 100px;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgb(0, 0, 0);
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-}
-
-.close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-</style>
-
-
 </head>
 <body>
 
-	<%
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Cache-Control", "no-store");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null)
-			response.sendRedirect("./login");
-	%>
-
-	<header>
-	<div class="logo">
-		<img alt="logo" src="img/logo.jpg">
-	</div>
-	<div class="title-text">
-		<h1>Get a full control over your money!</h1>
-	</div>
-	<div class="header_buttons">
-		<a href="./logout"><button type="submit">Log out</button></a>
-	</div>
-	<div class="navigation_buttons">
-
-		<nav> <a href="./inquiries"><button class="n_button"
-				type="submit">Inquiries</button></a> 
-				<a href="./budgets"><button
-				class="n_button" type="submit">Budget</button></a> 
-				<a href="./obligations"><button
-				class="n_button" type="submit">Obligations</button></a> <a
-			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
-		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
-		<a href="./home"><button class="n_button" type="submit">My profile</button></a> </nav>
-
-	</div>
-	</header>
-
-	<div>
-		<hr>
-		<br />
-	</div>
+	<jsp:include page="home.header.jsp"></jsp:include>
 
 	<section class="">
+	
 	<div class="">
-		<h1>Obligations</h1>
-
-		<c:if test="${ empty user }">
-			<p> This profile does not exist!</p>
-		</c:if>
 
 		<p>
 			<form:form>

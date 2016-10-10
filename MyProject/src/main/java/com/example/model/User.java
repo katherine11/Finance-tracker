@@ -24,9 +24,6 @@ public class User {
 	private Set<Payment> incomes = new LinkedHashSet<Payment>(); 
 	private Set<Payment> obligations = new LinkedHashSet<Payment>(); 
 	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
-//	private double balance;
-//	private double totalIncomes;
-//	private double totalExpenses;
 
 	public User() {
 	}
