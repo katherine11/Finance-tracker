@@ -10,9 +10,9 @@
 
 
 <div class="header_buttons">
-	<a href="./login"><button type="submit">Login</button></a> <a
-		href="./register"><button type="submit">Register</button></a> <a
-		href="http://www.dnes.bg/"><button type="submit">News</button></a>
+	<a href="./login" ><span class="glyphicons glyphicons-lock"></span><button type="submit" class="h_butt">Login </button></a>
+	<a href="./register" ><button type="submit" class="h_butt">Register</button></a> <a
+		href="http://www.dnes.bg/"><button type="submit" class="h_butt">News</button></a>
 </div>
 
 </header>
@@ -25,14 +25,14 @@
 <div class="test">
 
 	<div class="main_heading">
-		<h2 id="welcome">Welcome to our cool site for managing your own money!</h2>
+		<h2>Welcome to our cool site for managing your own money!</h2>
 	</div>
 
 	<div class="sub_heading">
 		<h3>Here you'll be able to:</h3>
 	</div>
 
-	<div class="info_buutons">
+	<div>
 		<a href="#" class="myButton">Enter your incomes and expenses</a><br />
 		<a href="#" class="myButton">See where you give your money for</a><br />
 		<a href="#" class="myButton">Set your own budget for each kind of
