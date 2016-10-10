@@ -93,12 +93,12 @@ public class HomePageController {
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute User user, Model model) {
 		try {
-			model.addAttribute("user", userDAO.registerUser(user));
+			userDAO.registerUser(user);
 		} catch (UserException e) {
 			model.addAttribute("registerFail", "The username has been already chosen!");
 			return "register";
 		}
-		return "login";
+		return "redirect:login";
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
