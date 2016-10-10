@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,10 @@ import com.example.model.exceptions.UserException;
 @Component
 public class UserDAO {
 
-	private static final String INSERT_USER_SQL = "insert into users values (null, ?, ?, md5(?))";
-	private static final String SELECT_USER_SQL = "select user_id, email from users where username = ? and password = md5(?)";
-	private static final String DELETE_USER_SQL = "delete from users where username = ?";
+	private static final String INSERT_USER_SQL = "INSERT INTO users VALUES (null, ?, ?, md5(?))";
+	private static final String SELECT_USER_SQL = "SELECT user_id, email FROM users WHERE username = ? AND password = md5(?)";
+	private static final String DELETE_USER_SQL = "DELETE FROM users WHERE username = ?";
+	private static final String CHECK_IF_USER_ID_EXISTS = "SELECT COUNT(user_id) FROM users WHERE user_id = ?;";
 
 	public int registerUser(User user) throws UserException {
 
@@ -80,6 +82,27 @@ public class UserDAO {
 			throw new UserException("Someting went wrong!");
 		}
 
+	}
+	
+	public static boolean containsUser(int userId){
+		
+		Connection connection = DBConnection.getInstance().getConnection();
+		
+		try {
+			Statement statement  = connection.createStatement();
+			ResultSet rs = statement.executeQuery(CHECK_IF_USER_ID_EXISTS);
+			rs.next();
+			int result = rs.getInt(1);
+			if(result == 0){
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+				
 	}
 
 }

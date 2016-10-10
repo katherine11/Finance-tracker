@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 import com.example.model.connections.DBConnection;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 
 @Component
 public class UserHasObligationsDAO implements UserHasDAO {
@@ -19,7 +19,7 @@ public class UserHasObligationsDAO implements UserHasDAO {
 	private static final String DELETE_OBLIGATION_SQL = "DELETE FROM `finance_track_test`.`users_has_obligations` WHERE `id`=?;";
 	private static final String INSERT_OBLIGATION_SQL = "insert into users_has_obligations values (?, ?, ?, ?, ?, ?, ?, ?, null)";
 
-	public int insertPayment(int userId, Payment obligation) throws PaymentExpeption {
+	public int insertPayment(int userId, Payment obligation) throws PaymentException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -44,11 +44,11 @@ public class UserHasObligationsDAO implements UserHasDAO {
 			return rs.getInt(1);
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Obligation insert failed!",e);
+			throw new PaymentException("Obligation insert failed!",e);
 		}
 	}
 
-	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentExpeption {
+	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -83,11 +83,11 @@ public class UserHasObligationsDAO implements UserHasDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Expenses select failed!",e);
+			throw new PaymentException("Expenses select failed!",e);
 		}		
 	}
 
-	public boolean deletePayment(int id) throws PaymentExpeption {
+	public boolean deletePayment(int id) throws PaymentException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -96,12 +96,12 @@ public class UserHasObligationsDAO implements UserHasDAO {
 			ps.setInt(1, id);
 			int deletedRows = ps.executeUpdate(); 
 			if (deletedRows == 0){
-				throw new PaymentExpeption("No such Obligation!");
+				throw new PaymentException("No such Obligation!");
 			}
 			return true;
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption ("Someting went wrong!",e);
+			throw new PaymentException ("Someting went wrong!",e);
 		} 
 	}
 

@@ -1,13 +1,13 @@
 package com.example.model;
 
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 
 public interface UserHasDAO {
 
-	int insertPayment(int userId, Payment payment) throws PaymentExpeption;
+	int insertPayment(int userId, Payment payment) throws PaymentException;
 
-	void selectAndAddAllPaymentsOfUser(User user) throws PaymentExpeption;
+	void selectAndAddAllPaymentsOfUser(User user) throws PaymentException;
 
-	boolean deletePayment(int id) throws PaymentExpeption;
+	boolean deletePayment(int id) throws PaymentException;
 
 }

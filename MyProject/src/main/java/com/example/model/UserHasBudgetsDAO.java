@@ -11,15 +11,19 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 import com.example.model.connections.DBConnection;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.BudgetException;
+import com.example.model.exceptions.PaymentException;
 
 @Component
 public class UserHasBudgetsDAO  {
 	
 	private static final String DELETE_BUDGET_SQL = "DELETE FROM users_has_budgets WHERE user_id = ? and expense_id = ?;";
 	private static final String INSERT_BUDGET_SQL = "INSERT INTO users_has_budgets VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String CHECK_IF_EXPENSE_ID_EXISTS = "SELECT COUNT(expenses_id) FROM users_has_budgets WHERE expenses_id = ?;";
+	private static final String CHECK_IF_REPEATING_ID_EXISTS = "SELECT COUNT(repeating_id) FROM users_has_budgets WHERE repeating_id = ?;";
 
-	public boolean insertBudget(int userId, Budget budget) throws PaymentExpeption {
+
+	public boolean insertBudget(int userId, Budget budget) throws PaymentException {
 		System.out.println(userId);
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -38,11 +42,11 @@ public class UserHasBudgetsDAO  {
 			return (insert >=1);
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Budget insert failed!",e);
+			throw new PaymentException("Budget insert failed!",e);
 		}
 	}
 
-	public void selectAndAddAllBudgetsOfUser(User user) throws PaymentExpeption {
+	public void selectAndAddAllBudgetsOfUser(User user) throws PaymentException, BudgetException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -70,11 +74,11 @@ public class UserHasBudgetsDAO  {
 			}
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Budgets select failed!");
+			throw new PaymentException("Budgets select failed!");
 		}
 	}
 
-	public boolean deleteBudget(int userID, int expenseId) throws PaymentExpeption {
+	public boolean deleteBudget(int userID, int expenseId) throws PaymentException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -86,13 +90,52 @@ public class UserHasBudgetsDAO  {
 			int deletedRows = ps.executeUpdate(); 
 			
 			if (deletedRows == 0){
-				throw new PaymentExpeption("No such Budget!");
+				throw new PaymentException("No such Budget!");
 			}
 			return true;
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption ("Someting went wrong!");
-		} 
+			throw new PaymentException ("Someting went wrong!");
+		}
+	}
+
+	public static boolean constainsExpense(int expenseId) {	
+		
+		Connection connection = DBConnection.getInstance().getConnection();
+		
+		try {
+			Statement statement  = connection.createStatement();
+			ResultSet rs = statement.executeQuery(CHECK_IF_EXPENSE_ID_EXISTS);
+			rs.next();
+			int result = rs.getInt(1);
+			if(result == 0){
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	public static boolean containsRepeating(int repeatingId) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		
+		try {
+			Statement statement  = connection.createStatement();
+			ResultSet rs = statement.executeQuery(CHECK_IF_REPEATING_ID_EXISTS);
+			rs.next();
+			int result = rs.getInt(1);
+			if(result == 0){
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 
 }

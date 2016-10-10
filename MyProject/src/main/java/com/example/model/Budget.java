@@ -1,7 +1,11 @@
 package com.example.model;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import com.example.model.exceptions.BudgetException;
 
 public class Budget {
 	
@@ -14,15 +18,63 @@ public class Budget {
 	private LocalDate date;
 	private String description;
 	
-	public Budget(int userId, int expenseId, String expense, int repeatingId, String repeating, double amount, LocalDate date, String description) {
-		this.userId = userId;
-		this.expenseId = expenseId;
-		this.expense = expense;
-		this.repeatingId = repeatingId;
-		this.repeating = repeating;
-		this.amount = amount;
-		this.date = date;
-		this.description = description;
+	public Budget(int userId, int expenseId, String expense, int repeatingId, String repeating, double amount, LocalDate date, String description) throws BudgetException {
+		//if there is such an id the database:
+		if(UserDAO.containsUser(userId)){
+			this.userId = userId;
+		}
+		else{
+			throw new BudgetException("Such user does not exist!");
+		}
+		
+		if(UserHasBudgetsDAO.constainsExpense(expenseId)){
+			this.expenseId = expenseId;
+		}
+		else{
+			throw new BudgetException("There is no such an expense available!");
+		}
+		
+		if(expense != null){
+			this.expense = expense;
+		}
+		else{
+			throw new BudgetException("There is no such kind of an expense!");
+		}
+		
+		if(UserHasBudgetsDAO.containsRepeating(repeatingId)){
+			this.repeatingId = repeatingId;
+		}
+		else{
+			throw new BudgetException("There is no such a repeating!");
+		}
+		
+		if(repeating != null){
+			this.repeating = repeating;
+		}
+		else{
+			throw new BudgetException("There is no such kind of repeating value!");
+		}
+		
+		if(amount > 0){
+			this.amount = amount;
+		}
+		else{
+			throw new BudgetException("There is no such an amount!");
+		}
+		
+		if(date != null){
+			this.date = date;
+		}
+		else{
+			throw new BudgetException("There is no such date!");
+		}
+		
+		if(description != null){
+			this.description = description;
+		}
+		else{
+			throw new BudgetException("There is no such kind of a description!");
+		}
 	}
 
 	public Budget() {}

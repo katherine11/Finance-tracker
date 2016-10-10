@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.example.model.Budget;
 import com.example.model.User;
 import com.example.model.UserHasBudgetsDAO;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 
 public class TestUserHasBudgetDAO {
 	
@@ -27,7 +27,7 @@ public class TestUserHasBudgetDAO {
 	private UserHasBudgetsDAO userHasBudgetsDAO = new UserHasBudgetsDAO();
 
 	@Test
-	public void test() throws PaymentExpeption {
+	public void test() throws PaymentException {
 		User user = new User(USER_ID, USERNAME, EMAIL, PASSWORD);
 		
 //		boolean isInserted = userHasBudgetsDAO.insertBudget

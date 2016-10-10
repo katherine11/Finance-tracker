@@ -16,7 +16,7 @@ import com.example.model.Expense;
 import com.example.model.Payment;
 import com.example.model.User;
 import com.example.model.UserHasExpensesDAO;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 
 @Controller
 @ContextConfiguration(classes = UserHasExpensesDAO.class)
@@ -39,7 +39,7 @@ public class ExpenseController{
 			model.addAttribute("expense", userHasExpensesDAO.insertPayment(user.getUserId(), expense));
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 			
-		} catch (PaymentExpeption e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}
@@ -59,7 +59,7 @@ public class ExpenseController{
 				if(userHasExpensesDAO.deletePayment(id)){
 					user.removeExpense(id);
 				}
-			} catch (PaymentExpeption e) {
+			} catch (PaymentException e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -67,7 +67,7 @@ public class ExpenseController{
 		try {
 			
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentExpeption e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}

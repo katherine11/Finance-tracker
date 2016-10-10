@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 import com.example.model.connections.DBConnection;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 
 @Component
 public class UserHasIncomesDAO implements UserHasDAO {
@@ -19,7 +19,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 	private static final String INSERT_INCOME_SQL = "INSERT INTO users_has_incomes VALUES (?, ?, ?, ?, ?, ?, null)";
 	private static final String DELETE_INCOME_SQL = "DELETE FROM `finance_track_test`.`users_has_incomes` WHERE `id`=?;";
 
-	public int insertPayment(int userId, Payment income) throws PaymentExpeption {
+	public int insertPayment(int userId, Payment income) throws PaymentException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -41,12 +41,12 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			return rs.getInt(1);
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Income insert failed!",e);
+			throw new PaymentException("Income insert failed!",e);
 		}
 		
 	}
 
-	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentExpeption {
+	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentException {
 		
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -75,12 +75,12 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption("Incomes select failed!",e);
+			throw new PaymentException("Incomes select failed!",e);
 		}
 		
 	}
 
-	public boolean deletePayment(int id) throws PaymentExpeption {
+	public boolean deletePayment(int id) throws PaymentException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -89,12 +89,12 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			ps.setInt(1, id);
 			int deletedRows = ps.executeUpdate(); 
 			if (deletedRows == 0){
-				throw new PaymentExpeption("No such Income!");
+				throw new PaymentException("No such Income!");
 			}
 			return true;
 
 		} catch (SQLException e) {
-			throw new PaymentExpeption ("Someting went wrong!",e);
+			throw new PaymentException ("Someting went wrong!",e);
 		} 
 	}
 

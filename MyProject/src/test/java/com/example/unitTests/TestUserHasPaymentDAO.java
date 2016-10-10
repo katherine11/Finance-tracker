@@ -16,7 +16,7 @@ import com.example.model.UserHasDAO;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.UserHasObligationsDAO;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 import com.example.model.exceptions.UserException;
 
 public class TestUserHasPaymentDAO {
@@ -42,7 +42,7 @@ public class TestUserHasPaymentDAO {
 	private UserHasDAO userHasObligationsDAO = new UserHasObligationsDAO();
 
 	@Test
-	public void testUser() throws UserException, PaymentExpeption {
+	public void testUser() throws UserException, PaymentException {
 		User user = new User(USER_ID, "Pesho", "pesho@abv.bg", "81dc9bdb52d04dc20036dbd8313ed055");
 
 		TEST_USER_HAS_EXPENSES(user);
@@ -53,7 +53,7 @@ public class TestUserHasPaymentDAO {
 
 	}
 
-	void TEST_USER_HAS_OBLIGATIONS(User user) throws PaymentExpeption {
+	void TEST_USER_HAS_OBLIGATIONS(User user) throws PaymentException {
 		int oId = userHasObligationsDAO.insertPayment(USER_ID, new Obligation(OBLIGATION_ID, "???", "???", 
 							O_REPEATING_ID, OBLIGATION_AMOUNT, LocalDate.now(), OBLIGATION_DESCRIPTION, ID_AUTO_INCREMENT, "???", PERIOD_ID, PERIOD_QUANTITY));
 		assertTrue(oId != 0);
@@ -64,7 +64,7 @@ public class TestUserHasPaymentDAO {
 		userHasObligationsDAO.deletePayment(oId);
 	}
 
-	void TEST_USER_HAS_INCOMES(User user) throws PaymentExpeption {
+	void TEST_USER_HAS_INCOMES(User user) throws PaymentException {
 		int iId = userHasIncomesDAO.insertPayment(USER_ID, new Income(INCOME_ID, "???", "???", REPEATING_ID, INCOME_AMOUNT , LocalDate.now(), INCOME_DESCRIPTION, ID_AUTO_INCREMENT));
 		assertTrue(iId != 0);
 		userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
@@ -74,7 +74,7 @@ public class TestUserHasPaymentDAO {
 		userHasIncomesDAO.deletePayment(iId);
 	}
 
-	void TEST_USER_HAS_EXPENSES(User user) throws PaymentExpeption {
+	void TEST_USER_HAS_EXPENSES(User user) throws PaymentException {
 		int eId = userHasExpensesDAO.insertPayment(USER_ID, new Expense(EXPENSE_ID, "???", "???", REPEATING_ID, AMOUNT_EXPENSE, LocalDate.now(), EXPENSE_DESCRIPTION, ID_AUTO_INCREMENT));
 		assertTrue(eId != 0);
 		userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);

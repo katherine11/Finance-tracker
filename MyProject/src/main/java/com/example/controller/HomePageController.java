@@ -21,7 +21,7 @@ import com.example.model.UserHasBudgetsDAO;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.UserHasObligationsDAO;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 import com.example.model.exceptions.UserException;
 
 @Controller
@@ -76,7 +76,7 @@ public class HomePageController {
 		} catch (UserException e) {
 			model.addAttribute("loginFail", "Invalid username or password");
 			return "login";
-		} catch (PaymentExpeption e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}

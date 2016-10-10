@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.model.Income;
 import com.example.model.User;
 import com.example.model.UserHasIncomesDAO;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 
 @Controller
 @ContextConfiguration(classes = UserHasIncomesDAO.class)
@@ -35,7 +35,7 @@ public class IncomeController{
 		try {
 			model.addAttribute("income", userHasIncomesDAO.insertPayment(user.getUserId(), income));
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentExpeption e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}
@@ -54,14 +54,14 @@ public class IncomeController{
 				if(userHasIncomesDAO.deletePayment(id)){
 					user.removeIncome(id);
 				}
-			} catch (PaymentExpeption e) {
+			} catch (PaymentException e) {
 				e.printStackTrace();
 				return "error";
 			}
 		}
 		try {
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentExpeption e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}
