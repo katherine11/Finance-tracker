@@ -162,6 +162,16 @@ public class User {
 		}
 	}
 	
+	public void removeObligation(int id) {
+		for (Payment obligation : obligations){
+			if (obligation.getId()==id){
+				obligations.remove(obligation);
+				return;
+			}
+		}
+		
+	}
+	
 	public double getBalance() {
 		double balance = getTotalIncomes() - getTotalExpenses();
 		
@@ -189,6 +199,14 @@ public class User {
 		double totalAmount = 0;
 		for (Budget budget : budgets){
 			totalAmount += budget.getAmount();
+		}
+		return totalAmount;
+	}
+	
+	public double getTotalObligations() {
+		double totalAmount = 0;
+		for (Payment obligation : obligations){
+			totalAmount += obligation.getAmount();
 		}
 		return totalAmount;
 	}
@@ -247,6 +265,9 @@ public class User {
 		return budgetExpenses;
 		
 	}
+
+
+	
 	
 }
 

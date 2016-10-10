@@ -42,5 +42,32 @@ public class ObligationController{
 		
 		return "redirect:/obligations";
 	}
+	
+	@RequestMapping(value="/deleteObligation", method = RequestMethod.POST)
+	public String deleteObligation(HttpServletRequest req) {
+		User user = (User) req.getSession().getAttribute("user");
+		String [] ids = req.getParameterValues("id");
+		int id;
+		for (int index = 0; index < ids.length; index++){
+			id = Integer.parseInt(ids[index]);
+			try {
+				if(userHasObligationsDAO.deletePayment(id)){
+					user.removeObligation(id);
+				}
+			} catch (PaymentExpeption e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
+		try {
+			
+			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
+		} catch (PaymentExpeption e) {
+			e.printStackTrace();
+			return "error";
+		}
+			
+		return "redirect:/obligations";
+	}
 
 }

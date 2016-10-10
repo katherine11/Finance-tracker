@@ -59,21 +59,64 @@
 	<section class="">
 	
 	<div class="">
-
+		<button id="myBtn">Add obligation</button>
+		
+		<div class="Tables">
+			<table class="table" name="obligation_table" cellspacing="0"
+				cellpadding="2" width="100%">
+				<thead>
+					<tr style="height: 35px;">
+						<th><input name="selectALL" type="checkbox" value=""
+							id="main" />&nbsp;Select all<br /></th>
+						<th align="left">Category</th>
+						<th align="right">Amount</th>
+						<th>Date</th>
+						<th>Installment</th>
+						<th align="left">Description</th>
+						<th align="right"></th>
+						<th align="left">Period</th>
+					</tr>
+				</thead>
+				<tbody>
+				<caption>
+					<h2>All incomes</h2>
+				</caption>
 		<p>
-			<form:form>
-				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
+			<form:form action="deleteObligation">
+				
 				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.obligations}" var="obligation">
 									
-					<input type="checkbox" name="current_obligation" id="${obligation.id}"/>
-					<c:out value="${obligation}"></c:out>
-					<br />
+					<tr>
+						<td align="center"><input type="checkbox" name="id"
+									id="${obligation.id}" value="${obligation.id}" /></td>
+						<td align="left"><c:out value="${obligation.category}"></c:out></td>
+						<td align="right"><c:out value="${obligation.amount}"></c:out>&nbsp;$</td>
+						<td align="center"><c:out value="${obligation.date}"></c:out></td>
+						<td align="center"><c:out value="${obligation.repeating}"></c:out></td>
+						<td align="left">(<c:out value="${obligation.description}"></c:out>)
+						<td align="right"><c:out value="${obligation.periodQuantity}"></c:out></td>
+						<td align="left"><c:out value="${obligation.period}"></c:out>
+						</td>
+					</tr>
 				</c:forEach>
+				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
 			</form:form>
 		</p>
 
-		<button id="myBtn">Add obligation</button>
+		</tbody>
+				<tfoot>
+					<tr>
+						<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
+								amount:</strong></td>
+						<td align="right" style="padding-top: 14px"><strong>
+								<c:out value="${user.totalObligations}"></c:out> &nbsp;$
+						</strong></td>
+
+					</tr>
+				</tfoot>
+			</table>
+		</div>
 
 		<div id="myModal" class="modal">
 
