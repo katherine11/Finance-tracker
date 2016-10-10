@@ -13,6 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/jquery.canvasjs.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -50,28 +51,12 @@
 </script>
 <script type="text/javascript">
 	window.onload = function() {
-		var Salary = $
-		{
-			user.getAmoutByIncomeCategoryId(6)
-		}
-		;
-		var Rent = $
-		{
-			user.getAmoutByIncomeCategoryId(7)
-		}
-		;
-		var Grants = $
-		{
-			user.getAmoutByIncomeCategoryId(8)
-		}
-		;
-		var Other = $
-		{
-			user.getAmoutByIncomeCategoryId(9)
-		};
-
-		var chart = new CanvasJS.Chart(
-				"chartContainer",
+		var Salary = ${	user.getAmoutByIncomeCategoryId(6)};
+		var Rent = ${
+			user.getAmoutByIncomeCategoryId(7)};
+		var Grants = ${user.getAmoutByIncomeCategoryId(8)};
+		var Other = ${user.getAmoutByIncomeCategoryId(9)};
+		var chart = new CanvasJS.Chart("chartContainer",
 				{
 					title : {
 						text : "Percentage incomes by  type"
@@ -99,7 +84,7 @@
 							y : Other,
 							indexLabel : "Other #percent%",
 							Other : "Other"
-						}, ]
+						} ]
 					} ]
 				});
 		chart.render();
