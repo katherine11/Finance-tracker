@@ -25,14 +25,14 @@
 <div class="test">
 
 	<div class="main_heading">
-		<h2>Welcome to our cool site for managing your own money!</h2>
+		<h2 id="welcome">Welcome to our cool site for managing your own money!</h2>
 	</div>
 
 	<div class="sub_heading">
 		<h3>Here you'll be able to:</h3>
 	</div>
 
-	<div>
+	<div class="info_buutons">
 		<a href="#" class="myButton">Enter your incomes and expenses</a><br />
 		<a href="#" class="myButton">See where you give your money for</a><br />
 		<a href="#" class="myButton">Set your own budget for each kind of

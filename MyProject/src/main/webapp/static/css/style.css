@@ -25,14 +25,19 @@ header {
 .logo {
   /* border: 2px solid red; */
   float: left;
-  padding-top: 8px;
+  padding-top: 0px;
   padding-left: 8px;
   /* background-image: url("logo2.1.jpg"); */
 }
 .title-text {
   /* border: 2px solid red; */
   float: left;
-  margin-left: 2em;
+  margin-left: 1em;
+  color: #739900;
+  
+}
+#title-text {
+	color: #739900;
 }
 .header_buttons {
  /*  border: 2px solid red; */
@@ -65,7 +70,7 @@ footer {
 button {
 	float: right;
 	align:right;
-	background-color: #69A543;
+	background-color: #739900;
 	border-radius: 15px;
     color: black;
     padding: 15px 10px;

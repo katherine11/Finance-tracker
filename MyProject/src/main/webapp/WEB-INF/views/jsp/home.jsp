@@ -56,11 +56,11 @@ window.onload = function () {
 	<div id="chartContainer" style="height: 400px; width: 100%;"></div>	
 	
 	<div class="table">
-		<h1>Overview</h1>
+		<h1 class="table">Overview</h1>
 		
-		<p> Total incomes: <c:out value="${user.totalIncomes}"></c:out> </p>
-		<p> Total expenses: <c:out value="${user.totalExpenses}"></c:out> </p>
-		<p> Balance: <c:out value="${user.balance}"></c:out> </p>
+		<p> Total incomes: <c:out value="${user.totalIncomes}"></c:out>&nbsp;$ </p>
+		<p> Total expenses: <c:out value="${user.totalExpenses}"></c:out>&nbsp;$ </p>
+		<p> Balance: <c:out value="${user.balance}"></c:out>&nbsp;$ </p>
 
 	</div>
 	</section>

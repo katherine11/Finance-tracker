@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 
 .main_heading {
-	color: #2eb82e;
-	background-color: white;
+	color: #739900;
+	background-color:transparent;
 	font-family : 'Droid serif', serif;
 	font-size: 36px;
 	font-weight: 400;
@@ -14,8 +14,10 @@
 }
 
 .sub_heading {
+	height: 60px;
+    padding-top: 10px;
 	color: #004F79;
-	background-color:white;
+	background-color:transparent;
 	font-family: 'Droid Sans', sans-serif;
 	font-size: 50px;
 	font-weight: 400;
@@ -26,7 +28,10 @@
 }
 
 .test{
-	 background-image: url("img/rsz_test2.png");
+	/*  background-image: url("img/rsz_test2.png") !important; */
+	 background-image: url("../img/test2.jpg");
+	 width: 100%;
+	 height: 843px;
 }
 
 .myButton {
@@ -57,4 +62,16 @@
 .myButton:active {
 	position:relative;
 	top:1px;
+}
+
+#welcome {
+	margin-top: 0px !important;
+	padding-top: 30px;
+}
+
+.info_buutons {
+	padding-top: 100px;
+	margin-top: 20px;
+	margin-left: 30px;
+	margin-right: 30px;
 }

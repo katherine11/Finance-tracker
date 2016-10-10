@@ -275,6 +275,10 @@ window.onload = function () {
 				</div>
 			</c:when>
 			<c:otherwise>
+				<caption>
+					<h2>Result</h2>
+				</caption>
+				
 				<c:forEach items="${expenses}" var="expense">
 					<tr>
 						<td align="center"><input type="checkbox" name="id"
