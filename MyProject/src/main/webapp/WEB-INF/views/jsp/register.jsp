@@ -8,9 +8,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 	<div class="header_buttons">
-		<a href="./"><button type="submit">Home</button></a> <a
-			href="./login"><button type="submit">Login</button></a> <a
-			href="http://www.dnes.bg/"><button type="submit">News</button></a>
+		<a href="./"><button type="submit" class="h_butt">Home</button></a> <a
+			href="./login"><button type="submit" class="h_butt">Login</button></a> <a
+			href="http://www.dnes.bg/"><button type="submit" class="h_butt">News</button></a>
 	</div>
 
 	</header>
@@ -31,9 +31,9 @@
 		
 		<form:form commandName="user">
 			
-			<p><form:input type="email" id="email" class="input" path="email" placeholder="Имейл" required="required"/></p>
-			<p><form:input id="username" class="input" path="username" placeholder="Потребителско име" minlength="4" maxlength="15" required="required"/></p>
-			<p><form:password id="password" class="input" path="password" placeholder="Парола" minlength="4" maxlength="15" required="required"/></p>
+			<p><form:input type="email" id="email" class="input" path="email" placeholder="Email" required="required"/></p>
+			<p><form:input id="username" class="input" path="username" placeholder="Username" minlength="4" maxlength="15" required="required"/></p>
+			<p><form:password id="password" class="input" path="password" placeholder="Password" minlength="4" maxlength="15" required="required"/></p>
 			
 			<p class="submit"><input type="submit" name="commit" value="Register"></p>
 			
