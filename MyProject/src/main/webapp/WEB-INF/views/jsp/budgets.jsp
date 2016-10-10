@@ -51,112 +51,77 @@
 	
 </script>
 
-
 <title>My budgets</title>
-
-<style>
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	padding-top: 100px;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgb(0, 0, 0);
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-}
-
-.close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-</style>
-
 
 </head>
 <body>
 
-	<%
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Cache-Control", "no-store");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null)
-			response.sendRedirect("./login");
-	%>
-
-	<header>
-	<div class="logo">
-		<img alt="logo" src="img/logo.jpg">
-	</div>
-	<div class="title-text">
-		<h1>Get a full control over your money!</h1>
-	</div>
-	<div class="header_buttons">
-		<a href="./logout"><button type="submit">Log out</button></a>
-	</div>
-	<div class="navigation_buttons">
-
-		<nav> <a href="./inquiries"><button class="n_button"
-				type="submit">Inquiries</button></a> <a href="./budgets"><button
-				class="n_button" type="submit">Budgets</button></a> <a href="./obligations"><button
-				class="n_button" type="submit">Obligations</button></a> <a
-			href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
-		<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
-		<a href="./home"><button class="n_button" type="submit">My profile</button></a> </nav>
-
-	</div>
-	</header>
-
-	<div>
-		<hr>
-		<br />
-	</div>
+	<jsp:include page="home.header.jsp"></jsp:include>
 
 	<section class="">
 	<div class="">
-		<h1>Budgets</h1>
-
+		
 		<c:if test="${ not empty insertFail }">
 			<p class="invalid_input">
 				<c:out value="${insertFail}"></c:out>
 			<p>
 		</c:if>
+		
+		<button id="myBtn">Add budget</button>
+		
+		<div class="Tables">
+			<table class="table" name="budget_table" cellspacing="0"
+				cellpadding="2" width="100%">
+				<thead>
+					<tr style="height: 35px;">
+						<th><input name="selectALL" type="checkbox" value=""
+							id="main" />&nbsp;Select all<br /></th>
+						<th align="left">Category</th>
+						<th align="right">Amount</th>
+						<th align="right">Remain</th>
+						<th>Repeating</th>
+						<th align="left">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+				<caption>
+					<h2>Budgets</h2>
+				</caption>
 
 		<p>
 			<form:form action="./deleteBudget">
-				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
-				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
+				
 				<c:forEach items="${user.budgets}" var="budget">
-									
-					<input type="checkbox" name="expenseId" id="${budget.expenseId}" value="${budget.expenseId}"/>
-					<c:out value="${budget}"></c:out>
-					<br />
+					
+					<tr>
+						<td align="center"><input type="checkbox" name="expenseId"
+									id="${budget.expenseId}" value="${budget.expenseId}" /></td>
+						<td align="left"><c:out value="${budget.expense}"></c:out></td>
+						<td align="right"><c:out value="${budget.amount}"></c:out>&nbsp;$</td>
+						<td align="right"><c:out value="${user.getRemainAmountForBudget(budget.expenseId)}"></c:out>&nbsp;$</td>
+						<td align="center"><c:out value="${budget.repeating}"></c:out></td>
+						<td align="left">(<c:out value="${budget.description}"></c:out>)
+								</td>
+					</tr>
+					
 				</c:forEach>
+				<input type="submit" id="delete" name="commit" value="Delete selected">
 			</form:form>
 		</p>
 
-		<button id="myBtn">Add budget</button>
+		</tbody>
+				<%-- <tfoot>
+					<tr>
+						<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
+								amount:</strong></td>
+						<td align="right" style="padding-top: 14px"><strong>
+								<c:out value="${user.totalBudgets}"></c:out> &nbsp;$
+						</strong></td>
+
+					</tr>
+				</tfoot> --%>
+			</table>
+		</div>
 
 		<div id="myModal" class="modal">
 

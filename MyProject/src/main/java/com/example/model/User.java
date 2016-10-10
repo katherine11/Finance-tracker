@@ -185,6 +185,14 @@ public class User {
 		return totalIncomes;
 	}
 	
+	public double getTotalBudgets() {
+		double totalAmount = 0;
+		for (Budget budget : budgets){
+			totalAmount += budget.getAmount();
+		}
+		return totalAmount;
+	}
+	
 	public Set<Payment> getExpensesBy(String from, String to, int categoryId) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		LocalDate parsedDateFrom = LocalDate.parse(from, formatter);
@@ -224,7 +232,21 @@ public class User {
 		return inc;
 	}
 
-	
+	public double getRemainAmountForBudget(int expenseId){
+		double budgetExpenses = 0;
+		for (Budget budget : budgets){
+			if (budget.getExpenseId()==expenseId){
+				budgetExpenses += budget.getAmount();
+			}
+		}
+		for (Payment expense : expenses){
+			if (expense.getCategoryId() == expenseId){
+				budgetExpenses -= expense.getAmount();
+			}
+		}
+		return budgetExpenses;
+		
+	}
 	
 }
 
