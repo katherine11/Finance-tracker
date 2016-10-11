@@ -79,7 +79,7 @@
 				</thead>
 				<tbody>
 				<caption>
-					<h2>All incomes</h2>
+					<h2>Obligations</h2>
 				</caption>
 		<p>
 			<form:form action="deleteObligation">
