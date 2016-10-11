@@ -13,17 +13,18 @@
 <link rel="stylesheet" type="text/css" href="css/homepage.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/canvasjs.min.js"></script>
+<script type="text/javascript" src="js/jquery.canvasjs.min.js"></script>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script> 
 <script type="text/javascript">
 window.onload = function () {
-	var incomes = ${user.getTotalIncomes()};
-	var expenses = ${user.getTotalExpenses()};
-	var balance = ${user.getBalance()};
+	var incomes = ${user.incomesForMonth};
+	var expenses = ${user.expensesForMonth};
+	var balance = ${user.balanceForMonth};
 	
-	var chart = new CanvasJS.Chart("chartContainer",
+	var chart = new CanvasJS.Chart("chartContainer2",
 	{
 		title:{
-			text: "Overview"
+			text: "Monthly Overview"
 		},
                 animationEnabled: true,
 		data: [
@@ -34,8 +35,8 @@ window.onload = function () {
 			showInLegend: true,
           explodeOnClick: true, 
 			dataPoints: [
-				{y: incomes, indexLabel: "Total incomes #percent%", legendText: "Total incomes" },
-				{y: expenses, indexLabel: "Total expenses #percent%", legendText: "Total expenses" },
+				{y: incomes, indexLabel: "Incomes #percent%", legendText: "Incomes" },
+				{y: expenses, indexLabel: "Expenses #percent%", legendText: "Expenses" },
 				{y: balance,  indexLabel: "Balance #percent%", legendText: "Balance" },
 			]
 		}
@@ -54,14 +55,13 @@ window.onload = function () {
 
 	<section class="section_home">
 	
-	<div id="chartContainer" style="height: 400px; width: 100%;"></div>	
+	<div id="chartContainer2" style="height: 400px; width: 100%;"></div>
 	
 	<div class="table">
-		<h1 class="table">Overview</h1>
 		
-		<p> Total incomes: <c:out value="${user.totalIncomes}"></c:out>&nbsp;$ </p>
-		<p> Total expenses: <c:out value="${user.totalExpenses}"></c:out>&nbsp;$ </p>
-		<p> Balance: <c:out value="${user.balance}"></c:out>&nbsp;$ </p>
+		<p> Incomes: <c:out value="${user.incomesForMonth}"></c:out>&nbsp;$ </p>
+		<p> Expenses: <c:out value="${user.expensesForMonth}"></c:out>&nbsp;$ </p>
+		<p> Balance: <c:out value="${user.balanceForMonth}"></c:out>&nbsp;$ </p>
 
 	</div>
 	</section>

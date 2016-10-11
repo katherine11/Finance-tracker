@@ -229,6 +229,7 @@ window.onload = function () {
 							id="main" />&nbsp;Select all<br /></th>
 						<th align="left">Category</th>
 						<th align="right">Amount</th>
+						<th>Repeat</th>
 						<th>Date</th>
 						<th align="left">Description</th>
 					</tr>
@@ -251,6 +252,7 @@ window.onload = function () {
 											</td>
 											<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
 											</td>
+											<td align="center"><c:out value="${expense.repeating}"></c:out></td>
 											<td align="center"><c:out value="${expense.date}"></c:out>
 											</td>
 											<td align="left">(<c:out value="${expense.description}"></c:out>)

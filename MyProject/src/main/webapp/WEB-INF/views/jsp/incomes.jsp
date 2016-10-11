@@ -116,7 +116,8 @@
 							id="main" />&nbsp;Select all<br /></th>
 						<th align="left">Category</th>
 						<th align="right">Amount</th>
-						<th>Date</th>
+						<th>Repeat</th>
+						<th>Date</th>	
 						<th align="left">Description</th>
 					</tr>
 				</thead>
@@ -133,6 +134,7 @@
 									id="${income.id}" value="${income.id}" /></td>
 								<td align="left"><c:out value="${income.category}"></c:out></td>
 								<td align="right"><c:out value="${income.amount}"></c:out>&nbsp;$</td>
+								<td align="center"><c:out value="${income.repeating}"></c:out></td>
 								<td align="center"><c:out value="${income.date}"></c:out></td>
 								<td align="left">(<c:out value="${income.description}"></c:out>)
 								</td>

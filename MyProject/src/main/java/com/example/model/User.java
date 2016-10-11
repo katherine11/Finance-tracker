@@ -20,17 +20,16 @@ public class User {
 	@NotNull
 	@Email
 	private String email;
-	private Set<Payment> expenses = new LinkedHashSet<Payment>(); 
-	private Set<Payment> incomes = new LinkedHashSet<Payment>(); 
-	private Set<Payment> obligations = new LinkedHashSet<Payment>(); 
-	private Set<Budget> budgets = new LinkedHashSet<Budget>(); 
+	private Set<Payment> expenses = new LinkedHashSet<Payment>();
+	private Set<Payment> incomes = new LinkedHashSet<Payment>();
+	private Set<Payment> obligations = new LinkedHashSet<Payment>();
+	private Set<Budget> budgets = new LinkedHashSet<Budget>();
 
 	public User() {
 	}
 
-	
-	public User(int id, String username,String email, String password) {
-		if (isValidString(username) || isValidString(email) || isValidString(password)){
+	public User(int id, String username, String email, String password) {
+		if (isValidString(username) || isValidString(email) || isValidString(password)) {
 			try {
 				throw new UserException("Invalid user data!");
 			} catch (UserException e) {
@@ -44,7 +43,6 @@ public class User {
 		this.password = password;
 	}
 
-	
 	boolean isValidString(String string) {
 		return string == null || string.trim().equals("");
 	}
@@ -89,96 +87,98 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	
-	public boolean addExpense(Expense expense){
-//		this.balance -= expense.getAmount();
+
+	public boolean addExpense(Expense expense) {
+		// this.balance -= expense.getAmount();
 		return this.expenses.add(expense);
 	}
-	public boolean addIncome(Income income){
-//		this.balance += income.getAmount();
+
+	public boolean addIncome(Income income) {
+		// this.balance += income.getAmount();
 		return this.incomes.add(income);
 	}
-	public boolean addObligation(Obligation obligation){
+
+	public boolean addObligation(Obligation obligation) {
 		return this.obligations.add(obligation);
 	}
-	public boolean addBudget(Budget budget){
+
+	public boolean addBudget(Budget budget) {
 		return this.budgets.add(budget);
 	}
-	
+
 	public Set<Payment> getExpenses() {
 		return Collections.unmodifiableSet(expenses);
 	}
+
 	public Set<Payment> getIncomes() {
 		return Collections.unmodifiableSet(incomes);
 	}
+
 	public Set<Payment> getObligations() {
 		return Collections.unmodifiableSet(obligations);
 	}
+
 	public Set<Budget> getBudgets() {
 		return Collections.unmodifiableSet(budgets);
 	}
-
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public void removeIncome(int id) {
-		for (Payment income : incomes){
-			if (income.getId() == id){
-				incomes.remove(income);				
+		for (Payment income : incomes) {
+			if (income.getId() == id) {
+				incomes.remove(income);
 				return;
 			}
 		}
 	}
-	
+
 	public void removeExpense(int id) {
-		for (Payment expense : expenses){
-			if (expense.getId() == id){
-				expenses.remove(expense);				
+		for (Payment expense : expenses) {
+			if (expense.getId() == id) {
+				expenses.remove(expense);
 				return;
 			}
 		}
-		
+
 	}
-	
+
 	public void removeBudget(int expenseId) {
-		for (Budget budget : budgets){
-			if (budget.getExpenseId() == expenseId){
-				budgets.remove(budget);				
+		for (Budget budget : budgets) {
+			if (budget.getExpenseId() == expenseId) {
+				budgets.remove(budget);
 				return;
 			}
 		}
 	}
-	
+
 	public void removeObligation(int id) {
-		for (Payment obligation : obligations){
-			if (obligation.getId()==id){
+		for (Payment obligation : obligations) {
+			if (obligation.getId() == id) {
 				obligations.remove(obligation);
 				return;
 			}
 		}
-		
-	}
-	
-	public double getBalance() {
-		double balance = getTotalIncomes() - getTotalExpenses();
-		
-		return balance;
-		
+
 	}
 
+	public double getBalance() {
+		double balance = getTotalIncomes() - getTotalExpenses();
+
+		return balance;
+
+	}
+	
 	public double getTotalExpenses() {
 		double totalExpenses = 0;
 		for (Payment expense : expenses){
@@ -189,37 +189,37 @@ public class User {
 
 	public double getTotalIncomes() {
 		double totalIncomes = 0;
-		for (Payment income : incomes){
+		for (Payment income : incomes) {
 			totalIncomes += income.getAmount();
 		}
 		return totalIncomes;
 	}
-	
+
 	public double getTotalBudgets() {
 		double totalAmount = 0;
-		for (Budget budget : budgets){
+		for (Budget budget : budgets) {
 			totalAmount += budget.getAmount();
 		}
 		return totalAmount;
 	}
-	
+
 	public double getTotalObligations() {
 		double totalAmount = 0;
-		for (Payment obligation : obligations){
+		for (Payment obligation : obligations) {
 			totalAmount += obligation.getAmount();
 		}
 		return totalAmount;
 	}
-	
+
 	public Set<Payment> getExpensesBy(String from, String to, int categoryId) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		LocalDate parsedDateFrom = LocalDate.parse(from, formatter);
 		LocalDate parsedDateTo = LocalDate.parse(to, formatter);
-		Set<Payment> ExpensesBy = new LinkedHashSet<Payment>(); 
-		for (Payment expense : expenses){
-			if (!expense.getDate().isBefore(parsedDateFrom) && !expense.getDate().isAfter(parsedDateTo)){
-				if (categoryId != 0){
-					if (expense.getCategoryId() == categoryId){
+		Set<Payment> ExpensesBy = new LinkedHashSet<Payment>();
+		for (Payment expense : expenses) {
+			if (!expense.getDate().isBefore(parsedDateFrom) && !expense.getDate().isAfter(parsedDateTo)) {
+				if (categoryId != 0) {
+					if (expense.getCategoryId() == categoryId) {
 						ExpensesBy.add(expense);
 					}
 					continue;
@@ -228,46 +228,113 @@ public class User {
 			}
 		}
 		return Collections.unmodifiableSet(ExpensesBy);
-	} 
-	
-	public double getAmoutByExpenseCategoryId(int categoryId){
+	}
+
+	public double getAmoutByExpenseCategoryId(int categoryId) {
 		double exp = 0;
-		for (Payment expense : expenses){
-			if (expense.getCategoryId() == categoryId){
+		for (Payment expense : expenses) {
+			if (expense.getCategoryId() == categoryId) {
 				exp += expense.getAmount();
 			}
 		}
 		return exp;
 	}
-	
-	public double getAmoutByIncomeCategoryId(int categoryId){
+
+	public double getAmoutByIncomeCategoryId(int categoryId) {
 		double inc = 0;
-		for (Payment income : incomes){
-			if (income.getCategoryId() == categoryId){
+		for (Payment income : incomes) {
+			if (income.getCategoryId() == categoryId) {
 				inc += income.getAmount();
 			}
 		}
 		return inc;
 	}
 
-	public double getRemainAmountForBudget(int expenseId){
+	public double getRemainAmountForBudget(int expenseId) {
 		double budgetExpenses = 0;
-		for (Budget budget : budgets){
-			if (budget.getExpenseId()==expenseId){
+		for (Budget budget : budgets) {
+			if (budget.getExpenseId() == expenseId) {
 				budgetExpenses += budget.getAmount();
 			}
 		}
-		for (Payment expense : expenses){
-			if (expense.getCategoryId() == expenseId){
+		for (Payment expense : expenses) {
+			if (expense.getCategoryId() == expenseId) {
 				budgetExpenses -= expense.getAmount();
 			}
 		}
 		return budgetExpenses;
-		
+
+	}
+	
+	public double getExpensesForMonth() {
+		double expensesForMonth = 0;
+		for (Payment expense : expenses) {
+			LocalDate now = LocalDate.now();
+			LocalDate expenseDate = expense.getDate();
+			if ((expenseDate.getYear() == now.getYear()||expense.getRepeatingId()>1)
+				&&( expenseDate.getMonthValue() == now.getMonthValue() || (expense.getRepeatingId()>1&&expense.getRepeatingId()<5))
+				&& expenseDate.getDayOfMonth() <= now.getDayOfMonth() || (expense.getRepeatingId() >1&&expense.getRepeatingId()<4)) {
+				int passedDays = now.getDayOfMonth();
+				switch (expense.getRepeatingId()) {
+				case 1:
+					expensesForMonth += expense.getAmount();
+					break;
+				case 2:
+					for (int repeat = 1; repeat <= passedDays; repeat++) {
+						expensesForMonth += expense.getAmount();
+					}
+					break;
+				case 3:
+					for (int repeat = 1; repeat <= passedDays; repeat += 7) {
+						expensesForMonth += expense.getAmount();
+					}
+					break;
+				default:
+					expensesForMonth += expense.getAmount();
+					break;
+				}
+			}
+
+		}
+		return expensesForMonth;
+	}
+	
+	public double getIncomesForMonth() {
+		double incomesForMonth = 0;
+		for (Payment income : incomes) {
+			LocalDate now = LocalDate.now();
+			LocalDate incomeDate = income.getDate();
+			if ((incomeDate.getYear() == now.getYear()||income.getRepeatingId()>1)
+				&&( incomeDate.getMonthValue() == now.getMonthValue() || (income.getRepeatingId()>1&&income.getRepeatingId()<5))
+				&& incomeDate.getDayOfMonth() <= now.getDayOfMonth() || (income.getRepeatingId() >1&&income.getRepeatingId()<4)) {
+				int passedDays = now.getDayOfMonth();
+				switch (income.getRepeatingId()) {
+				case 1:
+					incomesForMonth += income.getAmount();
+					break;
+				case 2:
+					for (int repeat = incomeDate.getDayOfMonth(); repeat <= passedDays; repeat++) {
+						incomesForMonth += income.getAmount();
+					}
+					break;
+				case 3:
+					for (int repeat = incomeDate.getDayOfMonth(); repeat <= passedDays; repeat += 7) {
+						incomesForMonth += income.getAmount();
+					}
+					break;
+				default:
+					incomesForMonth += income.getAmount();
+					break;
+				}
+			}
+
+		}
+		return incomesForMonth;
+	}
+	
+	public double getBalanceForMonth() {
+		double balanceForMonth = getIncomesForMonth() - getExpensesForMonth();
+		return balanceForMonth;
 	}
 
-
-	
-	
 }
-
