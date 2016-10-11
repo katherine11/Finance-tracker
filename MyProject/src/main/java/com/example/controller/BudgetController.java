@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.model.Budget;
 import com.example.model.User;
 import com.example.model.UserHasBudgetsDAO;
+import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.PaymentException;
 
 @Controller
@@ -36,6 +37,9 @@ public class BudgetController {
 			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(user.getUserId(), budget));
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
 		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		} catch (BudgetException e) {
 			e.printStackTrace();
 			return "error";
 		}
@@ -62,6 +66,9 @@ public class BudgetController {
 		try {			
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
 		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		} catch (BudgetException e) {
 			e.printStackTrace();
 			return "error";
 		}
