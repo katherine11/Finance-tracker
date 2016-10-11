@@ -1,14 +1,13 @@
 package com.example.model;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.example.model.exceptions.BudgetException;
+import com.example.model.exceptions.UserException;
 
 public class Budget {
-	
+
 	private int userId;
 	private int expenseId;
 	private String expense;
@@ -17,67 +16,23 @@ public class Budget {
 	private double amount;
 	private LocalDate date;
 	private String description;
-	
-	public Budget(int userId, int expenseId, String expense, int repeatingId, String repeating, double amount, LocalDate date, String description) throws BudgetException {
-		//if there is such an id the database:
-		if(UserDAO.containsUser(userId)){
-			this.userId = userId;
-		}
-		else{
-			throw new BudgetException("Such user does not exist!");
-		}
-		
-		if(UserHasBudgetsDAO.constainsExpense(expenseId)){
-			this.expenseId = expenseId;
-		}
-		else{
-			throw new BudgetException("There is no such an expense available!");
-		}
-		
-		if(expense != null){
-			this.expense = expense;
-		}
-		else{
-			throw new BudgetException("There is no such kind of an expense!");
-		}
-		
-		if(UserHasBudgetsDAO.containsRepeating(repeatingId)){
-			this.repeatingId = repeatingId;
-		}
-		else{
-			throw new BudgetException("There is no such a repeating!");
-		}
-		
-		if(repeating != null){
-			this.repeating = repeating;
-		}
-		else{
-			throw new BudgetException("There is no such kind of repeating value!");
-		}
-		
-		if(amount > 0){
-			this.amount = amount;
-		}
-		else{
-			throw new BudgetException("There is no such an amount!");
-		}
-		
-		if(date != null){
-			this.date = date;
-		}
-		else{
-			throw new BudgetException("There is no such date!");
-		}
-		
-		if(description != null){
-			this.description = description;
-		}
-		else{
-			throw new BudgetException("There is no such kind of a description!");
-		}
+
+	public Budget(int userId, int expenseId, String expense, int repeatingId, String repeating, double amount,
+			LocalDate date, String description) throws BudgetException {
+
+		setUserId(userId);
+		setExpenseId(expenseId);
+		setExpense(expense);
+		setRepeatingId(repeatingId);
+		setRepeating(repeating);
+		setAmount(amount);
+		setDescription(description);
+		String strDate = date + "";
+		setDate(strDate);
 	}
 
-	public Budget() {}
+	public Budget() {
+	}
 
 	public int getUserId() {
 		return userId;
@@ -111,39 +66,94 @@ public class Budget {
 		return description;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setAmount(double amount) throws BudgetException {
+		if (amount > 0) {
+			this.amount = amount;
+		} else {
+			throw new BudgetException("There is no such amount!");
+		}
 	}
 
-	
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUserId(int userId) throws BudgetException {
+		/*
+		 * checking if the database contains
+		 * user with the user id given
+		 * */
+		try {
+			if (UserDAO.containsUser(userId)) {
+				this.userId = userId;
+			}
+		} catch (UserException e) {
+			e.printStackTrace();
+			throw new BudgetException("Such user does not exist!", e);
+		}
+
 	}
 
-	public void setExpenseId(int expenseId) {
-		this.expenseId = expenseId;
+	public void setExpenseId(int expenseId) throws BudgetException {
+		/*
+		 * checking if the database contains
+		 * expense with the expense id given
+		 * */
+		if (UserHasBudgetsDAO.constainsExpense(expenseId)) {
+			this.expenseId = expenseId;
+		} else {
+			throw new BudgetException("Such an expense does not exist!");
+		}
+
 	}
 
-	public void setExpense(String expense) {
-		this.expense = expense;
+	public void setExpense(String expense) throws BudgetException {
+		if (expense != null && expense.trim() != "") {
+			this.expense = expense;
+		} else {
+			throw new BudgetException("No such an expense available!");
+		}
 	}
 
-	public void setRepeatingId(int repeatingId) {
-		this.repeatingId = repeatingId;
+	public void setRepeatingId(int repeatingId) throws BudgetException {
+		/*
+		 * checking if the database contains
+		 * repeating with the repeating id given
+		 * */
+		if (UserHasBudgetsDAO.containsRepeating(repeatingId)) {
+			this.repeatingId = repeatingId;
+		} else {
+			throw new BudgetException("There is not such a repeating!");
+		}
 	}
 
-	public void setRepeating(String repeating) {
-		this.repeating = repeating;
+	public void setRepeating(String repeating) throws BudgetException {
+		if (repeating != null && repeating.trim() != "") {
+			this.repeating = repeating;
+		}
+		else{
+			throw new BudgetException("Not a correct repeating value given");
+		}
 	}
 
-	public void setDate(String date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		LocalDate parsedDate = LocalDate.parse(date, formatter);
-		this.date = parsedDate;
+	public void setDate(String date) throws BudgetException {
+		/*
+		 * checking for invalid values of string
+		 * and parsing the date using the 
+		 * formatter chosen
+		 * */
+		if (date != null && date.trim() != "") {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDate parsedDate = LocalDate.parse(date, formatter);
+			this.date = parsedDate;
+		}
+		else{
+			throw new BudgetException("Not a correct date given");
+		}
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String description) throws BudgetException {
+		if (description != null && description.trim() != "") {
+			this.description = description;
+		} else {
+			throw new BudgetException("Not a correct description given!");
+		}
 	}
 
 	@Override
@@ -173,10 +183,8 @@ public class Budget {
 
 	@Override
 	public String toString() {
-		return "Budget [expense=" + expense + ", repeating=" + repeating + ", amount=" + amount + ", date=" + date + ", description="
-				+ description + "]";
+		return "Budget [expense=" + expense + ", repeating=" + repeating + ", amount=" + amount + ", date=" + date
+				+ ", description=" + description + "]";
 	}
-	
-	
 
 }

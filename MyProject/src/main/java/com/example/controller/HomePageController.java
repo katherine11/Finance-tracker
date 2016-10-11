@@ -80,9 +80,6 @@ public class HomePageController {
 		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
-		} catch (BudgetException e) {
-			e.printStackTrace();
-			return "error";
 		}
 		
 		return "redirect:/home";

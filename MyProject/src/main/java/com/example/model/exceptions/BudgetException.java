@@ -1,6 +1,6 @@
 package com.example.model.exceptions;
 
-public class BudgetException extends Exception {
+public class BudgetException extends PaymentException {
 
 	private static final long serialVersionUID = 7302958163408395580L;
 

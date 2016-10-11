@@ -2,6 +2,8 @@ package com.example.model;
 
 import java.time.LocalDate;
 
+import com.example.model.exceptions.ObligationException;
+
 public class Obligation extends Payment {
 	
 	private int periodId;
@@ -9,11 +11,17 @@ public class Obligation extends Payment {
 	private int periodQuantity;
 
 	public Obligation(int categoryId, String category, String repeating, int reapeatingId, double amount,
-			LocalDate date, String description, int id, String period, int periodId, int periodQuantity) {
+			LocalDate date, String description, int id, String period, int periodId, int periodQuantity) throws ObligationException {
 		super(categoryId, category, repeating, reapeatingId, amount, date, description, id);
-		this.period = period;
-		this.periodId = periodId;
-		this.periodQuantity = periodQuantity;
+		if(period != null & period.trim() != ""){
+			this.period = period;
+		}
+		else{
+			throw new ObligationException("There is no such a period!");
+		}
+		
+		setPeriodId(periodId);
+		setPeriodQuantity(periodQuantity);
 	}
 
 	public Obligation() {
@@ -32,12 +40,23 @@ public class Obligation extends Payment {
 		return periodQuantity;
 	}
 
-	public void setPeriodId(int periodId) {
-		this.periodId = periodId;
+	public void setPeriodId(int periodId) throws ObligationException {
+		if(UserHasObligationsDAO.containsPeriod(periodId)){
+			this.periodId = periodId;
+		}
+		else{
+			throw new ObligationException("There is no such a period!");
+		}
+		
 	}
 
-	public void setPeriodQuantity(int periodQuantity) {
-		this.periodQuantity = periodQuantity;
+	public void setPeriodQuantity(int periodQuantity) throws ObligationException {
+		if(periodQuantity > 0){
+			this.periodQuantity = periodQuantity;
+		}
+		else{
+			throw new ObligationException("There is no such a period quantity!");
+		}
 	}
 	
 	@Override

@@ -20,42 +20,38 @@ import com.example.model.exceptions.PaymentException;
 @ContextConfiguration(classes = UserHasBudgetsDAO.class)
 @Scope("session")
 public class BudgetController {
-	
+
 	@Autowired
 	private UserHasBudgetsDAO userHasBudgetsDAO;
-	
-	@RequestMapping(value="/budgets", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/budgets", method = RequestMethod.POST)
 	public String addBudget(Budget budget, Model model, HttpServletRequest request) {
-		
-		if(request.getSession(false) == null){
+
+		if (request.getSession(false) == null) {
 			return "index";
 		}
-		
+
 		User user = (User) request.getSession().getAttribute("user");
-		
+
 		try {
 			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(user.getUserId(), budget));
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
 		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
-		} catch (BudgetException e) {
-			e.printStackTrace();
-			return "error";
 		}
-		
 		return "redirect:/budgets";
 	}
-	
-	@RequestMapping(value="/deleteBudget", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/deleteBudget", method = RequestMethod.POST)
 	public String deleteBudget(HttpServletRequest req, Model model) {
 		User user = (User) req.getSession().getAttribute("user");
-		String [] ids = req.getParameterValues("expenseId");
+		String[] ids = req.getParameterValues("expenseId");
 		int expenseId;
-		for (int index = 0; index < ids.length; index++){
+		for (int index = 0; index < ids.length; index++) {
 			expenseId = Integer.parseInt(ids[index]);
 			try {
-				if(userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)){
+				if (userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)) {
 					user.removeBudget(expenseId);
 				}
 			} catch (PaymentException e) {
@@ -63,19 +59,13 @@ public class BudgetController {
 				return "budgets";
 			}
 		}
-		try {			
+		try {
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
 		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
-		} catch (BudgetException e) {
-			e.printStackTrace();
-			return "error";
 		}
-			
 		return "redirect:/budgets";
 	}
-
-	
 
 }
