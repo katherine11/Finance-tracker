@@ -47,9 +47,15 @@ public class TestUserHasPaymentDAO {
 
 		TEST_USER_HAS_EXPENSES(user);
 		
-		TEST_USER_HAS_INCOMES(user);
+//		TEST_USER_HAS_INCOMES(user);
+//		
+//		TEST_USER_HAS_OBLIGATIONS(user);
 		
-		TEST_USER_HAS_OBLIGATIONS(user);
+		Set<Payment> exp = user.getExpensesBy("09/01/2016", "10/31/2016", 1);
+		for (Payment expense : exp){
+			System.out.println(expense);
+		}
+//		System.out.println(user.getTotalExpenses(null));
 
 	}
 
@@ -75,13 +81,13 @@ public class TestUserHasPaymentDAO {
 	}
 
 	void TEST_USER_HAS_EXPENSES(User user) throws PaymentException {
-		int eId = userHasExpensesDAO.insertPayment(USER_ID, new Expense(EXPENSE_ID, "???", "???", REPEATING_ID, AMOUNT_EXPENSE, LocalDate.now(), EXPENSE_DESCRIPTION, ID_AUTO_INCREMENT));
-		assertTrue(eId != 0);
+//		int eId = userHasExpensesDAO.insertPayment(USER_ID, new Expense(EXPENSE_ID, "???", "???", REPEATING_ID, AMOUNT_EXPENSE, LocalDate.now(), EXPENSE_DESCRIPTION, ID_AUTO_INCREMENT));
+//		assertTrue(eId != 0);
 		userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 		Set<Payment> expenses = user.getExpenses();
 		System.out.println("Expenses from " + user.getUsername());
 		printPayments(expenses);
-		userHasExpensesDAO.deletePayment(eId);
+//		userHasExpensesDAO.deletePayment(eId);
 	}
 
 	void printPayments(Set<Payment> payments) {

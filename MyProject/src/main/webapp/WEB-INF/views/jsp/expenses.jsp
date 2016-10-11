@@ -269,7 +269,7 @@ window.onload = function () {
 								<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
 										amount:</strong></td>
 								<td align="right" style="padding-top: 14px"><strong>
-								<c:out value="${user.totalExpenses}"></c:out> &nbsp;$ </strong> </td>
+								<c:out value="${user.getTotalExpenses(user.expenses)}"></c:out> &nbsp;$ </strong> </td>
 
 							</tr>
 						</tfoot>
@@ -289,6 +289,7 @@ window.onload = function () {
 						</td>
 						<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
 						</td>
+						<td align="center"><c:out value="${expense.repeating}"></c:out></td>
 						<td align="center"><c:out value="${expense.date}"></c:out></td>
 						<td align="left">(<c:out value="${expense.description}"></c:out>)
 						</td>

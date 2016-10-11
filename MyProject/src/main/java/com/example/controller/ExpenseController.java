@@ -88,10 +88,10 @@ public class ExpenseController{
 		String to = request.getParameter("to");
 		
 		Set<Payment> expenses = user.getExpensesBy(from, to, categoryId);
-		double totalAmount = 0;
-		for (Payment expense2 : expenses){
-			totalAmount += expense2.getAmount();
-		}
+		double totalAmount = user.getTotalExpenses(expenses);
+//		for (Payment expense2 : expenses){
+//			totalAmount += expense2.getAmount();
+//		}
 		model.addAttribute("expenses", expenses);
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("user", user);

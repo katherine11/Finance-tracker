@@ -173,16 +173,46 @@ public class User {
 	}
 
 	public double getBalance() {
-		double balance = getTotalIncomes() - getTotalExpenses();
+		double balance = getTotalIncomes() - getTotalExpenses(this.expenses);
 
 		return balance;
 
 	}
-	
-	public double getTotalExpenses() {
+
+	public double getTotalExpenses(Set<Payment> expenses) {
+		LocalDate now = LocalDate.now();
 		double totalExpenses = 0;
-		for (Payment expense : expenses){
-			totalExpenses += expense.getAmount();
+		for (Payment expense : expenses) {
+			LocalDate expenseDate = expense.getDate();
+			switch (expense.getRepeatingId()) {
+			case 2:
+				for (LocalDate date = expenseDate; !date.isAfter(now); date = date.plusDays(1)) {
+					totalExpenses += expense.getAmount();
+					System.out.println("DAILY");
+				}
+				break;
+			case 3:
+				for (LocalDate date = expenseDate; !date.isAfter(now); date = date.plusDays(7)) {
+					totalExpenses += expense.getAmount();
+					System.out.println("WEEKLY");
+				}
+				break;
+			case 4:
+				for (LocalDate date = expenseDate; !date.isAfter(now); date = date.plusMonths(1)) {
+					totalExpenses += expense.getAmount();
+					System.out.println("MONTHLY");
+				}
+				break;
+			case 5:
+				for (LocalDate date = expenseDate; !date.isAfter(now); date = date.plusYears(1)) {
+					totalExpenses += expense.getAmount();
+					System.out.println("YEARLY");
+				}
+				break;
+			default:
+				totalExpenses += expense.getAmount();
+				break;
+			}
 		}
 		return totalExpenses;
 	}
@@ -217,17 +247,63 @@ public class User {
 		LocalDate parsedDateTo = LocalDate.parse(to, formatter);
 		Set<Payment> ExpensesBy = new LinkedHashSet<Payment>();
 		for (Payment expense : expenses) {
-			if (!expense.getDate().isBefore(parsedDateFrom) && !expense.getDate().isAfter(parsedDateTo)) {
-				if (categoryId != 0) {
-					if (expense.getCategoryId() == categoryId) {
-						ExpensesBy.add(expense);
+			LocalDate expenseDate = expense.getDate();
+			if ((!expenseDate.isBefore(parsedDateFrom) || expense.getRepeatingId() > 1)
+					&& !expenseDate.isAfter(parsedDateTo)) {
+				if (expense.getRepeatingId() == 1 || expense.getRepeatingId() == 2) {
+					if (categoryId != 0) {
+						if (expense.getCategoryId() == categoryId) {
+							ExpensesBy.add(expense);
+						}
+						continue;
 					}
-					continue;
+					ExpensesBy.add(expense);
 				}
-				ExpensesBy.add(expense);
+				if (expense.getRepeatingId() == 3) {
+					for (LocalDate date = expenseDate; date.isAfter(parsedDateTo); date = date.plusDays(7)) {
+						if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+							if (categoryId != 0) {
+								if (expense.getCategoryId() == categoryId) {
+									ExpensesBy.add(expense);
+								}
+								continue;
+							}
+							ExpensesBy.add(expense);
+							break;
+						}
+					}
+				}
+				if (expense.getRepeatingId() == 4) {
+					for (LocalDate date = expenseDate; !date.isAfter(parsedDateTo); date = date.plusMonths(1)) {
+						if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+							if (categoryId != 0) {
+								if (expense.getCategoryId() == categoryId) {
+									ExpensesBy.add(expense);
+								}
+								continue;
+							}
+							ExpensesBy.add(expense);
+							break;
+						}
+					}
+				}
+				if (expense.getRepeatingId() == 5) {
+					for (LocalDate date = expenseDate; date.isAfter(parsedDateTo); date = date.plusYears(1)) {
+						if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+							if (categoryId != 0) {
+								if (expense.getCategoryId() == categoryId) {
+									ExpensesBy.add(expense);
+								}
+								continue;
+							}
+							ExpensesBy.add(expense);
+							break;
+						}
+					}
+				}
 			}
 		}
-		return Collections.unmodifiableSet(ExpensesBy);
+		return ExpensesBy;
 	}
 
 	public double getAmoutByExpenseCategoryId(int categoryId) {
@@ -265,15 +341,17 @@ public class User {
 		return budgetExpenses;
 
 	}
-	
+
 	public double getExpensesForMonth() {
 		double expensesForMonth = 0;
+		LocalDate now = LocalDate.now();
 		for (Payment expense : expenses) {
-			LocalDate now = LocalDate.now();
 			LocalDate expenseDate = expense.getDate();
-			if ((expenseDate.getYear() == now.getYear()||expense.getRepeatingId()>1)
-				&&( expenseDate.getMonthValue() == now.getMonthValue() || (expense.getRepeatingId()>1&&expense.getRepeatingId()<5))
-				&& expenseDate.getDayOfMonth() <= now.getDayOfMonth() || (expense.getRepeatingId() >1&&expense.getRepeatingId()<4)) {
+			if ((expenseDate.getYear() == now.getYear() || expense.getRepeatingId() > 1)
+					&& (expenseDate.getMonthValue() == now.getMonthValue()
+							|| (expense.getRepeatingId() > 1 && expense.getRepeatingId() < 5))
+					&& expenseDate.getDayOfMonth() <= now.getDayOfMonth()
+					|| (expense.getRepeatingId() > 1 && expense.getRepeatingId() < 4)) {
 				int passedDays = now.getDayOfMonth();
 				switch (expense.getRepeatingId()) {
 				case 1:
@@ -298,15 +376,17 @@ public class User {
 		}
 		return expensesForMonth;
 	}
-	
+
 	public double getIncomesForMonth() {
 		double incomesForMonth = 0;
 		for (Payment income : incomes) {
 			LocalDate now = LocalDate.now();
 			LocalDate incomeDate = income.getDate();
-			if ((incomeDate.getYear() == now.getYear()||income.getRepeatingId()>1)
-				&&( incomeDate.getMonthValue() == now.getMonthValue() || (income.getRepeatingId()>1&&income.getRepeatingId()<5))
-				&& incomeDate.getDayOfMonth() <= now.getDayOfMonth() || (income.getRepeatingId() >1&&income.getRepeatingId()<4)) {
+			if ((incomeDate.getYear() == now.getYear() || income.getRepeatingId() > 1)
+					&& (incomeDate.getMonthValue() == now.getMonthValue()
+							|| (income.getRepeatingId() > 1 && income.getRepeatingId() < 5))
+					&& incomeDate.getDayOfMonth() <= now.getDayOfMonth()
+					|| (income.getRepeatingId() > 1 && income.getRepeatingId() < 4)) {
 				int passedDays = now.getDayOfMonth();
 				switch (income.getRepeatingId()) {
 				case 1:
@@ -331,7 +411,7 @@ public class User {
 		}
 		return incomesForMonth;
 	}
-	
+
 	public double getBalanceForMonth() {
 		double balanceForMonth = getIncomesForMonth() - getExpensesForMonth();
 		return balanceForMonth;
