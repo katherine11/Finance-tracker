@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 import com.example.model.connections.DBConnection;
+import com.example.model.exceptions.IncomeException;
 import com.example.model.exceptions.PaymentException;
 
 @Component
@@ -20,6 +21,9 @@ public class UserHasIncomesDAO implements UserHasDAO {
 	private static final String DELETE_INCOME_SQL = "DELETE FROM `finance_track_test`.`users_has_incomes` WHERE `id`=?;";
 
 	public int insertPayment(int userId, Payment income) throws PaymentException {
+		
+		if(income != null){
+		
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -43,10 +47,15 @@ public class UserHasIncomesDAO implements UserHasDAO {
 		} catch (SQLException e) {
 			throw new PaymentException("Income insert failed!",e);
 		}
-		
+		}
+		else{
+			throw new IncomeException("Invalid income given!");
+		}
 	}
 
 	public void selectAndAddAllPaymentsOfUser(User user) throws PaymentException {
+		
+		if(user != null){
 		
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -78,6 +87,11 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			throw new PaymentException("Incomes select failed!",e);
 		}
 		
+		}
+		else{
+			throw new IncomeException("There is not such a user!");
+		}
+		
 	}
 
 	public boolean deletePayment(int id) throws PaymentException {
@@ -97,7 +111,5 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			throw new PaymentException ("Someting went wrong!",e);
 		} 
 	}
-
-	
 	
 }

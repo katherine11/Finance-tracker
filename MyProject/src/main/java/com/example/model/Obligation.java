@@ -3,17 +3,20 @@ package com.example.model;
 import java.time.LocalDate;
 
 import com.example.model.exceptions.ObligationException;
+import com.example.model.exceptions.PaymentException;
 
 public class Obligation extends Payment {
+	
+	private static final String CHECK_IF_PERIOD_ID_EXISTS = "SELECT COUNT(period_id) FROM period WHERE period_id = ?;";
 	
 	private int periodId;
 	private String period;
 	private int periodQuantity;
 
 	public Obligation(int categoryId, String category, String repeating, int reapeatingId, double amount,
-			LocalDate date, String description, int id, String period, int periodId, int periodQuantity) throws ObligationException {
+			LocalDate date, String description, int id, String period, int periodId, int periodQuantity) throws PaymentException {
 		super(categoryId, category, repeating, reapeatingId, amount, date, description, id);
-		if(period != null & period.trim() != ""){
+		if(UserHasDAO.isValidString(period)){
 			this.period = period;
 		}
 		else{
@@ -24,9 +27,7 @@ public class Obligation extends Payment {
 		setPeriodQuantity(periodQuantity);
 	}
 
-	public Obligation() {
-		// TODO Auto-generated constructor stub
-	}
+	public Obligation() {}
 
 	public int getPeriodId() {
 		return periodId;
@@ -41,7 +42,10 @@ public class Obligation extends Payment {
 	}
 
 	public void setPeriodId(int periodId) throws ObligationException {
-		if(UserHasObligationsDAO.containsPeriod(periodId)){
+		/*checking if the database 
+		 * contains such a period
+		 * */
+		if(UserHasDAO.isContainedInDB(periodId, CHECK_IF_PERIOD_ID_EXISTS)){
 			this.periodId = periodId;
 		}
 		else{
