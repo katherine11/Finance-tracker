@@ -65,11 +65,14 @@
 			<table class="table" name="obligation_table" cellspacing="0"
 				cellpadding="2" width="100%">
 				<thead>
+				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
 							id="main" />&nbsp;Select all<br /></th>
 						<th align="left">Category</th>
 						<th align="right">Amount</th>
+						<th>Paid</th>
+						<th>Remain</th>
 						<th>Date</th>
 						<th>Installment</th>
 						<th align="left">Description</th>
@@ -84,7 +87,6 @@
 		<p>
 			<form:form action="deleteObligation">
 				
-				<input name="selectALL" type="checkbox" value="" id="main" />&nbsp;Select all<br/>
 				<c:forEach items="${user.obligations}" var="obligation">
 									
 					<tr>
@@ -92,6 +94,8 @@
 									id="${obligation.id}" value="${obligation.id}" /></td>
 						<td align="left"><c:out value="${obligation.category}"></c:out></td>
 						<td align="right"><c:out value="${obligation.amount}"></c:out>&nbsp;$</td>
+						<td align="center"><c:out value="${obligation.paidAmount}"></c:out></td>
+						<td align="center"><c:out value="${obligation.remainedAmount}"></c:out></td>
 						<td align="center"><c:out value="${obligation.date}"></c:out></td>
 						<td align="center"><c:out value="${obligation.repeating}"></c:out></td>
 						<td align="left">(<c:out value="${obligation.description}"></c:out>)
@@ -100,7 +104,7 @@
 						</td>
 					</tr>
 				</c:forEach>
-				<input type="submit" id="delete" name="commit" value="Delete selected"><br/>
+				
 			</form:form>
 		</p>
 
