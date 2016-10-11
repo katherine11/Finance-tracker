@@ -18,6 +18,7 @@ import com.example.model.Payment;
 import com.example.model.User;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.exceptions.PaymentException;
+import com.example.model.exceptions.UserException;
 
 @Controller
 @ContextConfiguration(classes = UserHasExpensesDAO.class)
@@ -63,6 +64,9 @@ public class ExpenseController{
 			} catch (PaymentException e) {
 				e.printStackTrace();
 				return "error";
+			} catch (UserException e) {
+				e.printStackTrace();
+				return "error";
 			}
 		}
 		try {
@@ -88,7 +92,13 @@ public class ExpenseController{
 		String from = request.getParameter("from");
 		String to = request.getParameter("to");
 		
-		List<Payment> expenses = user.getExpensesBy(from, to, categoryId);
+		List<Payment> expenses;
+		try {
+			expenses = user.getExpensesBy(from, to, categoryId);
+		} catch (UserException e) {
+			e.printStackTrace();
+			return "error";
+		}
 		double totalAmount = 0;
 		for (Payment expense2 : expenses){
 			totalAmount += expense2.getAmount();
