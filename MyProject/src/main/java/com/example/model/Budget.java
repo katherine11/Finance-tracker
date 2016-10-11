@@ -27,8 +27,13 @@ public class Budget {
 		setRepeating(repeating);
 		setAmount(amount);
 		setDescription(description);
-		String strDate = date + "";
-		setDate(strDate);
+		if(date != null){
+			this.date = date;
+		}
+		else{
+			throw new BudgetException("There is no such date!");
+		}
+		
 	}
 
 	public Budget() {
