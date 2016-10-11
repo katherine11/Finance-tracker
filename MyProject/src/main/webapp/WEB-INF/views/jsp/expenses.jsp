@@ -109,7 +109,7 @@ window.onload = function () {
 			<div class="modal-content">
 				<span class="close">close</span>
 
-				<form:form commandName="expense" action="./expenses">
+				<form:form commandName="expense" action="./expenses" method="POST">
 
 					<p>
 						<form:label path="categoryId">Choose category:</form:label>

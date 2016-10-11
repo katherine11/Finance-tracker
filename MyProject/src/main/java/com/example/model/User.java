@@ -2,8 +2,11 @@ package com.example.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -179,7 +182,7 @@ public class User {
 
 	}
 
-	public double getTotalExpenses(Set<Payment> expenses) {
+	public double getTotalExpenses(Collection<Payment> expenses) {
 		LocalDate now = LocalDate.now();
 		double totalExpenses = 0;
 		for (Payment expense : expenses) {
@@ -241,16 +244,16 @@ public class User {
 		return totalAmount;
 	}
 
-	public Set<Payment> getExpensesBy(String from, String to, int categoryId) {
+	public List<Payment> getExpensesBy(String from, String to, int categoryId) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		LocalDate parsedDateFrom = LocalDate.parse(from, formatter);
 		LocalDate parsedDateTo = LocalDate.parse(to, formatter);
-		Set<Payment> ExpensesBy = new LinkedHashSet<Payment>();
+		List<Payment> ExpensesBy = new LinkedList<Payment>();
 		for (Payment expense : expenses) {
 			LocalDate expenseDate = expense.getDate();
 			if ((!expenseDate.isBefore(parsedDateFrom) || expense.getRepeatingId() > 1)
 					&& !expenseDate.isAfter(parsedDateTo)) {
-				if (expense.getRepeatingId() == 1 || expense.getRepeatingId() == 2) {
+				if (expense.getRepeatingId() == 1) {
 					if (categoryId != 0) {
 						if (expense.getCategoryId() == categoryId) {
 							ExpensesBy.add(expense);
@@ -259,8 +262,28 @@ public class User {
 					}
 					ExpensesBy.add(expense);
 				}
+				if (expense.getRepeatingId() == 2) {
+					Expense expenseToAdd = null;
+					for (LocalDate date = expenseDate; !date.isAfter(parsedDateTo); date = date.plusDays(1)) {
+						if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+							try {
+								expenseToAdd = (Expense) expense.getCopy();
+								expenseToAdd.setLocalDate(date);
+							} catch (CloneNotSupportedException e) {
+								e.printStackTrace();
+							}
+							if (categoryId != 0) {
+								if (expense.getCategoryId() == categoryId) {
+									ExpensesBy.add(expenseToAdd);
+								}
+								continue;
+							}
+							ExpensesBy.add(expenseToAdd);
+						}
+					}
+				}
 				if (expense.getRepeatingId() == 3) {
-					for (LocalDate date = expenseDate; date.isAfter(parsedDateTo); date = date.plusDays(7)) {
+					for (LocalDate date = expenseDate; !date.isAfter(parsedDateTo); date = date.plusDays(7)) {
 						if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
 							if (categoryId != 0) {
 								if (expense.getCategoryId() == categoryId) {
@@ -269,7 +292,6 @@ public class User {
 								continue;
 							}
 							ExpensesBy.add(expense);
-							break;
 						}
 					}
 				}
@@ -283,7 +305,6 @@ public class User {
 								continue;
 							}
 							ExpensesBy.add(expense);
-							break;
 						}
 					}
 				}

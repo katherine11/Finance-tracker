@@ -3,11 +3,11 @@ package com.example.unitTests;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.example.model.Expense;
 import com.example.model.Income;
 import com.example.model.Obligation;
 import com.example.model.Payment;
@@ -51,7 +51,7 @@ public class TestUserHasPaymentDAO {
 //		
 //		TEST_USER_HAS_OBLIGATIONS(user);
 		
-		Set<Payment> exp = user.getExpensesBy("09/01/2016", "10/31/2016", 1);
+		List<Payment> exp = user.getExpensesBy("09/01/2016", "10/31/2016", 1);
 		for (Payment expense : exp){
 			System.out.println(expense);
 		}

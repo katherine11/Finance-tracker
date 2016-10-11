@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,11 +88,11 @@ public class ExpenseController{
 		String from = request.getParameter("from");
 		String to = request.getParameter("to");
 		
-		Set<Payment> expenses = user.getExpensesBy(from, to, categoryId);
-		double totalAmount = user.getTotalExpenses(expenses);
-//		for (Payment expense2 : expenses){
-//			totalAmount += expense2.getAmount();
-//		}
+		List<Payment> expenses = user.getExpensesBy(from, to, categoryId);
+		double totalAmount = 0;
+		for (Payment expense2 : expenses){
+			totalAmount += expense2.getAmount();
+		}
 		model.addAttribute("expenses", expenses);
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("user", user);

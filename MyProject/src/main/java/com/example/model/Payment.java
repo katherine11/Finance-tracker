@@ -3,15 +3,9 @@ package com.example.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import org.mockito.internal.matchers.Not;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.joda.LocalDateParser;
-
 import com.example.model.exceptions.PaymentException;
 
-import ch.qos.logback.classic.spi.ThrowableProxyVO;
-
-public abstract class Payment {
+public abstract class Payment implements Cloneable{
 
 	private int categoryId;
 	private String category;
@@ -54,6 +48,10 @@ public abstract class Payment {
 		} else {
 			throw new PaymentException("Not a valid date given!");
 		}
+	}
+	
+	public void setLocalDate(LocalDate date) {
+		this.date = date;
 	}
 
 	public void setDescription(String description) throws PaymentException {
@@ -161,6 +159,10 @@ public abstract class Payment {
 	public String toString() {
 		return "Payment [category=" + category + ", repeating=" + repeating + ", amount=" + amount + ", date=" + date
 				+ ", description=" + description + "]";
+	}
+
+	public Payment getCopy() throws CloneNotSupportedException {
+		return (Payment) super.clone();
 	}
 
 }
