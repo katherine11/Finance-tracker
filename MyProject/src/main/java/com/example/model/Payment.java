@@ -3,11 +3,16 @@ package com.example.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.mockito.internal.matchers.Not;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.joda.LocalDateParser;
 
+import com.example.model.exceptions.PaymentException;
+
+import ch.qos.logback.classic.spi.ThrowableProxyVO;
+
 public abstract class Payment {
-	
+
 	private int categoryId;
 	private String category;
 	private String repeating;
@@ -16,42 +21,86 @@ public abstract class Payment {
 	private LocalDate date;
 	private String description;
 	private int id;
+
+//	public static boolean containsCategory(int categoryId){
+//		return UserHasDAO.isContainedInDB(categoryId, sql1) ||
+//				UserHasDAO.isContainedInDB(categoryId, sql2) ||
+//				UserHasDAO.isContainedInDB(categoryId, sql3);
+//	}
 	
+	//to make validations for category!
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
 
+	//to make validations for repeating!
 	public void setRepeatingId(int repeatingId) {
 		this.repeatingId = repeatingId;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setAmount(double amount) throws PaymentException {
+		if (amount > 0) {
+			this.amount = amount;
+		} else {
+			throw new PaymentException("There is no such an amount!");
+		}
 	}
 
-	public void setDate(String date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		LocalDate parsedDate = LocalDate.parse(date, formatter);
-		this.date = parsedDate;
+	public void setDate(String date) throws PaymentException {
+		if (UserHasDAO.isValidString(date)) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDate parsedDate = LocalDate.parse(date, formatter);
+			this.date = parsedDate;
+		} else {
+			throw new PaymentException("Not a valid date given!");
+		}
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String description) throws PaymentException {
+		if (UserHasDAO.isValidString(description)) {
+			this.description = description;
+		} else {
+			throw new PaymentException("The description given is not valid!");
+		}
 	}
 
-	public Payment (){
+	public Payment() {
+
+	}
+
+	public Payment(int categoryId, String category, String repeating, int reapeatingId, double amount, LocalDate date,
+			String description, int id) throws PaymentException {
+		setCategoryId(categoryId);
+		setRepeatingId(reapeatingId);
+		setAmount(amount);
+		setDescription(description);
+		if(id > 0){
+			this.id = id;
+		}
+		else{
+			throw new PaymentException("Invalid id given!");
+		}
 		
-	}
-	
-	public Payment (int categoryId, String category, String repeating, int reapeatingId, double amount, LocalDate date, String description, int id) {
-		this.categoryId = categoryId;
-		this.category = category;
-		this.repeating = repeating;
-		this.amount = amount;
-		this.date = date;
-		this.description = description;
-		this.repeatingId = reapeatingId;
-		this.id = id;
+		if(UserHasDAO.isValidString(category)){
+			this.category = category;
+		}
+		else{
+			throw new PaymentException("The category given is not valid!");
+		}
+		
+		if(UserHasDAO.isValidString(repeating)){
+			this.repeating = repeating;
+		}
+		else{
+			throw new PaymentException("The repeating given is not valid!");
+		}
+		
+		if(date != null){
+			this.date = date;
+		}
+		else{
+			throw new PaymentException("Invalid date given!");
+		}
 	}
 
 	public int getId() {
@@ -112,6 +161,6 @@ public abstract class Payment {
 	public String toString() {
 		return "Payment [category=" + category + ", repeating=" + repeating + ", amount=" + amount + ", date=" + date
 				+ ", description=" + description + "]";
-	}	
+	}
 
 }

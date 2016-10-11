@@ -20,7 +20,6 @@ public class UserHasObligationsDAO implements UserHasDAO {
 
 	private static final String DELETE_OBLIGATION_SQL = "DELETE FROM `finance_track_test`.`users_has_obligations` WHERE `id`=?;";
 	private static final String INSERT_OBLIGATION_SQL = "INSERT INTO users_has_obligations VALUES (?, ?, ?, ?, ?, ?, ?, ?, null)";
-	private static final String CHECK_IF_PERIOD_ID_EXISTS = "SELECT COUNT(period_id) FROM period WHERE period_id = ?;";
 
 	public int insertPayment(int userId, Payment obligation) throws PaymentException {
 
@@ -121,25 +120,25 @@ public class UserHasObligationsDAO implements UserHasDAO {
 		}
 	}
 
-	public static boolean containsPeriod(int periodId) {
-
-		Connection connection = DBConnection.getInstance().getConnection();
-
-		try {
-			PreparedStatement ps = connection.prepareStatement(CHECK_IF_PERIOD_ID_EXISTS);
-			ps.setInt(1, periodId);
-			ResultSet rs = ps.executeQuery(CHECK_IF_PERIOD_ID_EXISTS);
-			rs.next();
-			int result = rs.getInt(1);
-			if (result == 0) {
-				return false;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return true;
-	}
+//	public static boolean containsPeriod(int periodId) {
+//
+//		Connection connection = DBConnection.getInstance().getConnection();
+//
+//		try {
+//			PreparedStatement ps = connection.prepareStatement(CHECK_IF_PERIOD_ID_EXISTS);
+//			ps.setInt(1, periodId);
+//			ResultSet rs = ps.executeQuery(CHECK_IF_PERIOD_ID_EXISTS);
+//			rs.next();
+//			int result = rs.getInt(1);
+//			if (result == 0) {
+//				return false;
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return true;
+//	}
 
 }

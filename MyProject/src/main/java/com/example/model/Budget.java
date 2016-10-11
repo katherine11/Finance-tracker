@@ -7,6 +7,9 @@ import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.UserException;
 
 public class Budget {
+	
+	private static final String CHECK_IF_EXPENSE_ID_EXISTS = "SELECT COUNT(expenses_id) FROM users_has_budgets WHERE expenses_id = ?;";
+	private static final String CHECK_IF_REPEATING_ID_EXISTS = "SELECT COUNT(repeating_id) FROM repeatings WHERE repeating_id = ?;";
 
 	private int userId;
 	private int expenseId;
@@ -100,7 +103,7 @@ public class Budget {
 		 * checking if the database contains
 		 * expense with the expense id given
 		 * */
-		if (UserHasBudgetsDAO.constainsExpense(expenseId)) {
+		if (UserHasDAO.isContainedInDB(expenseId,CHECK_IF_EXPENSE_ID_EXISTS)) {
 			this.expenseId = expenseId;
 		} else {
 			throw new BudgetException("Such an expense does not exist!");
@@ -109,7 +112,7 @@ public class Budget {
 	}
 
 	public void setExpense(String expense) throws BudgetException {
-		if (expense != null && expense.trim() != "") {
+		if (UserHasDAO.isValidString(expense)) {
 			this.expense = expense;
 		} else {
 			throw new BudgetException("No such an expense available!");
@@ -121,7 +124,7 @@ public class Budget {
 		 * checking if the database contains
 		 * repeating with the repeating id given
 		 * */
-		if (UserHasBudgetsDAO.containsRepeating(repeatingId)) {
+		if (UserHasDAO.isContainedInDB(repeatingId, CHECK_IF_REPEATING_ID_EXISTS)) {
 			this.repeatingId = repeatingId;
 		} else {
 			throw new BudgetException("There is not such a repeating!");
@@ -129,7 +132,7 @@ public class Budget {
 	}
 
 	public void setRepeating(String repeating) throws BudgetException {
-		if (repeating != null && repeating.trim() != "") {
+		if (UserHasDAO.isValidString(repeating)) {
 			this.repeating = repeating;
 		}
 		else{
@@ -143,7 +146,7 @@ public class Budget {
 		 * and parsing the date using the 
 		 * formatter chosen
 		 * */
-		if (date != null && date.trim() != "") {
+		if (UserHasDAO.isValidString(date)) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 			LocalDate parsedDate = LocalDate.parse(date, formatter);
 			this.date = parsedDate;
@@ -154,7 +157,7 @@ public class Budget {
 	}
 
 	public void setDescription(String description) throws BudgetException {
-		if (description != null && description.trim() != "") {
+		if (UserHasDAO.isValidString(description)) {
 			this.description = description;
 		} else {
 			throw new BudgetException("Not a correct description given!");
