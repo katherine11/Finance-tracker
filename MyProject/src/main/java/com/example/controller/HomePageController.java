@@ -77,10 +77,7 @@ public class HomePageController {
 		} catch (UserException e) {
 			model.addAttribute("loginFail", "Invalid username or password");
 			return "login";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		} catch (BudgetException e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}

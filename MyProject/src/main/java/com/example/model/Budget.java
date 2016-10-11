@@ -19,68 +19,16 @@ public class Budget {
 
 	public Budget(int userId, int expenseId, String expense, int repeatingId, String repeating, double amount,
 			LocalDate date, String description) throws BudgetException {
-		/*
-		 * checking if the database contains
-		 * user with the user id given
-		 * */
-		try {
-			if (UserDAO.containsUser(userId)) {
-				this.userId = userId;
-			}
-		} catch (UserException e) {
-			e.printStackTrace();
-			throw new BudgetException("Such user does not exist!", e);
-		}
 
-		/*
-		 * checking if the database contains
-		 * expense with the expense id given
-		 * */
-		if (UserHasBudgetsDAO.constainsExpense(expenseId)) {
-			this.expenseId = expenseId;
-		} else {
-			throw new BudgetException("There is no such an expense available!");
-		}
-
-		if (expense != null && expense.trim() != "") {
-			this.expense = expense;
-		} else {
-			throw new BudgetException("There is no such kind of an expense!");
-		}
-		
-		/*
-		 * checking if the database contains
-		 * repeating with the repeating id given
-		 * */
-		if (UserHasBudgetsDAO.containsRepeating(repeatingId)) {
-			this.repeatingId = repeatingId;
-		} else {
-			throw new BudgetException("There is no such a repeating!");
-		}
-
-		if (repeating != null && repeating.trim() != "") {
-			this.repeating = repeating;
-		} else {
-			throw new BudgetException("There is no such kind of repeating value!");
-		}
-
-		if (amount > 0) {
-			this.amount = amount;
-		} else {
-			throw new BudgetException("There is no such an amount!");
-		}
-
-		if (date != null) {
-			this.date = date;
-		} else {
-			throw new BudgetException("There is no such date!");
-		}
-
-		if (description != null) {
-			this.description = description;
-		} else {
-			throw new BudgetException("There is no such kind of a description!");
-		}
+		setUserId(userId);
+		setExpenseId(expenseId);
+		setExpense(expense);
+		setRepeatingId(repeatingId);
+		setRepeating(repeating);
+		setAmount(amount);
+		setDescription(description);
+		String strDate = date + "";
+		setDate(strDate);
 	}
 
 	public Budget() {
