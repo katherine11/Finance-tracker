@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.model.Obligation;
 import com.example.model.User;
 import com.example.model.UserHasObligationsDAO;
-import com.example.model.exceptions.PaymentExpeption;
+import com.example.model.exceptions.PaymentException;
 
 @Controller
 @ContextConfiguration(classes = UserHasObligationsDAO.class)
@@ -35,7 +35,7 @@ public class ObligationController{
 			model.addAttribute("obligation", userHasObligationsDAO.insertPayment(user.getUserId(), obligation));
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
 			
-		} catch (PaymentExpeption e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}
@@ -54,7 +54,7 @@ public class ObligationController{
 				if(userHasObligationsDAO.deletePayment(id)){
 					user.removeObligation(id);
 				}
-			} catch (PaymentExpeption e) {
+			} catch (PaymentException e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -62,7 +62,7 @@ public class ObligationController{
 		try {
 			
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentExpeption e) {
+		} catch (PaymentException e) {
 			e.printStackTrace();
 			return "error";
 		}
