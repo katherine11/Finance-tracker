@@ -13,6 +13,7 @@ import com.example.model.Obligation;
 import com.example.model.User;
 import com.example.model.UserHasObligationsDAO;
 import com.example.model.exceptions.PaymentException;
+import com.example.model.exceptions.UserException;
 
 @Controller
 @ContextConfiguration(classes = UserHasObligationsDAO.class)
@@ -55,6 +56,9 @@ public class ObligationController{
 					user.removeObligation(id);
 				}
 			} catch (PaymentException e) {
+				e.printStackTrace();
+				return "error";
+			} catch (UserException e) {
 				e.printStackTrace();
 				return "error";
 			}

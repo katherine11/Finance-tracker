@@ -15,6 +15,7 @@ import com.example.model.User;
 import com.example.model.UserHasBudgetsDAO;
 import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.PaymentException;
+import com.example.model.exceptions.UserException;
 
 @Controller
 @ContextConfiguration(classes = UserHasBudgetsDAO.class)
@@ -57,6 +58,9 @@ public class BudgetController {
 			} catch (PaymentException e) {
 				model.addAttribute("insertFail", "Already exist budget for this category");
 				return "budgets";
+			} catch (UserException e) {
+				e.printStackTrace();
+				return "error";
 			}
 		}
 		try {

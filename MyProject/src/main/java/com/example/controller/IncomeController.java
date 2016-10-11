@@ -14,6 +14,7 @@ import com.example.model.Income;
 import com.example.model.User;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.exceptions.PaymentException;
+import com.example.model.exceptions.UserException;
 
 @Controller
 @ContextConfiguration(classes = UserHasIncomesDAO.class)
@@ -55,6 +56,9 @@ public class IncomeController{
 					user.removeIncome(id);
 				}
 			} catch (PaymentException e) {
+				e.printStackTrace();
+				return "error";
+			} catch (UserException e) {
 				e.printStackTrace();
 				return "error";
 			}
