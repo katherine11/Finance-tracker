@@ -17,14 +17,13 @@ import com.example.model.exceptions.PaymentException;
 @Component
 public class UserHasBudgetsDAO  {
 	
-	private static final String DELETE_BUDGET_SQL = "DELETE FROM users_has_budgets WHERE user_id = ? and expense_id = ?;";
+	private static final String DELETE_BUDGET_SQL = "DELETE FROM users_has_budgets WHERE user_id = ? AND expense_id = ?;";
 	private static final String INSERT_BUDGET_SQL = "INSERT INTO users_has_budgets VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String CHECK_IF_EXPENSE_ID_EXISTS = "SELECT COUNT(expenses_id) FROM users_has_budgets WHERE expenses_id = ?;";
 	private static final String CHECK_IF_REPEATING_ID_EXISTS = "SELECT COUNT(repeating_id) FROM users_has_budgets WHERE repeating_id = ?;";
 
 
 	public boolean insertBudget(int userId, Budget budget) throws PaymentException {
-		System.out.println(userId);
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -104,8 +103,9 @@ public class UserHasBudgetsDAO  {
 		Connection connection = DBConnection.getInstance().getConnection();
 		
 		try {
-			Statement statement  = connection.createStatement();
-			ResultSet rs = statement.executeQuery(CHECK_IF_EXPENSE_ID_EXISTS);
+			PreparedStatement ps = connection.prepareStatement(CHECK_IF_EXPENSE_ID_EXISTS);
+			ps.setInt(1, expenseId);
+			ResultSet rs = ps.executeQuery(CHECK_IF_EXPENSE_ID_EXISTS);
 			rs.next();
 			int result = rs.getInt(1);
 			if(result == 0){
@@ -123,8 +123,9 @@ public class UserHasBudgetsDAO  {
 		Connection connection = DBConnection.getInstance().getConnection();
 		
 		try {
-			Statement statement  = connection.createStatement();
-			ResultSet rs = statement.executeQuery(CHECK_IF_REPEATING_ID_EXISTS);
+			PreparedStatement ps = connection.prepareStatement(CHECK_IF_REPEATING_ID_EXISTS);
+			ps.setInt(1, repeatingId);
+			ResultSet rs = ps.executeQuery(CHECK_IF_REPEATING_ID_EXISTS);
 			rs.next();
 			int result = rs.getInt(1);
 			if(result == 0){

@@ -35,7 +35,7 @@ public class BudgetController {
 		try {
 			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(user.getUserId(), budget));
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
-		} catch (PaymentException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
@@ -61,7 +61,7 @@ public class BudgetController {
 		}
 		try {			
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
-		} catch (PaymentException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}

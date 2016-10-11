@@ -24,15 +24,16 @@ public class UserDAO {
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL,
+					PreparedStatement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.executeUpdate();
-			
+
 			ResultSet rs = ps.getGeneratedKeys();
-			
+
 			rs.next();
 			return rs.getInt(1);
 
@@ -53,7 +54,7 @@ public class UserDAO {
 			ps.setString(2, user.getPassword());
 
 			ResultSet rs = ps.executeQuery();
-			if (!rs.next()){
+			if (!rs.next()) {
 				throw new UserException("User login failed!");
 			}
 			return new User(rs.getInt(1), user.getUsername(), rs.getString(2), "**********");
@@ -63,7 +64,7 @@ public class UserDAO {
 		}
 
 	}
-	
+
 	public boolean deleteUser(User user) throws UserException {
 
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -72,8 +73,8 @@ public class UserDAO {
 			PreparedStatement ps = connection.prepareStatement(DELETE_USER_SQL);
 
 			ps.setString(1, user.getUsername());
-			int deletedRows = ps.executeUpdate(); 
-			if (deletedRows == 0){
+			int deletedRows = ps.executeUpdate();
+			if (deletedRows == 0) {
 				throw new UserException("No such user!");
 			}
 			return true;
@@ -83,26 +84,27 @@ public class UserDAO {
 		}
 
 	}
-	
-	public static boolean containsUser(int userId){
-		
+
+	public static boolean containsUser(int userId) throws UserException {
+
 		Connection connection = DBConnection.getInstance().getConnection();
-		
+
 		try {
-			Statement statement  = connection.createStatement();
-			ResultSet rs = statement.executeQuery(CHECK_IF_USER_ID_EXISTS);
+			PreparedStatement ps = connection.prepareStatement(CHECK_IF_USER_ID_EXISTS);
+			ps.setInt(1, userId);
+
+			ResultSet rs = ps.executeQuery();
 			rs.next();
 			int result = rs.getInt(1);
-			if(result == 0){
+			if (result == 0) {
 				return false;
 			}
-			
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UserException("Someting went wrong!");
 		}
-		
+
 		return true;
-				
 	}
 
 }
