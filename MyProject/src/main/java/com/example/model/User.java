@@ -1,5 +1,6 @@
 package com.example.model;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.tomcat.jni.Local;
 import org.hibernate.validator.constraints.Email;
 import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.ExpenseException;
@@ -302,24 +304,18 @@ public class User {
 		return totalAmount;
 	}
 
-	// <<<<<<< HEAD
-	// public List<Payment> getExpensesBy(String from, String to, int
-	// categoryId) {
-	// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-	// LocalDate parsedDateFrom = LocalDate.parse(from, formatter);
-	// LocalDate parsedDateTo = LocalDate.parse(to, formatter);
-	// List<Payment> ExpensesBy = new LinkedList<Payment>();
-	// for (Payment expense : expenses) {
-	// LocalDate expenseDate = expense.getDate();
-	// if ((!expenseDate.isBefore(parsedDateFrom) || expense.getRepeatingId() >
-	// 1)
-	// && !expenseDate.isAfter(parsedDateTo)) {
-	// if (expense.getRepeatingId() == 1) {
-	// if (categoryId != 0) {
-	// if (expense.getCategoryId() == categoryId) {
-	// ExpensesBy.add(expense);
-	// =======
-public List<Payment> getExpensesBy(String from, String to, int categoryId) throws UserException {
+	public List<Payment> getUpcomingPaymentsForMonth() throws UserException{
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		String from = now.format(formatter);
+		int remainingDays = now.lengthOfMonth() - now.getDayOfMonth();
+		now = now.plusDays(remainingDays);
+		String to = now.format(formatter);
+				
+		return this.getExpensesBy(from, to, 0);
+	}
+	
+	public List<Payment> getExpensesBy(String from, String to, int categoryId) throws UserException {
 		
 		//must add a validation for category id!
 		
