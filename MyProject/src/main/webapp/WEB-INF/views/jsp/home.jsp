@@ -70,11 +70,11 @@ window.onload = function () {
 				cellpadding="2" width="100%">
 			<thead>
 				<tr style="height: 35px;">
+					<th align="center">Date</th>	
+					<th align="left">Amount</th>
 					<th align="left">Category</th>
-					<th align="right">Amount</th>
-					<th>Repeat</th>
-					<th>Date</th>	
 					<th align="left">Description</th>
+					<th align="left">Repeat</th>
 				</tr>
 					</thead>
 					<tbody>
@@ -85,10 +85,10 @@ window.onload = function () {
 			<c:forEach items="${user.getUpcomingPaymentsForMonth(user.expenses)}" var="payment">
 				<tr>
 					<td align="center"><c:out value="${payment.date}"></c:out></td>
-					<td align="right"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
+					<td align="left"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
 					<td align="left"><c:out value="${payment.category}"></c:out></td>
 					<td align="left">(<c:out value="${payment.description}"></c:out>)</td>		
-					<td align="center"><c:out value="${payment.repeating}"></c:out></td>			
+					<td align="left"><c:out value="${payment.repeating}"></c:out></td>			
 				</tr>
 			</c:forEach>
 			<p/>
