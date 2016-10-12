@@ -47,11 +47,11 @@ public class Obligation extends Payment {
 		/*
 		 * checking if the database contains such a period
 		 */
-		if (UserHasDAO.isContainedInDB(periodId, CHECK_IF_PERIOD_ID_EXISTS)) {
+//		if (UserHasDAO.isContainedInDB(periodId, CHECK_IF_PERIOD_ID_EXISTS)) {
 			this.periodId = periodId;
-		} else {
-			throw new ObligationException("There is no such a period!");
-		}
+//		} else {
+//			throw new ObligationException("There is no such a period!");
+//		}
 
 	}
 

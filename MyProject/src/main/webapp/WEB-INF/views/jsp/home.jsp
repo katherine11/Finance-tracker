@@ -17,8 +17,8 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script> 
 <script type="text/javascript">
 window.onload = function () {
-	var incomes = ${user.incomesForMonth};
-	var expenses = ${user.expensesForMonth};
+	var incomes = ${user.getPaymentsForMonth(user.incomes)};
+	var expenses = ${user.getPaymentsForMonth(user.expenses)};
 	var balance = ${user.balanceForMonth};
 	
 	var chart = new CanvasJS.Chart("chartContainer2",
@@ -58,9 +58,9 @@ window.onload = function () {
 	<section class="section_home">	
 	
 	<div class="table" style="width:300px">
-		
-		<p> Incomes: <c:out value="${user.incomesForMonth}"></c:out>&nbsp;$ </p>
-		<p> Expenses: <c:out value="${user.expensesForMonth}"></c:out>&nbsp;$ </p>
+			
+		<p> Incomes: <c:out value="${user.getPaymentsForMonth(user.incomes)}"></c:out>&nbsp;$ </p>
+		<p> Expenses: <c:out value="${user.getPaymentsForMonth(user.expenses)}"></c:out>&nbsp;$ </p>
 		<p> Balance: <c:out value="${user.balanceForMonth}"></c:out>&nbsp;$ </p>
 
 	</div>
@@ -82,13 +82,13 @@ window.onload = function () {
 						<h2>Upcoming payments</h2>
 					</caption>
 			<p>
-			<c:forEach items="${user.upcomingPaymentsForMonth}" var="payment">
+			<c:forEach items="${user.getUpcomingPaymentsForMonth(user.expenses)}" var="payment">
 				<tr>
-					<td align="left"><c:out value="${payment.category}"></c:out></td>
-					<td align="right"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
-					<td align="center"><c:out value="${payment.repeating}"></c:out></td>
 					<td align="center"><c:out value="${payment.date}"></c:out></td>
+					<td align="right"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
+					<td align="left"><c:out value="${payment.category}"></c:out></td>
 					<td align="left">(<c:out value="${payment.description}"></c:out>)</td>		
+					<td align="center"><c:out value="${payment.repeating}"></c:out></td>			
 				</tr>
 			</c:forEach>
 			<p/>

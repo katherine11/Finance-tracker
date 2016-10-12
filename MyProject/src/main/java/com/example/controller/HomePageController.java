@@ -66,10 +66,12 @@ public class HomePageController {
 		try {
 			User loggedUser = userDAO.loginUser(user);
 //			System.out.println(loggedUser.getUsername());
-			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(loggedUser);
+			System.out.println("=========================="+user.getIncomes().size());
+			System.out.println("=========================="+user.getExpenses().size());
 			session.setAttribute("user", loggedUser);
 			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);
@@ -81,7 +83,12 @@ public class HomePageController {
 			e.printStackTrace();
 			return "error";
 		}
-		
+		try {
+			Thread.currentThread().sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:/home";
 	}	
 	

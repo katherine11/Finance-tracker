@@ -51,11 +51,10 @@
 </script>
 <script type="text/javascript">
 	window.onload = function() {
-		var Salary = ${	user.getAmoutByIncomeCategoryId(6)};
-		var Rent = ${
-			user.getAmoutByIncomeCategoryId(7)};
-		var Grants = ${user.getAmoutByIncomeCategoryId(8)};
-		var Other = ${user.getAmoutByIncomeCategoryId(9)};
+		var Salary = ${	user.getAmoutByPaymentCategoryId(6, user.incomes)};
+		var Rent = ${ user.getAmoutByPaymentCategoryId(7, user.incomes)};
+		var Grants = ${ user.getAmoutByPaymentCategoryId(8, user.incomes)};
+		var Other = ${ user.getAmoutByPaymentCategoryId(9, user.incomes)};
 		var chart = new CanvasJS.Chart("chartContainer",
 				{
 					title : {
@@ -150,7 +149,7 @@
 						<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
 								amount:</strong></td>
 						<td align="right" style="padding-top: 14px"><strong>
-								<c:out value="${user.totalIncomes}"></c:out> &nbsp;$
+								<c:out value="${user.getTotalAmountFor(user.incomes)}"></c:out> &nbsp;$
 						</strong></td>
 
 					</tr>

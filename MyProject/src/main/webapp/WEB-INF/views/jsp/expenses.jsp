@@ -52,12 +52,12 @@
 </script>
 <script type="text/javascript">
 window.onload = function () {
-	var foodAndDrinks = ${user.getAmoutByExpenseCategoryId(1)};
-	var transport = ${user.getAmoutByExpenseCategoryId(2)};
-	var education = ${user.getAmoutByExpenseCategoryId(3)};
-	var sport = ${user.getAmoutByExpenseCategoryId(4)};
-	var bills = ${user.getAmoutByExpenseCategoryId(5)};
-	var other = ${user.getAmoutByExpenseCategoryId(6)};
+	var foodAndDrinks = ${user.getAmoutByPaymentCategoryId(1, user.expenses)};
+	var transport = ${user.getAmoutByPaymentCategoryId(2, user.expenses)};
+	var education = ${user.getAmoutByPaymentCategoryId(3, user.expenses)};
+	var sport = ${user.getAmoutByPaymentCategoryId(4, user.expenses)};
+	var bills = ${user.getAmoutByPaymentCategoryId(5, user.expenses)};
+	var other = ${user.getAmoutByPaymentCategoryId(6, user.expenses)};
 	
 	var chart = new CanvasJS.Chart("chartContainer",
 	{
@@ -225,8 +225,8 @@ window.onload = function () {
 						
 				<thead>
 					<tr style="height: 35px;">
-						<th><input name="selectALL" type="checkbox" value=""
-							id="main" />&nbsp;Select all<br /></th>
+						<th><c:if test="${empty expenses }"><input name="selectALL" type="checkbox" value=""
+							id="main" />&nbsp;Select all<br /></c:if></th>
 						<th align="left">Category</th>
 						<th align="right">Amount</th>
 						<th>Repeat</th>
@@ -269,7 +269,7 @@ window.onload = function () {
 								<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
 										amount:</strong></td>
 								<td align="right" style="padding-top: 14px"><strong>
-								<c:out value="${user.getTotalExpenses(user.expenses)}"></c:out> &nbsp;$ </strong> </td>
+								<c:out value="${user.getTotalAmountFor(user.expenses)}"></c:out> &nbsp;$ </strong> </td>
 
 							</tr>
 						</tfoot>
@@ -283,8 +283,7 @@ window.onload = function () {
 				
 				<c:forEach items="${expenses}" var="expense">
 					<tr>
-						<td align="center"><input type="checkbox" name="id"
-							id="${expense.id}" value="${expense.id}" /></td>
+						<td align="center"></td>
 						<td align="left"><c:out value="${expense.category}"></c:out>
 						</td>
 						<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$

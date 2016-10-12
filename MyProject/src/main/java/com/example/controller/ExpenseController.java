@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -92,17 +94,15 @@ public class ExpenseController{
 		String from = request.getParameter("from");
 		String to = request.getParameter("to");
 		
-		List<Payment> expenses;
+		List<Payment> expenses = new LinkedList<Payment>();
 		try {
-			expenses = user.getExpensesBy(from, to, categoryId);
+			expenses = user.getPaymentsBy(from, to, categoryId, user.getExpenses());
 		} catch (UserException e) {
 			e.printStackTrace();
 			return "error";
 		}
-		double totalAmount = 0;
-		for (Payment expense2 : expenses){
-			totalAmount += expense2.getAmount();
-		}
+		double totalAmount = user.getTotalAmountFor(expenses);
+	
 		model.addAttribute("expenses", expenses);
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("user", user);

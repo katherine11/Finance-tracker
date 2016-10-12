@@ -79,6 +79,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 				int id = rs.getInt(8);
 				
 				income = new Income(categoryId, category, repeating, reapeatingId, amount, date, description, id);
+				System.out.println("************"+income);
 				user.addIncome(income);
 	
 			}

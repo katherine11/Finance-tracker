@@ -103,11 +103,11 @@ public class Budget {
 		 * checking if the database contains
 		 * expense with the expense id given
 		 * */
-		if (UserHasDAO.isContainedInDB(expenseId,CHECK_IF_EXPENSE_ID_EXISTS)) {
+//		if (UserHasDAO.isContainedInDB(expenseId,CHECK_IF_EXPENSE_ID_EXISTS)) {
 			this.expenseId = expenseId;
-		} else {
-			throw new BudgetException("Such an expense does not exist!");
-		}
+//		} else {
+//			throw new BudgetException("Such an expense does not exist!");
+//		}
 
 	}
 
@@ -124,11 +124,11 @@ public class Budget {
 		 * checking if the database contains
 		 * repeating with the repeating id given
 		 * */
-		if (UserHasDAO.isContainedInDB(repeatingId, CHECK_IF_REPEATING_ID_EXISTS)) {
+//		if (UserHasDAO.isContainedInDB(repeatingId, CHECK_IF_REPEATING_ID_EXISTS)) {
 			this.repeatingId = repeatingId;
-		} else {
-			throw new BudgetException("There is not such a repeating!");
-		}
+//		} else {
+//			throw new BudgetException("There is not such a repeating!");
+//		}
 	}
 
 	public void setRepeating(String repeating) throws BudgetException {

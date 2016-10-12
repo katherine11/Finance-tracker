@@ -47,15 +47,19 @@ public class TestUserHasPaymentDAO {
 
 		TEST_USER_HAS_EXPENSES(user);
 		
-//		TEST_USER_HAS_INCOMES(user);
+		TEST_USER_HAS_INCOMES(user);
 //		
 //		TEST_USER_HAS_OBLIGATIONS(user);
 		
-		List<Payment> exp = user.getExpensesBy("09/01/2016", "10/31/2016", 1);
-		for (Payment expense : exp){
-			System.out.println(expense);
-		}
+//		List<Payment> exp = user.getExpensesBy("09/01/2016", "10/31/2016", 1);
+//		for (Payment expense : exp){
+//			System.out.println(expense);
+//		}
 //		System.out.println(user.getTotalExpenses(null));
+		
+		System.out.println(user.getPaymentsForMonth(user.getExpenses()));
+		
+		System.out.println(user.getUpcomingPaymentsForMonth(user.getExpenses()));
 
 	}
 
@@ -71,13 +75,13 @@ public class TestUserHasPaymentDAO {
 	}
 
 	void TEST_USER_HAS_INCOMES(User user) throws PaymentException {
-		int iId = userHasIncomesDAO.insertPayment(USER_ID, new Income(INCOME_ID, "???", "???", REPEATING_ID, INCOME_AMOUNT , LocalDate.now(), INCOME_DESCRIPTION, ID_AUTO_INCREMENT));
-		assertTrue(iId != 0);
+//		int iId = userHasIncomesDAO.insertPayment(USER_ID, new Income(INCOME_ID, "???", "???", REPEATING_ID, INCOME_AMOUNT , LocalDate.now(), INCOME_DESCRIPTION, ID_AUTO_INCREMENT));
+//		assertTrue(iId != 0);
 		userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
 		Set<Payment> incomes = user.getIncomes();
 		System.out.println("Incomes from " + user.getUsername());
 		printPayments(incomes);
-		userHasIncomesDAO.deletePayment(iId);
+//		userHasIncomesDAO.deletePayment(iId);
 	}
 
 	void TEST_USER_HAS_EXPENSES(User user) throws PaymentException {
