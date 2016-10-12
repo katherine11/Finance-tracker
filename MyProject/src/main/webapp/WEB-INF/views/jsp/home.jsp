@@ -3,6 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -59,9 +61,9 @@ window.onload = function () {
 	
 	<div class="table" style="width:300px">
 			
-		<p> Incomes: <c:out value="${user.getPaymentsForMonth(user.incomes)}"></c:out>&nbsp;$ </p>
-		<p> Expenses: <c:out value="${user.getPaymentsForMonth(user.expenses)}"></c:out>&nbsp;$ </p>
-		<p> Balance: <c:out value="${user.balanceForMonth}"></c:out>&nbsp;$ </p>
+		<p>Incomes: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.incomes)}" />&nbsp;$</p>
+		<p>Expenses: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.expenses)}" />&nbsp;$</p>
+		<p>Balance: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.balanceForMonth}" />&nbsp;$</p>
 
 	</div>
 	

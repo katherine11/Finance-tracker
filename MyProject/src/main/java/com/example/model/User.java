@@ -293,6 +293,20 @@ public class User {
 		}
 		return totalAmount;
 	}
+	public double getTotalPaidObligations() {
+		double totalAmount = 0;
+		for (Payment obligation : this.obligations) {
+			totalAmount += ((Obligation) obligation).getPaidAmount();
+		}
+		return totalAmount;
+	}
+	public double getTotalRemainObligations() {
+		double totalAmount = 0;
+		for (Payment obligation : this.obligations) {
+			totalAmount += ((Obligation) obligation).getRemainedAmount();
+		}
+		return totalAmount;
+	}
 
 	public List<Payment> getUpcomingPaymentsForMonth(Collection<Payment> payments) throws UserException{
 		LocalDate now = LocalDate.now();
@@ -451,19 +465,20 @@ public class User {
 	 * money given as expenses
 	 */
 	public double getRemainAmountForBudget(int expenseId) {
-		double budgetExpenses = 0;
+		double amount = 0;
+		List<Payment> budgetExpenses = new LinkedList<>();	
 		for (Budget budget : this.budgets) {
 			if (budget.getExpenseId() == expenseId) {
-				budgetExpenses += budget.getAmount();
+				amount += budget.getAmount();
 			}
 		}
+		
 		for (Payment expense : this.expenses) {
 			if (expense.getCategoryId() == expenseId) {
-				budgetExpenses -= expense.getAmount();
+				budgetExpenses.add(expense);
 			}
 		}
-		return budgetExpenses;
-
+		return amount - this.getPaymentsForMonth(budgetExpenses);
 	}
 
 	/*

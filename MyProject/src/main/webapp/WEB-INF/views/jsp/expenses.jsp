@@ -224,6 +224,7 @@ window.onload = function () {
 						cellpadding="2" width="100%">
 						
 				<thead>
+				
 					<tr style="height: 35px;">
 						<th><c:if test="${empty expenses }"><input name="selectALL" type="checkbox" value=""
 							id="main" />&nbsp;Select all<br /></c:if></th>

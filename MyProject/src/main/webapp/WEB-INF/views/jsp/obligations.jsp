@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -93,9 +94,12 @@
 						<td align="center"><input type="checkbox" name="id"
 									id="${obligation.id}" value="${obligation.id}" /></td>
 						<td align="left"><c:out value="${obligation.category}"></c:out></td>
-						<td align="right"><c:out value="${obligation.amount}"></c:out>&nbsp;$</td>
-						<td align="center"><c:out value="${obligation.paidAmount}"></c:out></td>
-						<td align="center"><c:out value="${obligation.remainedAmount}"></c:out></td>
+						<td align="right"><fmt:formatNumber type="number" minFractionDigits="2" 
+								maxFractionDigits="2" value="${obligation.amount}" />&nbsp;$</td>
+						<td align="right"><fmt:formatNumber type="number" minFractionDigits="2" 
+								maxFractionDigits="2" value="${obligation.paidAmount}" />&nbsp;$</td>
+						<td align="right"><fmt:formatNumber type="number" minFractionDigits="2" 
+								maxFractionDigits="2" value="${obligation.remainedAmount}" />&nbsp;$</td>		
 						<td align="center"><c:out value="${obligation.date}"></c:out></td>
 						<td align="center"><c:out value="${obligation.repeating}"></c:out></td>
 						<td align="left">(<c:out value="${obligation.description}"></c:out>)
@@ -111,11 +115,13 @@
 		</tbody>
 				<tfoot>
 					<tr>
-						<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
-								amount:</strong></td>
-						<td align="right" style="padding-top: 14px"><strong>
-								<c:out value="${user.totalObligations}"></c:out> &nbsp;$
-						</strong></td>
+						<td align="right" colspan="2" style="padding-top: 14px"><strong>Total</strong></td>
+						<td align="right" style="padding-top: 14px"><fmt:formatNumber type="number" minFractionDigits="2" 
+								maxFractionDigits="2" value="${user.totalObligations}" />&nbsp;$</td>
+						<td align="right" style="padding-top: 14px"><fmt:formatNumber type="number" minFractionDigits="2" 
+								maxFractionDigits="2" value="${user.totalPaidObligations}" />&nbsp;$</td>
+						<td align="right" style="padding-top: 14px"><fmt:formatNumber type="number" minFractionDigits="2" 
+								maxFractionDigits="2" value="${user.totalRemainObligations}" />&nbsp;$</td>
 
 					</tr>
 				</tfoot>
