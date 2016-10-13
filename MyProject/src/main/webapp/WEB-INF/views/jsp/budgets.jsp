@@ -23,34 +23,34 @@
 	$(document).ready(function() {
 		$("#datepicker").datepicker();
 	});
-	
+	 
 	$(document).ready(function() {
 
-	    $('#main').change(function() {
+		$('#main').change(function() {
 
-	        if ($(this).is(':checked')) {
-	        $('input[name="id"]:checkbox').prop('checked', true);        
+			if ($(this).is(':checked')) {
+				$('input[name="id"]:checkbox').prop('checked', true);
 
-	        } else {
+			} else {
 
-	            $('input[name="id"]:checkbox').prop('checked', false);
-	        }
-	    });
+				$('input[name="id"]:checkbox').prop('checked', false);
+			}
+		});
 
-
-	$('input[name="id"]:checkbox').change(function() {
-	        var chkLength = $('input[name="id"]:checkbox').length;
-	        var checkedLen = $('input[name="id"]:checkbox:checked').length;    
-	        if (chkLength == checkedLen) {
-	            $('#main').prop('checked', true);
-	        } else {
-	            $('#main').prop('checked', false);
-	        }
-	    });
+		$('input[name="id"]:checkbox').change(function() {
+			var chkLength = $('input[name="id"]:checkbox').length;
+			var checkedLen = $('input[name="id"]:checkbox:checked').length;
+			if (chkLength == checkedLen) {
+				$('#main').prop('checked', true);
+			} else {
+				$('#main').prop('checked', false);
+			}
+		});
 	});
 	
 </script>
 
+<script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script>
 <title>My budgets</title>
 
 </head>
@@ -87,7 +87,6 @@
 				<caption>
 					<h2>Budgets</h2>
 				</caption>
-
 		<p>
 			<form:form action="./deleteBudget">
 				
@@ -122,6 +121,9 @@
 			</table>
 		</div>
 
+		<!-- this does not work here.... -->
+		<%-- <script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script> --%>
+		
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
@@ -189,7 +191,7 @@
 		</div>
 
 		<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
-
+		<%-- <script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script> --%>
 	</div>
 	</section>
 

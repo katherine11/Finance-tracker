@@ -145,16 +145,34 @@ header {
     margin-left: 20px;
 }
 
+/*style for adding buttons*/
+#myBtn, #myBtn2{
+	color: red;
+	background-color:black;
+	float: right;
+    margin-right: 100px;
+    height: 44px;
+    width: 167px;
+    font-size: 22px;	
+}
+
 /*style for total incomes' and expenses' size*/
 p.total_money{
 	font-size:30px;
+}
+
+/*for creating a space between the navigation buttons*/
+a.space{
+	margin-left:13px;
 }
 
 /*style for navigation buttons*/
 .navigation_buttons {
 	display: inline-block;
 	float: left;
-	margin-left: 37px;
+	margin-left: -241px;
+    margin-top: 83px;
+   padding-left: 240px;
 }
 
 .n_button {
@@ -301,7 +319,7 @@ input, .input {
   }
 }
 
-input[type=submit] {
+input[type=submit], #myBtn {
   padding: 0 18px;
   height: 29px;
   font-size: 12px;
@@ -331,7 +349,7 @@ input[type=submit] {
 
 
 caption.upcoming_payments{
-	color:#b30000;
+	color:#c24642;
 }
 
 /*style for the opening modal*/
@@ -354,7 +372,9 @@ caption.upcoming_payments{
 	margin: auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 80%;
+	width: 35%;
+	border-radius: 50px;
+	background-color: lightcyan;
 }
 
 .close, .close2 {
@@ -369,6 +389,13 @@ caption.upcoming_payments{
 	text-decoration: none;
 	cursor: pointer;
 }
+
+/*for rounded corners in the modal input fields*/
+p.input.hasDatePicker, p.input, p.select.input{
+	border-radius:20px;
+}
+
+
 
 /*style for footer*/
 footer {

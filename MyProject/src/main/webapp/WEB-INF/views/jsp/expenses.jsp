@@ -305,7 +305,11 @@ window.onload = function () {
 						<td align="left">(<c:out value="${expense.description}"></c:out>)
 						</td>
 					</tr>
+					
 				</c:forEach>
+				
+				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
+				
 					</tbody>
 					<tfoot>
 							<tr>

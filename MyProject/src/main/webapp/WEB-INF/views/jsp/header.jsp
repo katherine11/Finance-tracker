@@ -47,5 +47,4 @@ $(document).ready(function() {
 			<img alt="logo" src="img/logo.jpg">
 		</div>
 		<div class="title-text">
-			<!-- <h1>Get a full control over your money!</h1> -->
 		</div>

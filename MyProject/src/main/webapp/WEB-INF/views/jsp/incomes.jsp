@@ -25,7 +25,7 @@
 		$("#datepicker").datepicker();
 	});
 
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 
 		$('#main').change(function() {
 
@@ -47,7 +47,7 @@
 				$('#main').prop('checked', false);
 			}
 		});
-	});
+	}); */
 </script>
 <script type="text/javascript">
 	window.onload = function() {
@@ -101,6 +101,7 @@
 
 	<div class="">
 		<!-- <h1>Incomes</h1> -->
+		
 		<button id="myBtn">Add income</button>
 
 		<div class="Tables">
@@ -163,7 +164,7 @@
 				<form:form commandName="income">
 
 					<p>
-						<form:label path="categoryId">Choose category:</form:label>
+						<form:label path="categoryId">Category:</form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
 							<form:option value="6">Salary</form:option>
 
@@ -176,13 +177,13 @@
 						</form:select>
 					</p>
 					<p>
-						<form:label path="amount">Enter an amount of money:</form:label>
+						<form:label path="amount">Sum:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Choose a stage of repeating:</form:label>
+						<form:label path="repeatingId">Repeating:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
@@ -196,12 +197,12 @@
 
 					</p>
 					<p>
-						<form:label path="date">Choose a date:</form:label>
+						<form:label path="date">Date:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
 							placeholder="Date" required="required" />
 					</p>
 					<p>
-						<form:label path="description">Enter a description:</form:label>
+						<form:label path="description">Description:</form:label>
 						<form:textarea id="description" class="input" name="description"
 							path="description" placeholder="Description" required="required" />
 					</p>
