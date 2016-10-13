@@ -73,7 +73,6 @@
 			<table class="table" name="budget_table" cellspacing="0"
 				cellpadding="2" width="100%">
 				<thead>
-				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
 							id="main" />&nbsp;Select all<br /></th>
@@ -104,8 +103,8 @@
 						<td align="left">(<c:out value="${budget.description}"></c:out>)
 								</td>
 					</tr>
-					
 				</c:forEach>
+				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
 			</form:form>
 		</p>
 

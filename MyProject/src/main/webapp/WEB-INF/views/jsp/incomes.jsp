@@ -55,6 +55,19 @@
 		var Rent = ${ user.getAmoutByPaymentCategoryId(7, user.incomes)};
 		var Grants = ${ user.getAmoutByPaymentCategoryId(8, user.incomes)};
 		var Other = ${ user.getAmoutByPaymentCategoryId(9, user.incomes)};
+		var array = [];
+		if (Salary > 0){
+			array.push({y: Salary, indexLabel: "Salary #percent%", legendText: "Salary" });
+		}
+		if (Rent > 0){
+		array.push({y: Rent, indexLabel: "Rent #percent%", legendText: "Rent"});
+		}
+		if (Grants > 0){
+		array.push({y: Grants,  indexLabel: "Grants #percent%", legendText: "Grants" });
+		}
+		if (Other > 0){
+		array.push({y: Other, indexLabel: "Other #percent%", legendText: "Other" });
+		}
 		var chart = new CanvasJS.Chart("chartContainer",
 				{
 					title : {
@@ -67,23 +80,7 @@
 						toolTipContent : "{legendText}: {y} - <strong>#percent% </strong>",
 						showInLegend : true,
 						explodeOnClick : true,
-						dataPoints : [ {
-							y : Salary,
-							indexLabel : "Salary #percent%",
-							legendText : "Salary"
-						}, {
-							y : Rent,
-							indexLabel : "Rent #percent%",
-							legendText : "Rent"
-						}, {
-							y : Grants,
-							indexLabel : "Grants #percent%",
-							legendText : "Grants"
-						}, {
-							y : Other,
-							indexLabel : "Other #percent%",
-							legendText : "Other"
-						} ]
+						dataPoints : array
 					} ]
 				});
 		chart.render();

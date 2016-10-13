@@ -12,4 +12,5 @@ public class Income extends Payment {
 	}
 
 	public Income(){}
+
 }

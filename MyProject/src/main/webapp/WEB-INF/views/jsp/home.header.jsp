@@ -27,7 +27,7 @@
 	</div>
 	<div class="navigation_buttons">
 		<nav>
-			<a href="./inquiries"><button class="n_button" type="submit">Inquiries</button></a>
+			<!-- <a href="./inquiries"><button class="n_button" type="submit">Inquiries</button></a> -->
 			<a href="./budgets"><button class="n_button" type="submit">Budgets</button></a>
 			<a href="./obligations"><button class="n_button" type="submit">Obligations</button></a>
 			<a href="./expenses"><button class="n_button" type="submit">Expenses</button></a>

@@ -11,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.canvasjs.min.js"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -48,7 +49,28 @@
 	});
 	
 </script>
-
+<script type="text/javascript">
+		window.onload = function () {
+			var array = [];
+			var obligations = ${user.obligationsJson};
+			for (index in obligations) {
+				var obligation = obligations[index];
+				var remain = obligation.remainedAmount;
+				array.push({y: obligation.amount, label: obligation.category });
+				array.push({y: remain, label: "Remain" });
+			}
+			var chart = new CanvasJS.Chart("chartContainer", {
+				title: {
+					text: "Obligation amount and remain amount"
+				},
+				data: [{
+					type: "column",
+					dataPoints: array
+				}]
+			});
+			chart.render();
+		}
+	</script>
 
 <title>My obligations</title>
 
@@ -59,6 +81,8 @@
 
 	<section class="">
 	
+	<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+	
 	<div class="">
 		<button id="myBtn">Add obligation</button>
 		
@@ -66,7 +90,6 @@
 			<table class="table" name="obligation_table" cellspacing="0"
 				cellpadding="2" width="100%">
 				<thead>
-				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
 							id="main" />&nbsp;Select all<br /></th>
@@ -108,7 +131,7 @@
 						</td>
 					</tr>
 				</c:forEach>
-				
+				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
 			</form:form>
 		</p>
 

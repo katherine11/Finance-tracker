@@ -57,8 +57,26 @@ window.onload = function () {
 	var education = ${user.getAmoutByPaymentCategoryId(3, user.expenses)};
 	var sport = ${user.getAmoutByPaymentCategoryId(4, user.expenses)};
 	var bills = ${user.getAmoutByPaymentCategoryId(5, user.expenses)};
-	var other = ${user.getAmoutByPaymentCategoryId(6, user.expenses)};
-	
+	var other = ${user.getAmoutByPaymentCategoryId(6, user.expenses)}; 
+	var array = [];
+	if (foodAndDrinks > 0){
+		array.push({y: foodAndDrinks, indexLabel: "Food&Drinks #percent%", legendText: "Food&Drinks" });
+	}
+	if (foodAndDrinks > 0){
+	array.push({y: transport, indexLabel: "Transport #percent%", legendText: "Transport"});
+	}
+	if (transport > 0){
+	array.push({y: education,  indexLabel: "Education #percent%", legendText: "Education" });
+	}
+	if (sport > 0){
+	array.push({y: sport, indexLabel: "Sport #percent%", legendText: "Sport" });
+	}
+	if (bills > 0){
+	array.push({y: bills, indexLabel: "Bills #percent%", legendText: "Bills" });
+	}
+	if (other > 0){
+	array.push({y: other,  indexLabel: "Other #percent%", legendText: "Other" });
+	}
 	var chart = new CanvasJS.Chart("chartContainer",
 	{
 		title:{
@@ -72,14 +90,7 @@ window.onload = function () {
 			toolTipContent: "{legendText}: {y} - <strong>#percent% </strong>",
 			showInLegend: true,
           explodeOnClick: true, 
-			dataPoints: [
-				{y: foodAndDrinks, indexLabel: "Food&Drinks #percent%", legendText: "Food&Drinks" },
-				{y: transport, indexLabel: "Transport #percent%", legendText: "Transport" },
-				{y: education,  indexLabel: "Education #percent%", legendText: "Education" },
-				{y: sport, indexLabel: "Sport #percent%", legendText: "Sport" },
-				{y: bills, indexLabel: "Bills #percent%", legendText: "Bills" },
-				{y: other,  indexLabel: "Other #percent%", legendText: "Other" }
-			]
+			dataPoints: array
 		}
 		]
 	});

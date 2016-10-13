@@ -18,6 +18,7 @@ import com.example.model.exceptions.ExpenseException;
 import com.example.model.exceptions.IncomeException;
 import com.example.model.exceptions.ObligationException;
 import com.example.model.exceptions.UserException;
+import com.google.gson.Gson;
 
 public class User {
 
@@ -32,7 +33,7 @@ public class User {
 	private String email;
 	private Set<Payment> expenses = new LinkedHashSet<Payment>();
 	private Set<Payment> incomes = new LinkedHashSet<Payment>();
-	private Set<Payment> obligations = new LinkedHashSet<Payment>();
+	private Set<Obligation> obligations = new LinkedHashSet<Obligation>();
 	private Set<Budget> budgets = new LinkedHashSet<Budget>();
 
 	public User() {
@@ -507,6 +508,13 @@ public class User {
 
 	public double getBalanceForMonth() {
 		return getPaymentsForMonth(this.incomes) - getPaymentsForMonth(this.expenses);
+	}
+	
+	public String getObligationsJson(){
+		for (Obligation obligation : obligations){
+			obligation.getRemainedAmount();
+		}
+		return new Gson().toJson(obligations);	
 	}
 
 }

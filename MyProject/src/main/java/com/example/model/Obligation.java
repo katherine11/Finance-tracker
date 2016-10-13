@@ -13,6 +13,7 @@ public class Obligation extends Payment {
 	private int periodId;
 	private String period;
 	private int periodQuantity;
+	private double remainedAmount;
 
 	public Obligation(int categoryId, String category, String repeating, int reapeatingId, double amount,
 			LocalDate date, String description, int id, String period, int periodId, int periodQuantity)
@@ -23,7 +24,6 @@ public class Obligation extends Payment {
 		} else {
 			throw new ObligationException("There is no such a period!");
 		}
-
 		setPeriodId(periodId);
 		setPeriodQuantity(periodQuantity);
 	}
@@ -140,9 +140,10 @@ public class Obligation extends Payment {
 		}
 		return amount;	
 	}
-
+	
 	public double getRemainedAmount() {
-		return super.getAmount() - getPaidAmount();
+		this.remainedAmount = super.getAmount() - getPaidAmount();
+		return remainedAmount;
 	}
 
 }
