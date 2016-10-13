@@ -23,21 +23,20 @@
 </div>
 
 <section class="section">
-<%-- <div class="test">
+<div class="test">
 		<div class="main_heading">
-		<h2>Welcome to our cool site for managing your own money!</h2>
+		<h2>Welcome to our site for managing your own money!</h2>
 	</div>
 
 	<div class="sub_heading">
 		<h3>Here you'll be able to:</h3>
 	</div>
 
-	<div>
-		<a href="#" class="myButton">Enter your incomes and expenses</a><br />
-		<a href="#" class="myButton">See where you give your money for</a><br />
-		<a href="#" class="myButton">Set your own budget for each kind of
-			expense</a><br />
-	</div>
-</div> --%>
+	<!-- <div class="buttons"> 
+		<a href="#" class="myButton">Enter</a>
+		<a href="#" class="myButton">Track</a>
+		<a href="#" class="myButton">Allocate</a>
+	</div> -->
+</div>
 </section>
 <jsp:include page="footer.jsp"></jsp:include>

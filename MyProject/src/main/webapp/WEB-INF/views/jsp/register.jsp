@@ -21,7 +21,7 @@
 	</div>
 
 	<section class="section">
-	<div class="login_register">
+	<div class="register">
 	
 		<c:if test="${not empty registerFail}"> 
 			<p class="invalid_input"><c:out value="${registerFail}"></c:out><p>

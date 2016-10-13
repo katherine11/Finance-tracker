@@ -21,7 +21,7 @@
 	</div>
 
 	<section class="section">
-	<div class="login_register">
+	<div class="login">
 
 		<c:if test="${not empty loginFail}">
 			<p class="invalid_input">
@@ -32,31 +32,31 @@
 		<h1>Login</h1>
 		<form:form commandName="user">
 
-			<p>
+			<p class="input_form">
 				<form:input id="username" class="input" path="username"
 					placeholder="Username" minlength="4" maxlength="15" required="required"/>
 			</p>
-			<p>
+			<p class="input_form" >
 				<form:password id="password" class="input" name="password"
 					path="password" placeholder="Password" minlength="4" maxlength="15" required="required"/>
 			</p>
 
-			<p>
+			<p class="input_form">
 				<input type="checkbox" name="commit">
 				<label>Remember me</label>
 			</p>
 			
-			<p class="submit">
+			<p class="input_form">
 				<input type="submit" name="commit" value="Login">
 			</p>
 
 		</form:form>
 
-		<div class="login-help">
+		<!-- <div class="login-help">
 			<p>
 				Password forgotten? <a href="./forgottenPassword">Click here to reset it</a>.
 			</p>
-		</div>
+		</div> -->
 	</div>
 
 	</section>
