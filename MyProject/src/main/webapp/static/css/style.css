@@ -243,7 +243,10 @@ h1 {
  /*  p { margin: 20px 0 0; }
   p:first-child { margin-top: 0; } */
 
-  input[type=text], input[type=password] { width: 278px; }
+  input[type=text], input[type=password] { 
+  width: 105px; 
+  margin-left:84px;
+  }
 
   p.remember_me {
     float: left;
@@ -296,6 +299,8 @@ h1 {
 input, .input {
   font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
   font-size: 14px;
+  border-radius: 20px;
+  /* margin-left:84px; */
 }
 
 #username, #password, #email {
@@ -319,7 +324,19 @@ input, .input {
   }
 }
 
-input[type=submit], #myBtn {
+/*for modal input:*/
+
+select#periodId.input{
+	margin-left: 56px;
+    margin-top: -40px;
+}
+
+/*dont need for now*/
+/* select#periodQuantity.input{
+	width:90px;
+} */
+
+input[type=submit], #myBtn, #myBtn2 {
   padding: 0 18px;
   height: 29px;
   font-size: 12px;
@@ -331,6 +348,7 @@ input[type=submit], #myBtn {
   border-color: #b4ccce #b3c0c8 #9eb9c2;
   border-radius: 16px;
   margin-left: 30px;
+  margin-top: 40px;
   outline: 0;
   @include box-sizing(content-box); // Firefox sets this to border-box by default
   @include linear-gradient(top, #edf5f8, #cde5ef);
@@ -393,6 +411,7 @@ caption.upcoming_payments{
 /*for rounded corners in the modal input fields*/
 p.input.hasDatePicker, p.input, p.select.input{
 	border-radius:20px;
+	margin-left:84px;
 }
 
 

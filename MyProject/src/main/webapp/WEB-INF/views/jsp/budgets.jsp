@@ -132,7 +132,7 @@
 				<form:form commandName="budget">
 
 				<p>
-						<form:label path="expenseId">Choose an expense category:</form:label>
+						<form:label path="expenseId">Category:</form:label>
 						<form:select id="expenseId" class="input" path="expenseId">
 							<form:option value="1">Food&Drinks</form:option>
 
@@ -150,13 +150,13 @@
 					</p>
 					
 					<p>
-						<form:label path="amount">Enter an amount of money:</form:label>
+						<form:label path="amount">Sum:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Choose a stage of repeating:</form:label>
+						<form:label path="repeatingId">Repeating:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
@@ -170,12 +170,12 @@
 
 					</p>
 					<p>
-						<form:label path="date">Choose a date:</form:label>
+						<form:label path="date">Date:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
 							placeholder="Date" required="required" />
 					</p>
 					<p>
-						<form:label path="description">Enter a description:</form:label>
+						<form:label path="description">Description:</form:label>
 						<form:textarea id="description" class="input" name="description"
 							path="description" placeholder="Description" required="required" />
 					</p>
