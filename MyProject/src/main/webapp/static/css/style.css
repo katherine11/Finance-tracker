@@ -3,8 +3,7 @@
 @import '../../shared/mixins',
         '../../shared/reset',
         '../../shared/about-light';
-.test{
-	/* background-color:light-blue; */	
+.front_page{
 	background-color:white;
 	width: 717px;
     height: 280px;
@@ -21,30 +20,23 @@ body {
 	margin-right: 0em;
 	margin-bottom: 2em;
 	margin-top: 2em;
-	/* border: 4px solid red; */
 }
 
 .border-line {
-	/* border: 2px solid red; */
 	height: 0px;
     width: 0%;
 }
 
 header {
-  /* border: 2px solid red; */
   display: inline-block;
   width: 100% ;
-	/*background-color: white*/
 }
 .logo {
-  /* border: 2px solid red; */
   float: left;
   padding-top: 0px;
   padding-left: 8px;
-  /* background-image: url("logo2.1.jpg"); */
 }
 .title-text {
-  /* border: 2px solid red; */
   float: left;
   margin-left: 1em;
   color: #739900;  
@@ -55,7 +47,6 @@ header {
 }
 
 .header_buttons {
-/*   border: 2px solid red; */
   float: right;
   padding-top: 8px;
   font-weight: bold;
@@ -63,7 +54,6 @@ header {
 }
 
 .section {
-  /* border: 2px solid red; */
   font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
   color: #404040;
   background-image: url("../img/test2.jpg");
@@ -72,9 +62,9 @@ header {
   overflow: auto;
 }
 
-.section_home {
-	/* background-color: #d5ff80; */
-}
+/*??*/
+/* .section_home {
+} */
 
 footer {
       padding-left: 15px;
@@ -85,7 +75,8 @@ footer {
 	font-weight: bold;
 }
 
-button {
+ /*style for header buttons*/
+.h_butt {
 	float: right;
 	align:right;
 	background-color: #a3aeb6;
@@ -99,38 +90,66 @@ button {
     margin: 15px 10px;
     cursor: pointer;
     top:0;
+ 
+} 
+ 
+ 
+ /*style for buttons in the center of the index.jsp page*/
+.center_buttons{
+	
+	float:left;
+	padding-top: 8px;
+	padding-left: 5%;
+	position:relative;
+	display: inline-block;
+	margin-left: -19px;
+    margin-top: 25px;
 }
 
+
+.center_button {
+	-moz-box-shadow:inset -2px -3px 4px 1px #2b7aa8;
+	-webkit-box-shadow:inset -2px -3px 4px 1px #2b7aa8;
+	box-shadow:inset -2px -3px 4px 1px #2b7aa8;
+	background-color:transparent;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:2px solid #3866a3;
+	display:block;
+	float:left;
+	text-align:center;
+	cursor:pointer;
+	color:#386aad;
+	font-family:Georgia;
+	font-size:17px;
+	font-weight:bold;
+	font-style:italic;
+	padding:15px 57px;
+	text-decoration:none;
+	text-shadow:0px 0px 13px #488ed4;
+	margin-left: 40px;
+}
+.center_button:hover {
+	background-color:transparent;
+}
+.center_button:active {
+	position:relative;
+	top:1px;
+} 
+ 
 .table {
 	font-weight: bold;
 	font-size: 1.3em;
 	color: #484848;
 }
 
-/* .Tables {
-	 background-image: url("../img/test2.jpg");
-	 background-opacity: 0.5; 
-} */
-
+/*style for navigation buttons*/
 .navigation_buttons {
 	display: inline-block;
 	float: left;
 	margin-left: 37px;
 }
-    
-/* .n_button {
-	float: right;
-	align: right;
-	background-color: #739900;
-    color: black;
-    padding: 5px 25px;
-    text-align: center;
-    display: block;
-    font-size: 16px;
-    margin: 4px 6px;
-    cursor: pointer;
-    top:0;
-} */
 
 .n_button {
 	-moz-box-shadow:inset -3px -1px 20px 0px #70a142;
@@ -171,13 +190,6 @@ button {
 .n_button:active {
 	position:relative;
 	top:1px;
-}
-
-
-h1 {
-	text-align:center;
-	color:black;
-
 }
 
 .container {
@@ -226,7 +238,9 @@ h1 {
   p.submit { text-align: right; }
 }
 
-.login-help {
+/*style for login help*/
+
+/* .login-help {
   margin: 20px 0;
   font-size: 11px;
   color: blackS;
@@ -239,7 +253,7 @@ h1 {
 
     &:hover { text-decoration: underline; }
   }
-}
+} */
 
 :-moz-placeholder {
   color: #c9c9c9 !important;

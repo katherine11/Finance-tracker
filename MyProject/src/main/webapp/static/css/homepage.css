@@ -1,5 +1,6 @@
 	@CHARSET "UTF-8";
 
+/*style for the headings*/
 .main_heading {
 	color: #0080c0;
 	background-color: white;
@@ -20,13 +21,13 @@
 	font-weight: 400;
 	line-height: 24px;
 	margin: 0 0 14px;
-	float: center;
 	text-align:center;
+	margin-top:45px;
 	
 }
 
+/*style for login and register forms*/
 .login, .register {
-  /* border: 2px solid red; */
   top: 30%;
   position: relative;
   margin: 0 auto;
@@ -45,42 +46,11 @@
     border-radius: 4px;
   }
 
-/* .register{
-	
-  top: 30%;
-  position: relative;
-  margin: 0 auto;
-  padding: 20px 20px 20px;
-  width: 310px;
-  background: white;
-  border-radius: 3px;
-  @include box-shadow(0 0 200px rgba(white, .5), 0 1px 2px rgba(black, .3));
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: -8px; right: -8px; bottom: -8px; left: -8px;
-    z-index: -1;
-    background: rgba(black, .08);
-    border-radius: 4px;
-	
-}
- */
 .input_form{
 	margin-left:36px;
 }
 
-
-.buttons{
-	
-	float:left;
-	padding-top: 8px;
-	padding-left: 5%;
-	position:relative;
-	display: inline-block;
-}
-
-h2 {
+/* h2 {
     display: block;
     font-size: 1.5em;
     -webkit-margin-before: 0em;
@@ -88,75 +58,6 @@ h2 {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
     font-weight: bold;
-}
+} */
 
-.myButton {
-	-moz-box-shadow:inset -2px -3px 4px 1px #2b7aa8;
-	-webkit-box-shadow:inset -2px -3px 4px 1px #2b7aa8;
-	box-shadow:inset -2px -3px 4px 1px #2b7aa8;
-	background-color:transparent;
-	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
-	border-radius:8px;
-	border:2px solid #3866a3;
-	display:block;
-	float:left;
-	text-align:center;
-	cursor:pointer;
-	color:#386aad;
-	font-family:Georgia;
-	font-size:10px;
-	font-weight:bold;
-	font-style:italic;
-	padding:15px 57px;
-	text-decoration:none;
-	text-shadow:0px 0px 13px #488ed4;
-}
-.myButton:hover {
-	background-color:transparent;
-}
-.myButton:active {
-	position:relative;
-	top:1px;
-} 
- 
-.h_butt {
-	-moz-box-shadow: -4px 4px 44px -7px #2fa3b5;
-	-webkit-box-shadow: -4px 4px 44px -7px #2fa3b5;
-	box-shadow: -4px 4px 44px -7px #2fa3b5;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #3d6eff), color-stop(1, #7fdbd6));
-	background:-moz-linear-gradient(top, #3d6eff 5%, #7fdbd6 100%);
-	background:-webkit-linear-gradient(top, #3d6eff 5%, #7fdbd6 100%);
-	background:-o-linear-gradient(top, #3d6eff 5%, #7fdbd6 100%);
-	background:-ms-linear-gradient(top, #3d6eff 5%, #7fdbd6 100%);
-	background:linear-gradient(to bottom, #3d6eff 5%, #7fdbd6 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d6eff', endColorstr='#7fdbd6',GradientType=0);
-	background-color:#00b3b3;
-	-moz-border-radius:17px;
-	-webkit-border-radius:17px;
-	border-radius:17px;
-	display:inline-block;
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:17px;
-	font-weight:bold;
-	padding:11px 17px;
-	text-decoration:none;
-	text-shadow:0px 0px 27px #3d96b3;
-}
-.h_butt:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7fdbd6), color-stop(1, #3d6eff));
-	background:-moz-linear-gradient(top, #7fdbd6 5%, #3d6eff 100%);
-	background:-webkit-linear-gradient(top, #7fdbd6 5%, #3d6eff 100%);
-	background:-o-linear-gradient(top, #7fdbd6 5%, #3d6eff 100%);
-	background:-ms-linear-gradient(top, #7fdbd6 5%, #3d6eff 100%);
-	background:linear-gradient(to bottom, #7fdbd6 5%, #3d6eff 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7fdbd6', endColorstr='#3d6eff',GradientType=0);
-	background-color:#7fdbd6;
-}
-.h_butt:active {
-	position:relative;
-	top:1px;
-}
- 
+

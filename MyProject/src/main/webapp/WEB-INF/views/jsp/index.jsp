@@ -8,9 +8,9 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-
 <div class="header_buttons">
-	<a href="./login" ><span class="glyphicons glyphicons-lock"></span><button type="submit" class="h_butt">Login </button></a>
+<!-- <span class="glyphicons glyphicons-lock"></span> -->
+	<a href="./login" ><button type="submit" class="h_butt">Login</button></a>
 	<a href="./register" ><button type="submit" class="h_butt">Register</button></a> <a
 		href="http://www.dnes.bg/"><button type="submit" class="h_butt">News</button></a>
 </div>
@@ -23,20 +23,21 @@
 </div>
 
 <section class="section">
-<div class="test">
+<div class="front_page">
 		<div class="main_heading">
-		<h2>Welcome to our site for managing your own money!</h2>
+		<h2>Welcome to our site for easy money management!</h2>
 	</div>
 
 	<div class="sub_heading">
 		<h3>Here you'll be able to:</h3>
 	</div>
 
-	<!-- <div class="buttons"> 
-		<a href="#" class="myButton">Enter</a>
-		<a href="#" class="myButton">Track</a>
-		<a href="#" class="myButton">Allocate</a>
-	</div> -->
+	<div class="center_buttons"> 
+		<a href="#"><button type="submit" class="center_button" id="open">Enter</button></a>
+		<a href="#"><button type="submit" class="center_button" id="open">Track</button></a> 
+		<a href="#"><button type="submit" class="center_button" id="open">Allocate</button></a>
+	</div>
+	
 </div>
 </section>
 <jsp:include page="footer.jsp"></jsp:include>
