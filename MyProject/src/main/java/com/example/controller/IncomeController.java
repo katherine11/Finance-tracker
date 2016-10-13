@@ -19,58 +19,55 @@ import com.example.model.exceptions.UserException;
 @Controller
 @ContextConfiguration(classes = UserHasIncomesDAO.class)
 @Scope("session")
-public class IncomeController{
+public class IncomeController {
 
 	@Autowired
 	private UserHasIncomesDAO userHasIncomesDAO;
-	
-	@RequestMapping(value="/incomes", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/incomes", method = RequestMethod.POST)
 	public String addIncome(Income income, Model model, HttpServletRequest request) {
-		
-		if(request.getSession(false) == null){
-			return "index";
-		}
-		
-		User user = (User) request.getSession().getAttribute("user");
-		
 		try {
+			if (request.getSession(false) == null) {
+				return "index";
+			}
+
+			User user = (User) request.getSession().getAttribute("user");
+
 			model.addAttribute("income", userHasIncomesDAO.insertPayment(user.getUserId(), income));
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-		
+
 		return "redirect:/incomes";
 	}
 
-	@RequestMapping(value="/deleteIncome", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteIncome", method = RequestMethod.POST)
 	public String deleteIncome(HttpServletRequest req) {
-		User user = (User) req.getSession().getAttribute("user");
-		String [] ids = req.getParameterValues("id");
-		int id;
-		for (int index = 0; index < ids.length; index++){
-			id = Integer.parseInt(ids[index]);
-			try {
-				if(userHasIncomesDAO.deletePayment(id)){
-					user.removeIncome(id);
-				}
-			} catch (PaymentException e) {
-				e.printStackTrace();
-				return "error";
-			} catch (UserException e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
 		try {
+			User user = (User) req.getSession().getAttribute("user");
+			String[] ids = req.getParameterValues("id");
+			int id;
+			for (int index = 0; index < ids.length; index++) {
+				id = Integer.parseInt(ids[index]);
+				try {
+					if (userHasIncomesDAO.deletePayment(id)) {
+						user.removeIncome(id);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "error";
+				}
+			}
+
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
 		return "redirect:/incomes";
 	}
-	
 
 }

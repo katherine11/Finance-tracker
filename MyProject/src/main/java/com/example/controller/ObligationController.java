@@ -1,4 +1,5 @@
 package com.example.controller;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,59 +19,58 @@ import com.example.model.exceptions.UserException;
 @Controller
 @ContextConfiguration(classes = UserHasObligationsDAO.class)
 @Scope("session")
-public class ObligationController{
+public class ObligationController {
 
 	@Autowired
 	private UserHasObligationsDAO userHasObligationsDAO;
-	
-	@RequestMapping(value="/obligations", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/obligations", method = RequestMethod.POST)
 	public String addObligation(Obligation obligation, Model model, HttpServletRequest request) {
-		if(request.getSession(false) == null){
+		
+		try {
+		
+		if (request.getSession(false) == null) {
 			return "index";
 		}
 		
 		User user = (User) request.getSession().getAttribute("user");
+
 		
-		try {
-			
+
 			model.addAttribute("obligation", userHasObligationsDAO.insertPayment(user.getUserId(), obligation));
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
-			
-		} catch (PaymentException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-		
+
 		return "redirect:/obligations";
 	}
-	
-	@RequestMapping(value="/deleteObligation", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/deleteObligation", method = RequestMethod.POST)
 	public String deleteObligation(HttpServletRequest req) {
-		User user = (User) req.getSession().getAttribute("user");
-		String [] ids = req.getParameterValues("id");
-		int id;
-		for (int index = 0; index < ids.length; index++){
-			id = Integer.parseInt(ids[index]);
-			try {
-				if(userHasObligationsDAO.deletePayment(id)){
-					user.removeObligation(id);
-				}
-			} catch (PaymentException e) {
-				e.printStackTrace();
-				return "error";
-			} catch (UserException e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
 		try {
-			
+			User user = (User) req.getSession().getAttribute("user");
+			String[] ids = req.getParameterValues("id");
+			int id;
+			for (int index = 0; index < ids.length; index++) {
+				id = Integer.parseInt(ids[index]);
+				try {
+					if (userHasObligationsDAO.deletePayment(id)) {
+						user.removeObligation(id);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "error";
+				}
+			}
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-			
+
 		return "redirect:/obligations";
 	}
 

@@ -1,9 +1,7 @@
 package com.example.controller;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,91 +23,90 @@ import com.example.model.exceptions.UserException;
 @Controller
 @ContextConfiguration(classes = UserHasExpensesDAO.class)
 @Scope("session")
-public class ExpenseController{
+public class ExpenseController {
 
 	@Autowired
 	private UserHasExpensesDAO userHasExpensesDAO;
-	
-	@RequestMapping(value="/expenses", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/expenses", method = RequestMethod.POST)
 	public String addExpense(Expense expense, Model model, HttpServletRequest request) {
-		
-		if(request.getSession(false) == null){
-			return "index";
-		}
-		
-		User user = (User) request.getSession().getAttribute("user");
-		
+
 		try {
+			if (request.getSession(false) == null) {
+				return "index";
+			}
+
+			User user = (User) request.getSession().getAttribute("user");
 			model.addAttribute("expense", userHasExpensesDAO.insertPayment(user.getUserId(), expense));
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
-			
-		} catch (PaymentException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-		
+
 		return "redirect:/expenses";
 	}
-	
 
-	@RequestMapping(value="/deleteExpense", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteExpense", method = RequestMethod.POST)
 	public String deleteExpense(HttpServletRequest req) {
-		User user = (User) req.getSession().getAttribute("user");
-		String [] ids = req.getParameterValues("id");
-		int id;
-		for (int index = 0; index < ids.length; index++){
-			id = Integer.parseInt(ids[index]);
-			try {
-				if(userHasExpensesDAO.deletePayment(id)){
-					user.removeExpense(id);
+		try {
+			User user = (User) req.getSession().getAttribute("user");
+			String[] ids = req.getParameterValues("id");
+			int id;
+			for (int index = 0; index < ids.length; index++) {
+				id = Integer.parseInt(ids[index]);
+				try {
+					if (userHasExpensesDAO.deletePayment(id)) {
+						user.removeExpense(id);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "error";
 				}
-			} catch (PaymentException e) {
-				e.printStackTrace();
-				return "error";
+			}
+
+			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+
+		return "redirect:/expenses";
+	}
+
+	@RequestMapping(value = "/getExpensesBy", method = RequestMethod.GET)
+	public String getExpenses(Expense expense, Model model, HttpServletRequest request) {
+		try {
+			if (request.getSession(false) == null) {
+				return "index";
+			}
+
+			User user = (User) request.getSession().getAttribute("user");
+			String id = request.getParameter("categoryId");
+			int categoryId = Integer.parseInt(id);
+			String from = request.getParameter("from");
+			String to = request.getParameter("to");
+
+			List<Payment> expenses = new LinkedList<Payment>();
+			try {
+				expenses = user.getPaymentsBy(from, to, categoryId, user.getExpenses());
 			} catch (UserException e) {
 				e.printStackTrace();
 				return "error";
 			}
-		}
-		try {
-			
-			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
-		} catch (PaymentException e) {
+			double totalAmount = user.getTotalAmountFor(expenses);
+
+			model.addAttribute("expenses", expenses);
+			model.addAttribute("totalAmount", totalAmount);
+			model.addAttribute("user", user);
+			model.addAttribute(new Expense());
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-			
-		return "redirect:/expenses";
-	}
-	
-	@RequestMapping(value="/getExpensesBy", method = RequestMethod.GET)
-	public String getExpenses(Expense expense, Model model, HttpServletRequest request) {
-		if(request.getSession(false) == null){
-			return "index";
-		}
-		
-		User user = (User) request.getSession().getAttribute("user");
-		String id = request.getParameter("categoryId");
-		int categoryId = Integer.parseInt(id);
-		String from = request.getParameter("from");
-		String to = request.getParameter("to");
-		
-		List<Payment> expenses = new LinkedList<Payment>();
-		try {
-			expenses = user.getPaymentsBy(from, to, categoryId, user.getExpenses());
-		} catch (UserException e) {
-			e.printStackTrace();
-			return "error";
-		}
-		double totalAmount = user.getTotalAmountFor(expenses);
-	
-		model.addAttribute("expenses", expenses);
-		model.addAttribute("totalAmount", totalAmount);
-		model.addAttribute("user", user);
-		model.addAttribute(new Expense());
-		
 		return "expenses";
 	}
-	
 
 }

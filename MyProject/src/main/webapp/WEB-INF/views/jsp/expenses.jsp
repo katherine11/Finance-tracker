@@ -181,6 +181,7 @@ window.onload = function () {
 		</div>
 
 		<button id="myBtn2">Get expenses by</button>
+		
 
 		<div id="myModal2" class="modal">
 
@@ -232,7 +233,7 @@ window.onload = function () {
 		
 		<div class="Tables">
 			<table class="table" name="expense_table" cellspacing="0"
-						cellpadding="2" width="100%">
+						cellpadding="2" width="100%" border="1">
 						
 				<thead>
 				

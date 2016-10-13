@@ -106,7 +106,7 @@
 
 		<div class="Tables">
 			<table class="table" name="expense_table" cellspacing="0"
-				cellpadding="2" width="100%">
+				cellpadding="2" width="100%" border="1">
 				<thead>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
