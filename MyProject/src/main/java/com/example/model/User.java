@@ -385,10 +385,10 @@ public class User {
 								if (categoryId != 0) {
 									if (payment.getCategoryId() == categoryId) {
 										paymentsBy.add(paymentToAdd);
-										continue;
 									}
-									paymentsBy.add(paymentToAdd);
+									continue;
 								}
+								paymentsBy.add(paymentToAdd);
 							}
 						}
 						continue;
