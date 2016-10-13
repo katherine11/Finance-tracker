@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -440,6 +441,11 @@ public class User {
 					}
 				}
 			}
+			Collections.sort(paymentsBy, new Comparator<Payment>() {
+				  public int compare(Payment o1, Payment o2) {
+				      return o1.getDate().compareTo(o2.getDate());
+				  }
+				});
 			return paymentsBy;
 		}
 		else{
