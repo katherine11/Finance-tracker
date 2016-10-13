@@ -3,7 +3,8 @@
 @import '../../shared/mixins',
         '../../shared/reset',
         '../../shared/about-light';
-.front_page{
+/*style for main index section*/
+div.front_page{
 	background-color:white;
 	width: 717px;
     height: 280px;
@@ -15,6 +16,7 @@
     border-radius:46px 92px 92px;
 }
 
+/*style for the body*/
 body {
 	margin-left: 0em;
 	margin-right: 0em;
@@ -31,11 +33,14 @@ header {
   display: inline-block;
   width: 100% ;
 }
+
+/*style for the logo*/
 .logo {
   float: left;
   padding-top: 0px;
   padding-left: 8px;
 }
+
 .title-text {
   float: left;
   margin-left: 1em;
@@ -46,6 +51,7 @@ header {
 	color: #739900;
 }
 
+/*style for header buttons*/
 .header_buttons {
   float: right;
   padding-top: 8px;
@@ -53,6 +59,7 @@ header {
   
 }
 
+/*style for the main content*/
 .section {
   font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
   color: #404040;
@@ -62,14 +69,7 @@ header {
   overflow: auto;
 }
 
-/*??*/
-/* .section_home {
-} */
-
-footer {
-      padding-left: 15px;
-}
-
+/*style for invalid input*/
 .invalid_input {
 	color: red;
 	font-weight: bold;
@@ -142,6 +142,12 @@ footer {
 	font-weight: bold;
 	font-size: 1.3em;
 	color: #484848;
+    margin-left: 20px;
+}
+
+/*style for total incomes' and expenses' size*/
+p.total_money{
+	font-size:30px;
 }
 
 /*style for navigation buttons*/
@@ -197,7 +203,11 @@ footer {
   width: 640px;
 }
 
-  h1 {
+p.input_form{
+    margin: 16px 37px 4px 15px;
+}
+
+h1 {
     margin: -20px -20px 21px;
     line-height: 40px;
     font-size: 15px;
@@ -212,8 +222,8 @@ footer {
     @include box-shadow(0 1px #f5f5f5);
   }
 
-  p { margin: 20px 0 0; }
-  p:first-child { margin-top: 0; }
+ /*  p { margin: 20px 0 0; }
+  p:first-child { margin-top: 0; } */
 
   input[type=text], input[type=password] { width: 278px; }
 
@@ -234,8 +244,8 @@ footer {
       vertical-align: middle;
     }
   }
-
-  p.submit { text-align: right; }
+/* 
+  p.submit { text-align: right; } */
 }
 
 /*style for login help*/
@@ -271,7 +281,7 @@ input, .input {
 }
 
 #username, #password, #email {
-  margin: 5px;
+  margin: 16px 37px 4px 32px;
   padding: 0 10px;
   width: 200px;
   height: 34px;
@@ -302,6 +312,7 @@ input[type=submit] {
   border: 1px solid;
   border-color: #b4ccce #b3c0c8 #9eb9c2;
   border-radius: 16px;
+  margin-left: 30px;
   outline: 0;
   @include box-sizing(content-box); // Firefox sets this to border-box by default
   @include linear-gradient(top, #edf5f8, #cde5ef);
@@ -318,6 +329,12 @@ input[type=submit] {
   input[type=text], input[type=password] { line-height: 34px; }
 }
 
+
+caption.upcoming_payments{
+	color:#b30000;
+}
+
+/*style for the opening modal*/
 .modal {
 	display: none;
 	position: fixed;
@@ -351,4 +368,9 @@ input[type=submit] {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+/*style for footer*/
+footer {
+      padding-left: 15px;
 }

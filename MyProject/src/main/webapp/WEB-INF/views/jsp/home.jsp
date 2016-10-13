@@ -59,20 +59,20 @@ window.onload = function () {
 
 	<section class="section_home">	
 	
-	<div class="table" style="width:300px">
+	<div class="table" style="width:300px; margin-left: 565px;">
 			
-		<p>Incomes: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.incomes)}" />&nbsp;$</p>
-		<p>Expenses: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.expenses)}" />&nbsp;$</p>
-		<p>Balance: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.balanceForMonth}" />&nbsp;$</p>
+		<p class="total_money">Incomes: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.incomes)}" />&nbsp;$</p>
+		<p class="total_money">Expenses: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.expenses)}" />&nbsp;$</p>
+		<p class="total_money">Balance: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.balanceForMonth}" />&nbsp;$</p>
 
 	</div>
 	
 	<div class="Tables">
 		<table class="table" name="expense_table" cellspacing="0"
-				cellpadding="2" width="100%">
+				cellpadding="2" width="100%" border="1">
 			<thead>
 				<tr style="height: 35px;">
-					<th align="center">Date</th>	
+					<th align="center" >Date</th>	
 					<th align="left">Amount</th>
 					<th align="left">Category</th>
 					<th align="left">Description</th>
@@ -80,13 +80,13 @@ window.onload = function () {
 				</tr>
 					</thead>
 					<tbody>
-					<caption>
+					<caption class="upcoming_payments">
 						<h2>Upcoming payments</h2>
 					</caption>
 			<p>
 			<c:forEach items="${user.getUpcomingPaymentsForMonth(user.expenses)}" var="payment">
 				<tr>
-					<td align="center"><c:out value="${payment.date}"></c:out></td>
+					<td align="center" width="10%"><c:out value="${payment.date}"></c:out></td>
 					<td align="left"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
 					<td align="left"><c:out value="${payment.category}"></c:out></td>
 					<td align="left">(<c:out value="${payment.description}"></c:out>)</td>		

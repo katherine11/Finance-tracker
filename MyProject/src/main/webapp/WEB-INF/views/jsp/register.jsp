@@ -35,7 +35,7 @@
 			<p><form:input id="username" class="input" path="username" placeholder="Username" minlength="4" maxlength="15" required="required"/></p>
 			<p><form:password id="password" class="input" path="password" placeholder="Password" minlength="4" maxlength="15" required="required"/></p>
 			
-			<p class="submit"><input type="submit" name="commit" value="Register"></p>
+			<p class="submit" style='margin-top: 20px;'><input type="submit" name="commit" value="Register"></p>
 			
 		</form:form>
 		
