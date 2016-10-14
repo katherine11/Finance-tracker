@@ -49,34 +49,6 @@
 	});
 	</script>
 	
-	<script type="text/javascript">
-	//for the modal:
-		
-	var modal = document.getElementById('myModal');
-
-			// Get the button that opens the modal
-			var btn = document.getElementById("myBtn");
-
-			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName("close")[0];
-
-			// When the user clicks the button, open the modal
-			btn.onclick = function() {
-				modal.style.display = "block";
-			}
-
-			// When the user clicks on <span> (x), close the modal
-			span.onclick = function() {
-				modal.style.display = "none";
-			}
-
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
-				if (event.target == modal) {
-					modal.style.display = "none";
-				}
-			}
-			</script>
 <script type="text/javascript">
 		window.onload = function () {
 			var array = [];
@@ -109,6 +81,8 @@
 
 	<section class="">
 	
+	<c:choose>
+		<c:when test="${not empty user.obligations }">
 	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 	
 	<div class="">
@@ -177,9 +151,18 @@
 					</tr>
 				</tfoot>
 			</table>
-		</div>
-
-		<div id="myModal" class="modal">
+		</div>	
+	</div>
+	</c:when>
+		<c:otherwise>
+			<div id="welcome_text">
+			<br>
+			<h1><c:out value="${user.username}"></c:out>, here you can add obligations " <br> </h1>
+			<button id="myBtn" style="float: inherit; margin-left: 600px;">Add obligation</button>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	<div id="myModal" class="modal">
 
 			<div class="modal-content">
 				<span class="close">close</span>
@@ -228,7 +211,7 @@
 					<p>
 						<form:label path="periodQuantity">For:</form:label>
 						<form:input id="periodQuantity" class="input" name="periodQuantity" path="periodQuantity"
-							placeholder="Quantity" required="required" />
+							placeholder="Quantity" required="required" type="number" min="1" max="365" step="1" style="margin-left: 68px;"/>
 					</p>
 					
 					
@@ -261,10 +244,8 @@
 			</div>
 
 		</div>
-
-		<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
-
-	</div>
+	<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
+	
 	</section>
 
 <jsp:include page="footer.jsp"></jsp:include>

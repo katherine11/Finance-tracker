@@ -62,10 +62,10 @@ window.onload = function () {
 	if (foodAndDrinks > 0){
 		array.push({y: foodAndDrinks, indexLabel: "Food&Drinks #percent%", legendText: "Food&Drinks" });
 	}
-	if (foodAndDrinks > 0){
+	if (transport > 0){
 	array.push({y: transport, indexLabel: "Transport #percent%", legendText: "Transport"});
 	}
-	if (transport > 0){
+	if (education > 0){
 	array.push({y: education,  indexLabel: "Education #percent%", legendText: "Education" });
 	}
 	if (sport > 0){
@@ -107,82 +107,16 @@ window.onload = function () {
 	<jsp:include page="home.header.jsp"></jsp:include> 
 
 	<section class="section_home">
-	
+	<c:choose>
+		<c:when test="${not empty user.expenses}">
 	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 	
 	<div class="">
-		<!-- <h1>Expenses</h1> -->
 
 		<button id="myBtn">Add expense</button>
 
-		<div id="myModal" class="modal">
-
-			<div class="modal-content">
-				<span class="close">close</span>
-
-				<form:form commandName="expense" action="./expenses" method="POST">
-
-					<p>
-						<form:label path="categoryId">Category:</form:label>
-						<form:select id="categoryId" class="input" path="categoryId">
-							<form:option value="1">Food&Drinks</form:option>
-
-							<form:option value="2">Transport</form:option>
-
-							<form:option value="3">Education</form:option>
-
-							<form:option value="4">Sport</form:option>
-
-							<form:option value="5">Bills</form:option>
-
-							<form:option value="6">Other</form:option>
-
-						</form:select>
-					</p>
-					<p>
-						<form:label path="amount">Sum:</form:label>
-						<form:input type="number" min="0.01" step="0.01" value="1.00"
-							max="1000000" id="amount" class="input" name="amount"
-							path="amount" placeholder="Money" required="required" />
-					</p>
-					<p>
-						<form:label path="repeatingId">Repeating:</form:label>
-						<form:select id="repeatingId" class="input" name="repeatingId"
-							path="repeatingId">
-
-							<form:option value="1">Once</form:option>
-							<form:option value="2">Daily</form:option>
-							<form:option value="3">Weekly</form:option>
-							<form:option value="4">Monthly</form:option>
-							<form:option value="5">Yearly</form:option>
-
-						</form:select>
-
-					</p>
-					<p>
-						<form:label path="date">Date:</form:label>
-						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder="Date" required="required" />
-					</p>
-					<p>
-						<form:label path="description">Description:</form:label>
-						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Description" required="required" />
-					</p>
-
-					<p class="submit">
-						<input type="submit" name="commit" value="Add">
-					</p>
-
-				</form:form>
-
-			</div>
-
-		</div>
-
 		<button id="myBtn2">Get expenses by</button>
 		
-
 		<div id="myModal2" class="modal">
 
 			<div class="modal-content">
@@ -288,6 +222,7 @@ window.onload = function () {
 						</tfoot>
 					</table>
 				</div>
+			</div>
 			</c:when>
 			<c:otherwise>
 				<caption>
@@ -325,7 +260,81 @@ window.onload = function () {
 				</div>
 			</c:otherwise>
 		</c:choose>
+	
+	</c:when>
+		<c:otherwise>
+			<div id="welcome_text">
+			<br>
+			<h1><c:out value="${user.username}"></c:out>, here you can add expenses " <br> </h1>
+			<button id="myBtn" style="float:initial; margin-left:600px;">Add expense</button>
+			<button id="myBtn2" style="display:none;">Get expenses by</button>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	<div id="myModal" class="modal">
 
+			<div class="modal-content">
+				<span class="close">close</span>
+
+				<form:form commandName="expense" action="./expenses" method="POST">
+
+					<p>
+						<form:label path="categoryId">Category:</form:label>
+						<form:select id="categoryId" class="input" path="categoryId">
+							<form:option value="1">Food&Drinks</form:option>
+
+							<form:option value="2">Transport</form:option>
+
+							<form:option value="3">Education</form:option>
+
+							<form:option value="4">Sport</form:option>
+
+							<form:option value="5">Bills</form:option>
+
+							<form:option value="6">Other</form:option>
+
+						</form:select>
+					</p>
+					<p>
+						<form:label path="amount">Sum:</form:label>
+						<form:input type="number" min="0.01" step="0.01" value="1.00"
+							max="1000000" id="amount" class="input" name="amount"
+							path="amount" placeholder="Money" required="required" />
+					</p>
+					<p>
+						<form:label path="repeatingId">Repeating:</form:label>
+						<form:select id="repeatingId" class="input" name="repeatingId"
+							path="repeatingId">
+
+							<form:option value="1">Once</form:option>
+							<form:option value="2">Daily</form:option>
+							<form:option value="3">Weekly</form:option>
+							<form:option value="4">Monthly</form:option>
+							<form:option value="5">Yearly</form:option>
+
+						</form:select>
+
+					</p>
+					<p>
+						<form:label path="date">Date:</form:label>
+						<form:input id="datepicker" class="input" name="date" path="date"
+							placeholder="Date" required="required" />
+					</p>
+					<p>
+						<form:label path="description">Description:</form:label>
+						<form:textarea id="description" class="input" name="description"
+							path="description" placeholder="Description" required="required" />
+					</p>
+
+					<p class="submit">
+						<input type="submit" name="commit" value="Add">
+					</p>
+
+				</form:form>
+
+			</div>
+
+		</div>
 		<script>
 			// Get the modal
 			var modal = document.getElementById('myModal');
@@ -364,8 +373,6 @@ window.onload = function () {
 				}
 			}
 		</script>
-
-	</div>
 	</section>
 
 	<div>

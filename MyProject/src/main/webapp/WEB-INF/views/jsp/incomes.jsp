@@ -96,12 +96,12 @@
 	<jsp:include page="home.header.jsp"></jsp:include>
 
 	<section class="section_home">
-
+	
+	<c:choose>
+		<c:when test="${not empty user.incomes }">
 	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 
 	<div class="">
-		<!-- <h1>Incomes</h1> -->
-		
 		<button id="myBtn">Add income</button>
 
 		<div class="Tables">
@@ -154,9 +154,20 @@
 				</tfoot>
 			</table>
 		</div>
-
-
-		<div id="myModal" class="modal">
+	</div>
+	</c:when>
+		<c:otherwise>
+			<div id="welcome_text">
+			<br>
+			<h1><c:out value="${user.username}"></c:out>, here you can add incomes " <br> </h1>
+			<button id="myBtn" style="float: inherit; margin-left: 600px;">Add income</button>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	
+	
+	
+	<div id="myModal" class="modal">
 
 			<div class="modal-content">
 				<span class="close">close</span>
@@ -216,10 +227,7 @@
 			</div>
 
 		</div>
-	
 	<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
-		
-	</div>
 	</section>
 
 	<jsp:include page="footer.jsp"></jsp:include>

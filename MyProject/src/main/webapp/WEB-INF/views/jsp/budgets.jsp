@@ -82,6 +82,8 @@
 
 	<section class="">
 	
+	<c:choose>
+		<c:when test="${not empty user.budgets }">
 	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 	
 	<div class="">
@@ -145,10 +147,16 @@
 				</tfoot> --%>
 			</table>
 		</div>
-
-		<!-- this does not work here.... -->
-		<%-- <script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script> --%>
-		
+		</div>
+		</c:when>
+		<c:otherwise>
+			<div id="welcome_text">
+			<br>
+			<h1><c:out value="${user.username}"></c:out>, here you can add budgets " <br> </h1>
+			<button id="myBtn" style="float: inherit; margin-left: 600px;">Add income</button>
+			</div>
+		</c:otherwise>
+		</c:choose>
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
@@ -216,8 +224,8 @@
 		</div>
 
 		<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
-		<%-- <script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script> --%>
-	</div>
+
+	
 	</section>
 
 	<jsp:include page="footer.jsp"></jsp:include>

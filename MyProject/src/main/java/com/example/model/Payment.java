@@ -72,7 +72,7 @@ public abstract class Payment implements Cloneable{
 		setRepeatingId(reapeatingId);
 		setAmount(amount);
 		setDescription(description);
-		if(id > 0){
+		if(id >= 0){
 			this.id = id;
 		}
 		else{
