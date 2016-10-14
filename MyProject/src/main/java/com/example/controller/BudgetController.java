@@ -51,23 +51,23 @@ public class BudgetController {
 			User user = (User) req.getSession().getAttribute("user");
 			String[] ids = req.getParameterValues("id");
 			int expenseId;
-			for (int index = 0; index < ids.length; index++) {
-				expenseId = Integer.parseInt(ids[index]);
-				try {
-					if (userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)) {
-						user.removeBudget(expenseId);
+			if (ids != null) {
+				for (int index = 0; index < ids.length; index++) {
+					expenseId = Integer.parseInt(ids[index]);
+					try {
+						if (userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)) {
+							user.removeBudget(expenseId);
+						}
+					} catch (PaymentException e) {
+						model.addAttribute("insertFail", "Already exist budget for this category");
+						return "budgets";
+					} catch (Exception e) {
+						e.printStackTrace();
+						return "error";
 					}
-				} catch (PaymentException e) {
-					model.addAttribute("insertFail", "Already exist budget for this category");
-					return "budgets";
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "error";
 				}
+				userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
 			}
-
-			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";

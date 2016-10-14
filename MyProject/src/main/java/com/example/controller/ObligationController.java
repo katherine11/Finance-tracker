@@ -26,16 +26,14 @@ public class ObligationController {
 
 	@RequestMapping(value = "/obligations", method = RequestMethod.POST)
 	public String addObligation(Obligation obligation, Model model, HttpServletRequest request) {
-		
-		try {
-		
-		if (request.getSession(false) == null) {
-			return "index";
-		}
-		
-		User user = (User) request.getSession().getAttribute("user");
 
-		
+		try {
+
+			if (request.getSession(false) == null) {
+				return "index";
+			}
+
+			User user = (User) request.getSession().getAttribute("user");
 
 			model.addAttribute("obligation", userHasObligationsDAO.insertPayment(user.getUserId(), obligation));
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
@@ -54,18 +52,20 @@ public class ObligationController {
 			User user = (User) req.getSession().getAttribute("user");
 			String[] ids = req.getParameterValues("id");
 			int id;
-			for (int index = 0; index < ids.length; index++) {
-				id = Integer.parseInt(ids[index]);
-				try {
-					if (userHasObligationsDAO.deletePayment(id)) {
-						user.removeObligation(id);
+			if (ids != null) {
+				for (int index = 0; index < ids.length; index++) {
+					id = Integer.parseInt(ids[index]);
+					try {
+						if (userHasObligationsDAO.deletePayment(id)) {
+							user.removeObligation(id);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						return "error";
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "error";
 				}
+				userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
 			}
-			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";

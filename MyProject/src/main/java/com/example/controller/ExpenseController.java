@@ -54,20 +54,21 @@ public class ExpenseController {
 			User user = (User) req.getSession().getAttribute("user");
 			String[] ids = req.getParameterValues("id");
 			int id;
-			for (int index = 0; index < ids.length; index++) {
-				id = Integer.parseInt(ids[index]);
-				try {
-					if (userHasExpensesDAO.deletePayment(id)) {
-						user.removeExpense(id);
+			if (ids != null) {
+				for (int index = 0; index < ids.length; index++) {
+					id = Integer.parseInt(ids[index]);
+					try {
+						if (userHasExpensesDAO.deletePayment(id)) {
+							user.removeExpense(id);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						return "error";
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "error";
 				}
+
+				userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 			}
-
-			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";

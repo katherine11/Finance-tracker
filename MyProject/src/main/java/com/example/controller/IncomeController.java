@@ -50,23 +50,26 @@ public class IncomeController {
 			User user = (User) req.getSession().getAttribute("user");
 			String[] ids = req.getParameterValues("id");
 			int id;
-			for (int index = 0; index < ids.length; index++) {
-				id = Integer.parseInt(ids[index]);
-				try {
-					if (userHasIncomesDAO.deletePayment(id)) {
-						user.removeIncome(id);
+			if (ids != null) {
+				for (int index = 0; index < ids.length; index++) {
+					id = Integer.parseInt(ids[index]);
+					try {
+						if (userHasIncomesDAO.deletePayment(id)) {
+							user.removeIncome(id);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						return "error";
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "error";
 				}
-			}
 
-			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
+				userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
+
 		return "redirect:/incomes";
 	}
 
