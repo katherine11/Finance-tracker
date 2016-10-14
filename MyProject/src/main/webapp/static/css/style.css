@@ -3,6 +3,7 @@
 @import '../../shared/mixins',
         '../../shared/reset',
         '../../shared/about-light';
+
 /*style for main index section*/
 div.front_page{
 	background-color:white;
@@ -246,7 +247,7 @@ h1 {
 
   input[type=text], input[type=password] { 
   width: 105px; 
-  margin-left:84px;
+  /*  margin-left:84px; */
   }
 
   p.remember_me {
@@ -301,7 +302,7 @@ input, .input {
   font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
   font-size: 14px;
   border-radius: 20px;
-  /* margin-left:84px; */
+  color:#527881;
 }
 
 #username, #password, #email {
@@ -328,14 +329,33 @@ input, .input {
 /*for modal input:*/
 
 select#periodId.input{
-	margin-left: 56px;
-    margin-top: -40px;
+	margin-left: 30px;
+   /*  margin-top: -40px; */
 }
 
-/*dont need for now*/
-/* select#periodQuantity.input{
-	width:90px;
-} */
+select#categoryId.input, select#expenseId.input{
+	margin-left:30px;
+}
+
+input#amount.input{
+	margin-left:60px;
+}
+
+select#repeatingId.input{
+	margin-left:25px;
+}
+
+input#periodQuantity.ìnput{
+	 margin-left: 68px;
+}
+
+input#datepicker.input.hasDatepicker{
+	margin-left:60px;
+}
+
+textarea#description.input{
+	margin-left:15px;
+}
 
 input[type=submit], #myBtn, #myBtn2 {
   padding: 0 18px;
@@ -412,10 +432,7 @@ caption.upcoming_payments{
 /*for rounded corners in the modal input fields*/
 p.input.hasDatePicker, p.input, p.select.input{
 	border-radius:20px;
-	margin-left:84px;
 }
-
-
 
 /*style for footer*/
 footer {

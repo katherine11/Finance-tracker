@@ -188,7 +188,7 @@
 
 					<p>
 						<form:label path="categoryId">Category:</form:label>
-						<form:select id="categoryId" class="input" path="categoryId" style='margin-left: 55px;'>
+						<form:select id="categoryId" class="input" path="categoryId" >
 							<form:option value="1">Credit</form:option>
 
 							<form:option value="2">Loan</form:option>
@@ -203,12 +203,12 @@
 						<form:label path="amount">Sum:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
-							path="amount" placeholder="Money" required="required" style='margin-left: 84px;' />
+							path="amount" placeholder="Money" required="required" />
 					</p>
 					<p>
 						<form:label path="repeatingId">Repeating:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
-							path="repeatingId" style='margin-left: 49px;'>
+							path="repeatingId">
 
 							<form:option value="1">Once</form:option>
 							<form:option value="2">Daily</form:option>
@@ -249,7 +249,7 @@
 					<p>
 						<form:label path="description">Description:</form:label>
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Description" required="required" style='margin-left: 39px;' />
+							path="description" placeholder="Description" required="required" />
 					</p>
 
 					<p class="submit">
