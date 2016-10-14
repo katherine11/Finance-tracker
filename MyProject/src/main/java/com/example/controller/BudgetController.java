@@ -28,16 +28,17 @@ public class BudgetController {
 	@RequestMapping(value = "/budgets", method = RequestMethod.POST)
 	public String addBudget(Budget budget, Model model, HttpServletRequest request) {
 
-		if (request.getSession(false) == null) {
-			return "index";
-		}
-
-		User user = (User) request.getSession().getAttribute("user");
-
 		try {
+
+			if (request.getSession(false) == null) {
+				return "index";
+			}
+
+			User user = (User) request.getSession().getAttribute("user");
 			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(user.getUserId(), budget));
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
-		} catch (PaymentException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
@@ -46,26 +47,28 @@ public class BudgetController {
 
 	@RequestMapping(value = "/deleteBudget", method = RequestMethod.POST)
 	public String deleteBudget(HttpServletRequest req, Model model) {
-		User user = (User) req.getSession().getAttribute("user");
-		String[] ids = req.getParameterValues("expenseId");
-		int expenseId;
-		for (int index = 0; index < ids.length; index++) {
-			expenseId = Integer.parseInt(ids[index]);
-			try {
-				if (userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)) {
-					user.removeBudget(expenseId);
-				}
-			} catch (PaymentException e) {
-				model.addAttribute("insertFail", "Already exist budget for this category");
-				return "budgets";
-			} catch (UserException e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
 		try {
+			User user = (User) req.getSession().getAttribute("user");
+			String[] ids = req.getParameterValues("expenseId");
+			int expenseId;
+			for (int index = 0; index < ids.length; index++) {
+				expenseId = Integer.parseInt(ids[index]);
+				try {
+					if (userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)) {
+						user.removeBudget(expenseId);
+					}
+				} catch (PaymentException e) {
+					model.addAttribute("insertFail", "Already exist budget for this category");
+					return "budgets";
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "error";
+				}
+			}
+
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
-		} catch (PaymentException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}

@@ -28,8 +28,8 @@ import com.example.model.exceptions.UserException;
 @Controller
 @ContextConfiguration(classes = UserDAO.class)
 public class HomePageController {
-	
-	private static final int SESSION_TIME_IN_SECONDS = 60*60;
+
+	private static final int SESSION_TIME_IN_SECONDS = 60 * 60;
 	@Autowired
 	private UserDAO userDAO;
 	@Autowired
@@ -38,86 +38,97 @@ public class HomePageController {
 	private UserHasExpensesDAO userHasExpensesDAO;
 	@Autowired
 	private UserHasObligationsDAO userHasObligationsDAO;
-	@Autowired 
+	@Autowired
 	private UserHasBudgetsDAO userHasBudgetsDAO;
 
-	@RequestMapping(value="/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String homePage() {
 		return "index";
-	}	
-	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(Model model) {
-		if (!model.containsAttribute("user")){
-			model.addAttribute(new User());
-		}
-		model.addAttribute(new Expense());
-		model.addAttribute(new Income());
-		model.addAttribute(new Obligation());
-		model.addAttribute(new Budget());
-		
-		return "login";
-	}	
-	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute User user, Model model, HttpServletRequest request){
-		
-		HttpSession session = request.getSession();
+
 		try {
+			if (!model.containsAttribute("user")) {
+				model.addAttribute(new User());
+			}
+			model.addAttribute(new Expense());
+			model.addAttribute(new Income());
+			model.addAttribute(new Obligation());
+			model.addAttribute(new Budget());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "login";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute User user, Model model, HttpServletRequest request) {
+
+		try {
+			HttpSession session = request.getSession();
 			User loggedUser = userDAO.loginUser(user);
-//			System.out.println(loggedUser.getUsername());
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(loggedUser);
-			System.out.println("=========================="+user.getIncomes().size());
-			System.out.println("=========================="+user.getExpenses().size());
+			System.out.println("==========================" + user.getIncomes().size());
+			System.out.println("==========================" + user.getExpenses().size());
 			session.setAttribute("user", loggedUser);
 			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);
-			
+
 		} catch (UserException e) {
 			model.addAttribute("loginFail", "Invalid username or password");
 			return "login";
-		} catch (PaymentException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-		try {
-			Thread.currentThread().sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return "redirect:/home";
-	}	
-	
-	@RequestMapping(value="/register", method = RequestMethod.GET)
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerPage(Model model) {
-		model.addAttribute(new User());
+		try {
+			model.addAttribute(new User());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 		return "register";
 	}
-	
-	@RequestMapping(value="/register", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute User user, Model model) {
 		try {
-			userDAO.registerUser(user);
-		} catch (UserException e) {
-			model.addAttribute("registerFail", "The username has been already chosen!");
-			return "register";
+			try {
+				userDAO.registerUser(user);
+			} catch (UserException e) {
+				model.addAttribute("registerFail", "The username has been already chosen!");
+				return "register";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
 		}
 		return "redirect:login";
 	}
-	
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request){
-        HttpSession httpSession = request.getSession(false);
-        if (httpSession!=null){
-        	httpSession.invalidate();
-        }
-        return "redirect:/";
-    }
 
-	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+		try {
+			HttpSession httpSession = request.getSession(false);
+			if (httpSession != null) {
+				httpSession.invalidate();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "redirect:/";
+	}
 
 }

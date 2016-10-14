@@ -18,6 +18,7 @@ public class NavigationController {
 	
 	@RequestMapping(value="/incomes", method = RequestMethod.GET)
 	public String incomes(Model model, HttpServletRequest request) {
+		try{
 		if (request.getSession(false) == null){
 			return "index";
 		}
@@ -25,12 +26,17 @@ public class NavigationController {
 		User user = (User) request.getSession().getAttribute("user");
 		model.addAttribute("user", user);
 		model.addAttribute(new Income());
-
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 		return "incomes";
 	}
 	
 	@RequestMapping(value="/expenses", method = RequestMethod.GET)
 	public String expenses(Model model, HttpServletRequest request) {
+		try{
 		if (request.getSession(false) == null){
 			return "index";
 		}
@@ -38,24 +44,34 @@ public class NavigationController {
 		User user = (User) request.getSession().getAttribute("user");
 		model.addAttribute("user", user);
 		model.addAttribute(new Expense());
-		
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 		return "expenses";
 	}
 	
 	@RequestMapping(value="/obligations", method = RequestMethod.GET)
 	public String obligations(Model model, HttpServletRequest request) {
+		try{
 		if (request.getSession(false) == null){
 			return "index";
 		}
 		User user = (User) request.getSession().getAttribute("user");
 		model.addAttribute("user", user);
 		model.addAttribute(new Obligation());
-		
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 		return "obligations";
 	}
 	
 	@RequestMapping(value="/budgets", method = RequestMethod.GET)
 	public String budgets(Model model, HttpServletRequest request){
+		try{
 		if(request.getSession(false) == null){
 			return "index";
 		}
@@ -63,19 +79,29 @@ public class NavigationController {
 		User user = (User) request.getSession().getAttribute("user");
 		model.addAttribute("user", user);
 		model.addAttribute(new Budget());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 		
 		return "budgets";
 	}
 	
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, Model model) {
+		try{
 		if (request.getSession(false) == null){
 			return "index";
 		}
 		
 		User user = (User) request.getSession().getAttribute("user");
 		model.addAttribute("user", user);
-		
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 		return "home";
 	}
 		

@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/jquery.canvasjs.min.js"></script>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -24,30 +25,29 @@
 	$(document).ready(function() {
 		$("#datepicker").datepicker();
 	});
-	
+	 
 	$(document).ready(function() {
 
-	    $('#main').change(function() {
+		$('#main').change(function() {
 
-	        if ($(this).is(':checked')) {
-	        $('input[name="id"]:checkbox').prop('checked', true);        
+			if ($(this).is(':checked')) {
+				$('input[name="id"]:checkbox').prop('checked', true);
 
-	        } else {
+			} else {
 
-	            $('input[name="id"]:checkbox').prop('checked', false);
-	        }
-	    });
+				$('input[name="id"]:checkbox').prop('checked', false);
+			}
+		});
 
-
-	$('input[name="id"]:checkbox').change(function() {
-	        var chkLength = $('input[name="id"]:checkbox').length;
-	        var checkedLen = $('input[name="id"]:checkbox:checked').length;    
-	        if (chkLength == checkedLen) {
-	            $('#main').prop('checked', true);
-	        } else {
-	            $('#main').prop('checked', false);
-	        }
-	    });
+		$('input[name="id"]:checkbox').change(function() {
+			var chkLength = $('input[name="id"]:checkbox').length;
+			var checkedLen = $('input[name="id"]:checkbox:checked').length;
+			if (chkLength == checkedLen) {
+				$('#main').prop('checked', true);
+			} else {
+				$('#main').prop('checked', false);
+			}
+		});
 	});
 	
 </script>
@@ -97,7 +97,7 @@
 		
 		<div class="Tables">
 			<table class="table" name="budget_table" cellspacing="0"
-				cellpadding="2" width="100%">
+				cellpadding="2" width="100%" border="1">
 				<thead>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
@@ -113,7 +113,6 @@
 				<caption>
 					<h2>Budgets</h2>
 				</caption>
-
 		<p>
 			<form:form action="./deleteBudget">
 				
@@ -130,7 +129,7 @@
 								</td>
 					</tr>
 				</c:forEach>
-				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
+				<input type="submit" id="delete" name="commit" value="Delete selected">
 			</form:form>
 		</p>
 
@@ -148,6 +147,9 @@
 			</table>
 		</div>
 
+		<!-- this does not work here.... -->
+		<%-- <script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script> --%>
+		
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
@@ -156,7 +158,7 @@
 				<form:form commandName="budget">
 
 				<p>
-						<form:label path="expenseId">Choose an expense category:</form:label>
+						<form:label path="expenseId">Category:</form:label>
 						<form:select id="expenseId" class="input" path="expenseId">
 							<form:option value="1">Food&Drinks</form:option>
 
@@ -174,13 +176,13 @@
 					</p>
 					
 					<p>
-						<form:label path="amount">Enter an amount of money:</form:label>
+						<form:label path="amount">Sum:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Choose a stage of repeating:</form:label>
+						<form:label path="repeatingId">Repeating:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
@@ -194,12 +196,12 @@
 
 					</p>
 					<p>
-						<form:label path="date">Choose a date:</form:label>
+						<form:label path="date">Date:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
 							placeholder="Date" required="required" />
 					</p>
 					<p>
-						<form:label path="description">Enter a description:</form:label>
+						<form:label path="description">Description:</form:label>
 						<form:textarea id="description" class="input" name="description"
 							path="description" placeholder="Description" required="required" />
 					</p>
@@ -215,7 +217,7 @@
 		</div>
 
 		<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
-
+		<%-- <script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script> --%>
 	</div>
 	</section>
 

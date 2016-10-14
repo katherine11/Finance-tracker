@@ -123,7 +123,7 @@ window.onload = function () {
 				<form:form commandName="expense" action="./expenses" method="POST">
 
 					<p>
-						<form:label path="categoryId">Choose category:</form:label>
+						<form:label path="categoryId">Category:</form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
 							<form:option value="1">Food&Drinks</form:option>
 
@@ -140,13 +140,13 @@ window.onload = function () {
 						</form:select>
 					</p>
 					<p>
-						<form:label path="amount">Enter amount of money:</form:label>
+						<form:label path="amount">Sum:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
 							path="amount" placeholder="Money" required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Choose a stage of repeating:</form:label>
+						<form:label path="repeatingId">Repeating:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
@@ -160,12 +160,12 @@ window.onload = function () {
 
 					</p>
 					<p>
-						<form:label path="date">Choose a date:</form:label>
+						<form:label path="date">Date:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
 							placeholder="Date" required="required" />
 					</p>
 					<p>
-						<form:label path="description">Enter a description:</form:label>
+						<form:label path="description">Description:</form:label>
 						<form:textarea id="description" class="input" name="description"
 							path="description" placeholder="Description" required="required" />
 					</p>
@@ -181,6 +181,7 @@ window.onload = function () {
 		</div>
 
 		<button id="myBtn2">Get expenses by</button>
+		
 
 		<div id="myModal2" class="modal">
 
@@ -190,7 +191,7 @@ window.onload = function () {
 				<form class="Forms" action="./getExpensesBy" method="get">
 
 					<p>
-						<label for="categoryId">Choose category:</label> <select
+						<label for="categoryId">Category:</label> <select
 							id="categoryId" class="input" name="categoryId">
 
 							<option value="0">All categories</option>
@@ -232,7 +233,7 @@ window.onload = function () {
 		
 		<div class="Tables">
 			<table class="table" name="expense_table" cellspacing="0"
-						cellpadding="2" width="100%">
+						cellpadding="2" width="100%" border="1">
 						
 				<thead>
 				
@@ -305,7 +306,11 @@ window.onload = function () {
 						<td align="left">(<c:out value="${expense.description}"></c:out>)
 						</td>
 					</tr>
+					
 				</c:forEach>
+				
+				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
+				
 					</tbody>
 					<tfoot>
 							<tr>

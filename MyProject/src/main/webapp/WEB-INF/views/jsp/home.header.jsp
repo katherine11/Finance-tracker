@@ -20,7 +20,6 @@
 		<img alt="logo" src="img/logo.jpg">
 	</div>
 	<div class="title-text">
-		<!-- <h1>Get a full control over your money!</h1> -->
 	</div>
 	<div class="header_buttons">
 		<a href="./logout"><button type="submit" class="h_butt">Log out</button></a>
@@ -28,11 +27,11 @@
 	<br />
 	<div class="navigation_buttons">
 		<nav>
-			<a href="./budgets"><button class="n_button" type="submit">Budgets</button></a>
-			<a href="./obligations"><button class="n_button" type="submit">Obligations</button></a>
-			<a href="./expenses"><button class="n_button" type="submit">Expenses</button></a>
-			<a href="./incomes"><button class="n_button" type="submit">Incomes</button></a>
-			<a href="./home"><button class="n_button" type="submit">Home</button></a>
+			<a href="./home" class="space"><button class="n_button" type="submit">Home</button></a>
+			<a href="./incomes" class="space"><button class="n_button" type="submit">Incomes</button></a>
+			<a href="./expenses" class="space"><button class="n_button" type="submit">Expenses</button></a>
+			<a href="./obligations" class="space"><button class="n_button" type="submit">Obligations</button></a>
+			<a href="./budgets" class="space"><button class="n_button" type="submit">Budgets</button></a>
 		</nav>
 	</div>
 </header>
