@@ -167,6 +167,6 @@ public class HomePageController {
 			return "error";
 		}
 		return "redirect:/";
-	}
+	}	
 
 }

@@ -1,5 +1,36 @@
 	@CHARSET "UTF-8";
 
+/*error page*/
+
+.logo {
+    margin-top: 50px;
+}
+
+.logo h1 {
+    font-size: 200px;
+    color: #8F8E8C;
+    text-align: center;
+    margin-bottom: 1px;
+    text-shadow: 1px 1px 6px #fff;
+}
+
+.logo p {
+    color: #a2d1cf;
+    font-size: 30px;
+    margin-top: 1px;
+    text-align: center;
+}
+
+.sub a {
+    color: white;
+    background: #8F8E8C;
+    text-decoration: none;
+    padding: 7px 120px;
+    font-size: 13px;
+    font-family: arial, serif;
+    font-weight: bold;
+    -webkit-border-radius: 3em;
+}
 /*style for the headings*/
 .main_heading {
 	color: #0080c0;
