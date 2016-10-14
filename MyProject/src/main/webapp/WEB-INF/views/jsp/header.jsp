@@ -23,6 +23,22 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <title>TYM</title>
+
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $("p").hide(1000);
+    });
+});
+
+$(document).ready(function(){
+    $("button").click(function(){
+        $("p").show(1000);
+    });
+});
+</script>
+
+
 <!-- <script>
 $(document).ready(function() {
   $(function() {
