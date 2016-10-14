@@ -14,7 +14,6 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/jquery.canvasjs.min.js"></script>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="<c:url value='js/selectall.js'/>"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -83,7 +82,7 @@
 
 	<section class="">
 	
-	<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 	
 	<div class="">
 		
@@ -119,7 +118,7 @@
 				<c:forEach items="${user.budgets}" var="budget">
 					
 					<tr>
-						<td align="center"><input type="checkbox" name="expenseId"
+						<td align="center"><input type="checkbox" name="id"
 									id="${budget.expenseId}" value="${budget.expenseId}" /></td>
 						<td align="left"><c:out value="${budget.expense}"></c:out></td>
 						<td align="right"><c:out value="${budget.amount}"></c:out>&nbsp;$</td>

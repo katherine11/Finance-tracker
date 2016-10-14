@@ -108,7 +108,7 @@ window.onload = function () {
 
 	<section class="section_home">
 	
-	<div id="chartContainer" style="height: 400px; width: 100%;"></div>	
+	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 	
 	<div class="">
 		<!-- <h1>Expenses</h1> -->

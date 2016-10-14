@@ -109,7 +109,7 @@
 
 	<section class="">
 	
-	<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 	
 	<div class="">
 		<button id="myBtn">Add obligation</button>
