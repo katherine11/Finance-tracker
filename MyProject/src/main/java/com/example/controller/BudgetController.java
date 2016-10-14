@@ -49,7 +49,7 @@ public class BudgetController {
 	public String deleteBudget(HttpServletRequest req, Model model) {
 		try {
 			User user = (User) req.getSession().getAttribute("user");
-			String[] ids = req.getParameterValues("expenseId");
+			String[] ids = req.getParameterValues("id");
 			int expenseId;
 			for (int index = 0; index < ids.length; index++) {
 				expenseId = Integer.parseInt(ids[index]);

@@ -55,7 +55,7 @@ window.onload = function () {
 	
 	<jsp:include page="home.header.jsp"></jsp:include> 
 	
-	<div id="chartContainer2" style="height: 400px; width: 100%;"></div>
+	<div id="chartContainer2" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 
 	<section class="section_home">	
 	
@@ -73,10 +73,10 @@ window.onload = function () {
 			<thead>
 				<tr style="height: 35px;">
 					<th align="center" >Date</th>	
-					<th align="left">Amount</th>
-					<th align="left">Category</th>
-					<th align="left">Description</th>
-					<th align="left">Repeat</th>
+					<th align="center">Amount</th>
+					<th align="center">Category</th>
+					<th align="center">Description</th>
+					<th align="center">Repeat</th>
 				</tr>
 					</thead>
 					<tbody>
@@ -87,10 +87,10 @@ window.onload = function () {
 			<c:forEach items="${user.getUpcomingPaymentsForMonth(user.expenses)}" var="payment">
 				<tr>
 					<td align="center" width="10%"><c:out value="${payment.date}"></c:out></td>
-					<td align="left"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
-					<td align="left"><c:out value="${payment.category}"></c:out></td>
-					<td align="left">(<c:out value="${payment.description}"></c:out>)</td>		
-					<td align="left"><c:out value="${payment.repeating}"></c:out></td>			
+					<td align="center"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
+					<td align="center"><c:out value="${payment.category}"></c:out></td>
+					<td align="center">(<c:out value="${payment.description}"></c:out>)</td>		
+					<td align="center"><c:out value="${payment.repeating}"></c:out></td>			
 				</tr>
 			</c:forEach>
 			<p/>
