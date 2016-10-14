@@ -56,7 +56,7 @@ window.onload = function () {
 	<jsp:include page="home.header.jsp"></jsp:include> 
 	
 	<c:choose>
-		<c:when test="${(user.getPaymentsForMonth(user.incomes) > 0) || (user.getPaymentsForMonth(user.expenses) > 0) }">
+		<c:when test="${(user.getPaymentsForMonth(user.incomes) > 0) || (user.getPaymentsForMonth(user.expenses) > 0)}">
 			<div id="chartContainer2" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 		
 	
@@ -106,7 +106,7 @@ window.onload = function () {
 		<c:otherwise>
 			<div id="welcome_text">
 			<br>
-			<h1> Hello <c:out value="${user.username}"></c:out>, you have no incomes and expenses for this month! " <br> </h1>
+			<h1> Hello <c:out value="${user.username}"></c:out>, you have no incomes and expenses for this month! <br> </h1>
 			<h1>This is a example diagram</h1>
 			<img src="img/HomePicture2.PNG" alt="Example picture" width="90%" style="margin-left: 90px" />
 			</div>

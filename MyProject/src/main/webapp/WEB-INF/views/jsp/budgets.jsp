@@ -152,7 +152,7 @@
 		<c:otherwise>
 			<div id="welcome_text">
 			<br>
-			<h1><c:out value="${user.username}"></c:out>, here you can add budgets " <br> </h1>
+			<h1><c:out value="${user.username}"></c:out>, here you can add budgets <br> </h1>
 			<button id="myBtn" style="float: inherit; margin-left: 600px;">Add income</button>
 			</div>
 		</c:otherwise>

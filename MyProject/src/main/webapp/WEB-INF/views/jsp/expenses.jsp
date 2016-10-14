@@ -265,7 +265,7 @@ window.onload = function () {
 		<c:otherwise>
 			<div id="welcome_text">
 			<br>
-			<h1><c:out value="${user.username}"></c:out>, here you can add expenses " <br> </h1>
+			<h1><c:out value="${user.username}"></c:out>, here you can add expenses <br> </h1>
 			<button id="myBtn" style="float:initial; margin-left:600px;">Add expense</button>
 			<button id="myBtn2" style="display:none;">Get expenses by</button>
 			</div>
