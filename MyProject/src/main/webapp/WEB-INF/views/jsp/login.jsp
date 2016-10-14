@@ -42,7 +42,7 @@
 			</p>
 
 			<p class="input_form">
-				<input type="checkbox" name="commit" style='margin-left: 30px;'>
+				<input type="checkbox" name="remember_me" style='margin-left: 30px;'>
 				<label>Remember me</label>
 			</p>
 			

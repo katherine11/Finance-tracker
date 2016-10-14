@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +23,13 @@ import com.example.model.UserHasBudgetsDAO;
 import com.example.model.UserHasExpensesDAO;
 import com.example.model.UserHasIncomesDAO;
 import com.example.model.UserHasObligationsDAO;
-import com.example.model.exceptions.BudgetException;
-import com.example.model.exceptions.PaymentException;
 import com.example.model.exceptions.UserException;
 
 @Controller
 @ContextConfiguration(classes = UserDAO.class)
 public class HomePageController {
 
+	private static final int REMEMBER_ME_COOKIE_TIME = 30*24*60*60;
 	private static final int SESSION_TIME_IN_SECONDS = 60 * 60;
 	@Autowired
 	private UserDAO userDAO;
@@ -42,7 +43,37 @@ public class HomePageController {
 	private UserHasBudgetsDAO userHasBudgetsDAO;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String homePage() {
+	public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+		Cookie [] cookies = request.getCookies();
+		boolean foundCookie = false;
+		String userId = null;
+		for(int i = 0; i < cookies.length; i++)
+		{ 
+		    Cookie c = cookies[i];
+		    if (c.getName().equals("userId"))
+		    {
+		        userId = c.getValue();
+		        foundCookie = true;
+		    }
+		}  
+		if (foundCookie) {
+			int id = Integer.parseInt(userId);
+			User loggedUser = new User(id, "usernam", "email@mail.com", "password");
+			HttpSession session = request.getSession();
+			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(loggedUser);
+			session.setAttribute("user", loggedUser);
+			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
+			model.addAttribute("user", loggedUser);
+			return "redirect:/home";
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 		return "index";
 	}
 
@@ -65,21 +96,25 @@ public class HomePageController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute User user, Model model, HttpServletRequest request) {
+	public String login(@ModelAttribute User user, Model model, HttpServletRequest request, HttpServletResponse response) {
 
 		try {
 			HttpSession session = request.getSession();
 			User loggedUser = userDAO.loginUser(user);
+			String rememberMe = request.getParameter("remember_me");
+			if(rememberMe != null && rememberMe.equals("on"))
+			{
+			    Cookie remember = new Cookie("userId", new Integer(loggedUser.getUserId()).toString());
+			    remember.setMaxAge(REMEMBER_ME_COOKIE_TIME);
+			    response.addCookie(remember);
+			}
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(loggedUser);
-			System.out.println("==========================" + user.getIncomes().size());
-			System.out.println("==========================" + user.getExpenses().size());
 			session.setAttribute("user", loggedUser);
 			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
 			model.addAttribute("user", loggedUser);
-
 		} catch (UserException e) {
 			model.addAttribute("loginFail", "Invalid username or password");
 			return "login";
@@ -118,12 +153,15 @@ public class HomePageController {
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			HttpSession httpSession = request.getSession(false);
 			if (httpSession != null) {
 				httpSession.invalidate();
 			}
+			Cookie remember = new Cookie("userId", null);
+			remember.setMaxAge(0);
+			response.addCookie(remember);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
