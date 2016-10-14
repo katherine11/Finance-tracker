@@ -522,5 +522,12 @@ public class User {
 		}
 		return new Gson().toJson(obligations);	
 	}
+	
+	public String getBudgetsJson(){
+		for (Budget budget : budgets){
+			budget.getRemainedAmount(this, budget.getExpenseId());
+		}
+		return new Gson().toJson(budgets);	
+	}
 
 }

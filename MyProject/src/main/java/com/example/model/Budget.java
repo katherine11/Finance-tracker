@@ -19,6 +19,7 @@ public class Budget {
 	private double amount;
 	private LocalDate date;
 	private String description;
+	private double remaindAmount;
 
 	public Budget(int userId, int expenseId, String expense, int repeatingId, String repeating, double amount,
 			LocalDate date, String description) throws BudgetException {
@@ -193,6 +194,11 @@ public class Budget {
 	public String toString() {
 		return "Budget [expense=" + expense + ", repeating=" + repeating + ", amount=" + amount + ", date=" + date
 				+ ", description=" + description + "]";
+	}
+	
+	public double getRemainedAmount(User user, int expenseId) {
+		this.remaindAmount = user.getRemainAmountForBudget(expenseId);
+		return remaindAmount;
 	}
 
 }

@@ -12,7 +12,8 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
-
+<script type="text/javascript" src="js/jquery.canvasjs.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script
@@ -50,7 +51,29 @@
 	});
 	
 </script>
-
+<script type="text/javascript">
+		window.onload = function () {
+			var array = [];
+			var budgets = ${user.budgetsJson};
+			for (index in budgets) {
+				var budget = budgets[index];
+				var expenseId = budget.expenseId;
+				var remain = budget.remaindAmount; 
+				array.push({y: budget.amount, label: budget.expense });
+				array.push({y: remain, label: "Remain" });
+			}
+			var chart = new CanvasJS.Chart("chartContainer", {
+				title: {
+					text: "Budget amount and remain amount"
+				},
+				data: [{
+					type: "column",
+					dataPoints: array
+				}]
+			});
+			chart.render();
+		}
+	</script>
 <title>My budgets</title>
 
 </head>
@@ -59,6 +82,9 @@
 	<jsp:include page="home.header.jsp"></jsp:include>
 
 	<section class="">
+	
+	<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+	
 	<div class="">
 		
 		<c:if test="${ not empty insertFail }">
@@ -98,7 +124,7 @@
 									id="${budget.expenseId}" value="${budget.expenseId}" /></td>
 						<td align="left"><c:out value="${budget.expense}"></c:out></td>
 						<td align="right"><c:out value="${budget.amount}"></c:out>&nbsp;$</td>
-						<td align="right"><c:out value="${user.getRemainAmountForBudget(budget.expenseId)}"></c:out>&nbsp;$</td>
+						<td align="right" id="remainAmount"><c:out value="${user.getRemainAmountForBudget(budget.expenseId)}"></c:out>&nbsp;$</td>
 						<td align="center"><c:out value="${budget.repeating}"></c:out></td>
 						<td align="left">(<c:out value="${budget.description}"></c:out>)
 								</td>
