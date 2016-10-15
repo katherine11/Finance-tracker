@@ -37,7 +37,9 @@ public class BudgetController {
 			User user = (User) request.getSession().getAttribute("user");
 			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(user.getUserId(), budget));
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
-
+		} catch (PaymentException e) {
+			model.addAttribute("insertFail", "Already exist budget for this category");
+			return "redirect:/budgets";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
@@ -58,9 +60,6 @@ public class BudgetController {
 						if (userHasBudgetsDAO.deleteBudget(user.getUserId(), expenseId)) {
 							user.removeBudget(expenseId);
 						}
-					} catch (PaymentException e) {
-						model.addAttribute("insertFail", "Already exist budget for this category");
-						return "budgets";
 					} catch (Exception e) {
 						e.printStackTrace();
 						return "error";

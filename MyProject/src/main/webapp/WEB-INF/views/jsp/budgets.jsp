@@ -65,6 +65,7 @@
 				title: {
 					text: "Budget amount and remain amount"
 				},
+				animationEnabled : true,
 				data: [{
 					type: "column",
 					dataPoints: array
@@ -88,11 +89,7 @@
 	
 	<div class="">
 		
-		<c:if test="${ not empty insertFail }">
-			<p class="invalid_input">
-				<c:out value="${insertFail}"></c:out>
-			<p>
-		</c:if>
+		
 		
 		<button id="myBtn">Add budget</button>
 		
@@ -225,7 +222,11 @@
 
 		<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
 
-	
+	<c:if test="${ not empty insertFail }">
+			<p class="invalid_input">
+				<c:out value="${insertFail}"></c:out>
+			<p>
+		</c:if>
 	</section>
 
 	<jsp:include page="footer.jsp"></jsp:include>

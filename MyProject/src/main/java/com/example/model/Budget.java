@@ -8,7 +8,7 @@ import com.example.model.exceptions.UserException;
 
 public class Budget {
 	
-	private static final String CHECK_IF_EXPENSE_ID_EXISTS = "SELECT COUNT(expenses_id) FROM users_has_budgets WHERE expenses_id = ?;";
+	private static final String CHECK_IF_EXPENSE_ID_EXISTS = "SELECT COUNT(expenses_id) FROM expenses WHERE expenses_id = ?;";
 	private static final String CHECK_IF_REPEATING_ID_EXISTS = "SELECT COUNT(repeating_id) FROM repeatings WHERE repeating_id = ?;";
 
 	private int userId;
