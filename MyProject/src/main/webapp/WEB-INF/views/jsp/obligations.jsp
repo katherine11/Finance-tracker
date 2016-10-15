@@ -63,6 +63,7 @@
 				title: {
 					text: "Obligation amount and remain amount"
 				},
+				animationEnabled : true,
 				data: [{
 					type: "column",
 					dataPoints: array
