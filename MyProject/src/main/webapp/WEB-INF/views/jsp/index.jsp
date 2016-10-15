@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page session="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,7 +11,13 @@
 
 <div class="header_buttons">
 	<!-- <span class="glyphicons glyphicons-lock"></span> -->
-	<a href="./login"><button type="submit" class="h_butt">Login</button></a>
+	<a href="?language=en">
+		English
+	</a>
+	<a href="?language=de">
+		Deutsch
+	</a>
+	<a href="./login"><button type="submit" class="h_butt"><spring:message code="login" /></button></a>
 	<a href="./register"><button type="submit" class="h_butt">Register</button></a>
 	<a href="http://www.dnes.bg/"><button type="submit" class="h_butt">News</button></a>
 </div>

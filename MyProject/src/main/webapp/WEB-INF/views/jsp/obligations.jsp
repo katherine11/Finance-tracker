@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -119,7 +120,7 @@
 					<tr>
 						<td align="center"><input type="checkbox" name="id"
 									id="${obligation.id}" value="${obligation.id}" /></td>
-						<td align="left"><c:out value="${obligation.category}"></c:out></td>
+						<td align="left"><spring:message code="${obligation.category}"></spring:message></td>
 						<td align="right"><fmt:formatNumber type="number" minFractionDigits="2" 
 								maxFractionDigits="2" value="${obligation.amount}" />&nbsp;$</td>
 						<td align="right"><fmt:formatNumber type="number" minFractionDigits="2" 
