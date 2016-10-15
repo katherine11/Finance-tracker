@@ -167,10 +167,8 @@ window.onload = function () {
 		
 		<div class="Tables">
 			<table class="table" name="expense_table" cellspacing="0"
-						cellpadding="2" width="100%" border="1">
-						
+						cellpadding="2" width="100%" border="1">		
 				<thead>
-				
 					<tr style="height: 35px;">
 						<th><c:if test="${empty expenses }"><input name="selectALL" type="checkbox" value=""
 							id="main" />&nbsp;Select all<br /></c:if></th>
@@ -181,16 +179,15 @@ window.onload = function () {
 						<th align="left">Description</th>
 					</tr>
 				</thead>
-				<br />
-				<tbody>
-		<c:choose>
-			<c:when test="${empty expenses }">
-						<caption>
-							<h2>All expenses</h2>
-						</caption>
+				
+				<c:choose>
+					<c:when test="${empty expenses }">
+						<tbody>
+							<caption>
+									<h2>All expenses</h2>
+							</caption>
 							<p>
 								<form:form action="./deleteExpense">
-
 									<c:forEach items="${user.expenses}" var="expense">
 										<tr>
 											<td align="center"><input type="checkbox" name="id"
@@ -220,34 +217,28 @@ window.onload = function () {
 
 							</tr>
 						</tfoot>
-					</table>
-				</div>
-			</div>
-			</c:when>
-			<c:otherwise>
-				<caption>
-					<h2>Result</h2>
-				</caption>
-				
-				<c:forEach items="${expenses}" var="expense">
-					<tr>
-						<td align="center"></td>
-						<td align="left"><c:out value="${expense.category}"></c:out>
-						</td>
-						<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
-						</td>
-						<td align="center"><c:out value="${expense.repeating}"></c:out></td>
-						<td align="center"><c:out value="${expense.date}"></c:out></td>
-						<td align="left">(<c:out value="${expense.description}"></c:out>)
-						</td>
-					</tr>
-					
-				</c:forEach>
-				
-				<tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr>
-				
-					</tbody>
-					<tfoot>
+					</c:when>
+					<c:otherwise>
+						<tbody>
+							<caption>
+								<h2>Result</h2>
+							</caption>
+							<c:forEach items="${expenses}" var="expense">
+								<tr>
+									<td align="center"></td>
+									<td align="left"><c:out value="${expense.category}"></c:out>
+									</td>
+									<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
+									</td>
+									<td align="center"><c:out value="${expense.repeating}"></c:out></td>
+									<td align="center"><c:out value="${expense.date}"></c:out></td>
+									<td align="left">(<c:out value="${expense.description}"></c:out>)
+									</td>
+								</tr>			
+							</c:forEach>
+							<!-- <tr><th><input type="submit" id="delete" name="commit" value="Delete selected"><br/></th></tr> -->
+						</tbody>
+						<tfoot>
 							<tr>
 								<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
 										amount:</strong></td>
@@ -256,20 +247,20 @@ window.onload = function () {
 
 							</tr>
 						</tfoot>
-					</table>
-				</div>
-			</c:otherwise>
-		</c:choose>
-	
+					</c:otherwise>
+				</c:choose>
+			</table>
+		</div>
+	</div>
 	</c:when>
-		<c:otherwise>
-			<div id="welcome_text">
-			<br>
-			<h1><c:out value="${user.username}"></c:out>, here you can add expenses <br> </h1>
-			<button id="myBtn" style="float:initial; margin-left:600px;">Add expense</button>
-			<button id="myBtn2" style="display:none;">Get expenses by</button>
-			</div>
-		</c:otherwise>
+	<c:otherwise>
+		<div id="welcome_text">
+		<br>
+		<h1><c:out value="${user.username}"></c:out>, here you can add expenses <br> </h1>
+		<button id="myBtn" style="float:initial; margin-left:600px;">Add expense</button>
+		<button id="myBtn2" style="display:none;">Get expenses by</button>
+		</div>
+	</c:otherwise>
 	</c:choose>
 	<div id="myModal" class="modal">
 
