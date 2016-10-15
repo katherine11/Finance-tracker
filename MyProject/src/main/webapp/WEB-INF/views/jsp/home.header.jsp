@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page session="false"%>
 
 <%
@@ -22,16 +23,16 @@
 	<div class="title-text">
 	</div>
 	<div class="header_buttons">
-		<a href="./logout"><button type="submit" class="h_butt">Log out</button></a>
+		<a href="./logout"><button type="submit" class="h_butt"><spring:message code="logout" /></button></a>
 	</div>
 	<br />
 	<div class="navigation_buttons">
 		<nav>
-			<a href="./home" class="space"><button class="n_button" type="submit">Home</button></a>
-			<a href="./incomes" class="space"><button class="n_button" type="submit">Incomes</button></a>
-			<a href="./expenses" class="space"><button class="n_button" type="submit">Expenses</button></a>
-			<a href="./obligations" class="space"><button class="n_button" type="submit">Obligations</button></a>
-			<a href="./budgets" class="space"><button class="n_button" type="submit">Budgets</button></a>
+			<a href="./home" class="space"><button class="n_button" type="submit"><spring:message code="home" /></button></a>
+			<a href="./incomes" class="space"><button class="n_button" type="submit"><spring:message code="incomes" /></button></a>
+			<a href="./expenses" class="space"><button class="n_button" type="submit"><spring:message code="expenses" /></button></a>
+			<a href="./obligations" class="space"><button class="n_button" type="submit"><spring:message code="obligations" /></button></a>
+			<a href="./budgets" class="space"><button class="n_button" type="submit"><spring:message code="budgets" /></button></a>
 		</nav>
 	</div>
 </header>

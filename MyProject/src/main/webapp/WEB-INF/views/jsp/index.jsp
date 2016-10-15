@@ -10,7 +10,6 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <div class="header_buttons">
-	<!-- <span class="glyphicons glyphicons-lock"></span> -->
 	<a href="?language=en">
 		English
 	</a>
@@ -18,10 +17,9 @@
 		Deutsch
 	</a>
 	<a href="./login"><button type="submit" class="h_butt"><spring:message code="login" /></button></a>
-	<a href="./register"><button type="submit" class="h_butt">Register</button></a>
-	<a href="http://www.dnes.bg/"><button type="submit" class="h_butt">News</button></a>
+	<a href="./register"><button type="submit" class="h_butt"><spring:message code="register" /></button></a>
+	<a href="http://www.dnes.bg/"><button type="submit" class="h_butt"><spring:message code="news" /></button></a>
 </div>
-
 </header>
 
 <div>
@@ -32,11 +30,11 @@
 <section class="section">
 <div class="front_page">
 	<div class="main_heading">
-		<h2>Welcome to our site for easy money management!</h2>
+		<h2><spring:message code="welcome.message" /></h2>
 	</div>
 
 	<div class="sub_heading">
-		<h3>Here you'll be able to:</h3>
+		<h3><spring:message code="welcome.message.second" /></h3>
 	</div>
 
 	<div class="center_buttons">
@@ -57,9 +55,9 @@
 
 
 		<ul>
-			<li>Enter your incomes and expenses</li><br/>
-			<li>Track the upcoming payments</li><br />
-			<li>Allocate your own budget to spend</li><br/>
+			<li><spring:message code="possibility.first" /></li><br/>
+			<li><spring:message code="possibility.second" /></li><br />
+			<li><spring:message code="possibility.third" /></li><br/>
 		</ul>
 
 

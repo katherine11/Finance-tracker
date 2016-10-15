@@ -5,6 +5,7 @@
 <%@page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -26,7 +27,7 @@ window.onload = function () {
 	var chart = new CanvasJS.Chart("chartContainer2",
 	{
 		title:{
-			text: "Monthly Overview"
+			text: "<spring:message code="monthly.overview" />"
 		},
                 animationEnabled: true,
 		data: [
@@ -37,9 +38,9 @@ window.onload = function () {
 			showInLegend: true,
           explodeOnClick: true, 
 			dataPoints: [
-				{y: incomes, indexLabel: "Incomes #percent%", legendText: "Incomes" },
-				{y: expenses, indexLabel: "Expenses #percent%", legendText: "Expenses" },
-				{y: balance,  indexLabel: "Balance #percent%", legendText: "Balance" },
+				{y: incomes, indexLabel: "<spring:message code="incomes" /> #percent%", legendText: "<spring:message code="incomes" />" },
+				{y: expenses, indexLabel: "<spring:message code="expenses" /> #percent%", legendText: "<spring:message code="expenses" />" },
+				{y: balance,  indexLabel: "<spring:message code="balance" /> #percent%", legendText: "<spring:message code="balance" />" },
 			]
 		}
 		]
@@ -48,7 +49,7 @@ window.onload = function () {
 	}
 	</script>
 	<script src="../../canvasjs.min.js"></script>
-<title>Welcome in TYM!</title>
+<title><spring:message code="welcome.title" /></title>
 
 </head>
 <body>
@@ -64,9 +65,9 @@ window.onload = function () {
 	
 	<div class="table" style="width:300px; margin-left: 565px;">
 			
-		<p class="total_money">Incomes: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.incomes)}" />&nbsp;$</p>
-		<p class="total_money">Expenses: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.expenses)}" />&nbsp;$</p>
-		<p class="total_money">Balance: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.balanceForMonth}" />&nbsp;$</p>
+		<p class="total_money"><spring:message code="incomes" />:<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.incomes)}" />&nbsp;$</p>
+		<p class="total_money"><spring:message code="expenses"/>:<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.expenses)}" />&nbsp;$</p>
+		<p class="total_money"><spring:message code="balance" />:<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.balanceForMonth}" />&nbsp;$</p>
 
 	</div>
 	
@@ -75,39 +76,38 @@ window.onload = function () {
 				cellpadding="2" width="100%" border="1">
 			<thead>
 				<tr style="height: 35px;">
-					<th align="center" >Date</th>	
-					<th align="center">Amount</th>
-					<th align="center">Category</th>
-					<th align="center">Description</th>
-					<th align="center">Repeat</th>
+					<th align="center" ><spring:message code="date" /></th>	
+					<th align="center"><spring:message code="amount" /></th>
+					<th align="center"><spring:message code="category" /></th>
+					<th align="center"><spring:message code="description" /></th>
+					<th align="center"><spring:message code="repeat" /></th>
 				</tr>
 					</thead>
 					<tbody>
 					<caption class="upcoming_payments">
-						<h2>Upcoming payments</h2>
+						<h2><spring:message code="upcoming.payments" /></h2>
 					</caption>
 			<p>
 			<c:forEach items="${user.getUpcomingPaymentsForMonth(user.expenses)}" var="payment">
 				<tr>
 					<td align="center" width="10%"><c:out value="${payment.date}"></c:out></td>
 					<td align="center"><c:out value="${payment.amount}"></c:out>&nbsp;$</td>
-					<td align="center"><c:out value="${payment.category}"></c:out></td>
+					<td align="center"><spring:message code="${payment.category}" /></td>
 					<td align="center">(<c:out value="${payment.description}"></c:out>)</td>		
-					<td align="center"><c:out value="${payment.repeating}"></c:out></td>			
+					<td align="center"><spring:message code="${payment.repeating}" /></td>			
 				</tr>
 			</c:forEach>
 			<p/>
 			</tbody>
 		</table>	
-
 	</div>
 	</section>
 	</c:when>
 		<c:otherwise>
 			<div id="welcome_text">
 			<br>
-			<h1> Hello <c:out value="${user.username}"></c:out>, you have no incomes and expenses for this month! <br> </h1>
-			<h1>This is a example diagram</h1>
+			<h1> <spring:message code="hello.message" /><c:out value="${user.username}"></c:out>, <spring:message code="monthly.info" />! <br> </h1>
+			<h1><spring:message code="example.diagram" /></h1>
 			<img src="img/HomePicture2.PNG" alt="Example picture" width="90%" style="margin-left: 90px" />
 			</div>
 		</c:otherwise>

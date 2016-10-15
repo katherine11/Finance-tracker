@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page session="false"%>
 
 
@@ -57,21 +58,21 @@
 		var Other = ${ user.getAmoutByPaymentCategoryId(9, user.incomes)};
 		var array = [];
 		if (Salary > 0){
-			array.push({y: Salary, indexLabel: "Salary #percent%", legendText: "Salary" });
+			array.push({y: Salary, indexLabel: "<spring:message code="Salary" /> #percent%", legendText: "<spring:message code="Salary" />" });
 		}
 		if (Rent > 0){
-		array.push({y: Rent, indexLabel: "Rent #percent%", legendText: "Rent"});
+		array.push({y: Rent, indexLabel: "<spring:message code="Rent" /> #percent%", legendText: "<spring:message code="Rent" />"});
 		}
 		if (Grants > 0){
-		array.push({y: Grants,  indexLabel: "Grants #percent%", legendText: "Grants" });
+		array.push({y: Grants,  indexLabel: "<spring:message code="Grants" /> #percent%", legendText: "<spring:message code="Grants" />" });
 		}
 		if (Other > 0){
-		array.push({y: Other, indexLabel: "Other #percent%", legendText: "Other" });
+		array.push({y: Other, indexLabel: "<spring:message code="Other" /> #percent%", legendText: "<spring:message code="Other" />" });
 		}
 		var chart = new CanvasJS.Chart("chartContainer",
 				{
 					title : {
-						text : "Percentage incomes by  type"
+						text : "<spring:message code="incomes.percentage" />"
 					},
 					animationEnabled : true,
 					data : [ {
@@ -88,7 +89,7 @@
 </script>
 <script src="../../canvasjs.min.js"></script>
 
-<title>My incomes</title>
+<title><spring:message code="my.incomes" /></title>
 
 </head>
 <body>
@@ -102,7 +103,7 @@
 	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 
 	<div class="">
-		<button id="myBtn">Add income</button>
+		<button id="myBtn"><spring:message code="add.income" /></button>
 
 		<div class="Tables">
 			<table class="table" name="expense_table" cellspacing="0"
@@ -110,17 +111,17 @@
 				<thead>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
-							id="main" />&nbsp;Select all<br /></th>
-						<th align="left">Category</th>
-						<th align="right">Amount</th>
-						<th>Repeat</th>
-						<th>Date</th>	
-						<th align="left">Description</th>
+							id="main" />&nbsp;<spring:message code="select.all" /><br /></th>
+						<th align="left"><spring:message code="category" /></th>
+						<th align="right"><spring:message code="amount" /></th>
+						<th><spring:message code="repeat" /></th>
+						<th><spring:message code="date" /></th>	
+						<th align="left"><spring:message code="description" /></th>
 					</tr>
 				</thead>
 				<tbody>
 				<caption>
-					<h2>All incomes</h2>
+					<h2><spring:message code="all.incomes" /></h2>
 				</caption>
 				<p>
 					<form:form action="./deleteIncome">
@@ -129,23 +130,22 @@
 							<tr>
 								<td align="center"><input type="checkbox" name="id"
 									id="${income.id}" value="${income.id}" /></td>
-								<td align="left"><c:out value="${income.category}"></c:out></td>
+								<td align="left"><spring:message code="${income.category}" /></td>
 								<td align="right"><c:out value="${income.amount}"></c:out>&nbsp;$</td>
-								<td align="center"><c:out value="${income.repeating}"></c:out></td>
+								<td align="center"><spring:message code="${income.repeating}" /></td>
 								<td align="center"><c:out value="${income.date}"></c:out></td>
 								<td align="left">(<c:out value="${income.description}"></c:out>)
 								</td>
 							</tr>
 						</c:forEach>
 						<input type="submit" id="delete" name="commit"
-							value="Delete selected">
+							value="<spring:message code="delete.selected" />">
 					</form:form>
 				</p>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
-								amount:</strong></td>
+						<td align="right" colspan="2" style="padding-top: 14px"><strong><spring:message code="total.amount" />:</strong></td>
 						<td align="right" style="padding-top: 14px"><strong>
 								<c:out value="${user.getTotalAmountFor(user.incomes)}"></c:out> &nbsp;$
 						</strong></td>
@@ -159,8 +159,8 @@
 		<c:otherwise>
 			<div id="welcome_text">
 			<br>
-			<h1><c:out value="${user.username}"></c:out>, here you can add incomes <br> </h1>
-			<button id="myBtn" style="float: inherit; margin-left: 600px;">Add income</button>
+			<h1><c:out value="${user.username}"></c:out>, <spring:message code="incomes.welcome.message" /> <br> </h1>
+			<button id="myBtn" style="float: inherit; margin-left: 600px;"><spring:message code="add.income" /></button>
 			</div>
 		</c:otherwise>
 	</c:choose>
@@ -170,56 +170,56 @@
 	<div id="myModal" class="modal">
 
 			<div class="modal-content">
-				<span class="close">close</span>
+				<span class="close"><spring:message code="close" /></span>
 
 				<form:form commandName="income">
 
 					<p>
-						<form:label path="categoryId">Category:</form:label>
+						<form:label path="categoryId"><spring:message code="category" /></form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
-							<form:option value="6">Salary</form:option>
+							<form:option value="6"><spring:message code="Salary" /></form:option>
 
-							<form:option value="7">Rent</form:option>
+							<form:option value="7"><spring:message code="Rent" /></form:option>
 
-							<form:option value="8">Grants</form:option>
+							<form:option value="8"><spring:message code="Grants" /></form:option>
 
-							<form:option value="9">Other</form:option>
+							<form:option value="9"><spring:message code="Other" /></form:option>
 
 						</form:select>
 					</p>
 					<p>
-						<form:label path="amount">Sum:</form:label>
+						<form:label path="amount"><spring:message code="amount" />:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
-							path="amount" placeholder="Money" required="required" />
+							path="amount" placeholder='<spring:message code="money" />' required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Repeating:</form:label>
+						<form:label path="repeatingId"><spring:message code="repeating" />:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
-							<form:option value="1">Once</form:option>
-							<form:option value="2">Daily</form:option>
-							<form:option value="3">Weekly</form:option>
-							<form:option value="4">Monthly</form:option>
-							<form:option value="5">Year</form:option>
+							<form:option value="1"><spring:message code="Once" /></form:option>
+							<form:option value="2"><spring:message code="Daily" /></form:option>
+							<form:option value="3"><spring:message code="Weekly" /></form:option>
+							<form:option value="4"><spring:message code="Monthly" /></form:option>
+							<form:option value="5"><spring:message code="Yearly" /></form:option>
 
 						</form:select>
 
 					</p>
 					<p>
-						<form:label path="date">Date:</form:label>
+						<form:label path="date"><spring:message code="date" />:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder="Date" required="required" />
+							placeholder='<spring:message code="date" />' required="required" />
 					</p>
 					<p>
-						<form:label path="description">Description:</form:label>
+						<form:label path="description"><spring:message code="description" />:</form:label>
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Description" required="required" />
+							path="description" placeholder='<spring:message code="description" />' required="required" />
 					</p>
 
 					<p class="submit">
-						<input type="submit" name="commit" value="Add">
+						<input type="submit" name="commit" value="<spring:message code="add" />">
 					</p>
 
 				</form:form>

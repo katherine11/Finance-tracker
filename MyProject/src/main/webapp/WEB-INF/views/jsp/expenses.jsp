@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="false"%>
 
@@ -60,27 +61,27 @@ window.onload = function () {
 	var other = ${user.getAmoutByPaymentCategoryId(6, user.expenses)}; 
 	var array = [];
 	if (foodAndDrinks > 0){
-		array.push({y: foodAndDrinks, indexLabel: "Food&Drinks #percent%", legendText: "Food&Drinks" });
+		array.push({y: foodAndDrinks, indexLabel: "<spring:message code="Food_&_Drinks" /> #percent%", legendText: "<spring:message code="Food_&_Drinks" />" });
 	}
 	if (transport > 0){
-	array.push({y: transport, indexLabel: "Transport #percent%", legendText: "Transport"});
+	array.push({y: transport, indexLabel: "<spring:message code="Transport" /> #percent%", legendText: "<spring:message code="Transport" />"});
 	}
 	if (education > 0){
-	array.push({y: education,  indexLabel: "Education #percent%", legendText: "Education" });
+	array.push({y: education,  indexLabel: "<spring:message code="Education" /> #percent%", legendText: "<spring:message code="Food_&_Drinks" />" });
 	}
 	if (sport > 0){
-	array.push({y: sport, indexLabel: "Sport #percent%", legendText: "Sport" });
+	array.push({y: sport, indexLabel: "<spring:message code="Sport" /> #percent%", legendText: "<spring:message code="Sport" />" });
 	}
 	if (bills > 0){
-	array.push({y: bills, indexLabel: "Bills #percent%", legendText: "Bills" });
+	array.push({y: bills, indexLabel: "<spring:message code="Taxes" /> #percent%", legendText: "<spring:message code="Taxes" />" });
 	}
 	if (other > 0){
-	array.push({y: other,  indexLabel: "Other #percent%", legendText: "Other" });
+	array.push({y: other,  indexLabel: "<spring:message code="Other" /> #percent%", legendText: "<spring:message code="Other" />" });
 	}
 	var chart = new CanvasJS.Chart("chartContainer",
 	{
 		title:{
-			text: "Percentage expenses by  type"
+			text: "<spring:message code="expense.percentage" />"
 		},
                 animationEnabled: true,
 		data: [
@@ -99,7 +100,7 @@ window.onload = function () {
 	</script>
 	<script src="../../canvasjs.min.js"></script>
 
-<title>My expenses</title>
+<title><spring:message code="my.expenses" /></title>
 
 </head>
 <body>
@@ -113,50 +114,50 @@ window.onload = function () {
 	
 	<div class="">
 
-		<button id="myBtn">Add expense</button>
+		<button id="myBtn"><spring:message code="add.expense" /></button>
 
-		<button id="myBtn2">Get expenses by</button>
+		<button id="myBtn2"><spring:message code="get.expense" /></button>
 		
 		<div id="myModal2" class="modal">
 
 			<div class="modal-content">
-				<span class="close2">close</span>
+				<span class="close2"><spring:message code="add.expense" /></span>
 
 				<form class="Forms" action="./getExpensesBy" method="get">
 
 					<p>
-						<label for="categoryId">Category:</label> <select
+						<label for="categoryId"><spring:message code="category" />:</label> <select
 							id="categoryId" class="input" name="categoryId">
 
-							<option value="0">All categories</option>
+							<option value="0"><spring:message code="all.categories" /></option>
 
-							<option value="1">Food&Drinks</option>
+							<option value="1"><spring:message code="Food_&_Drinks" /></option>
 
-							<option value="2">Transport</option>
+							<option value="2"><spring:message code="Transport" /></option>
 
-							<option value="3">Education</option>
+							<option value="3"><spring:message code="Education" /></option>
 
-							<option value="4">Sport</option>
+							<option value="4"><spring:message code="Sport" /></option>
 
-							<option value="5">Bills</option>
+							<option value="5"><spring:message code="Taxes" /></option>
 
-							<option value="6">Other</option>
+							<option value="6"><spring:message code="Other" /></option>
 
 						</select>
 					</p>
 
 					<p>
-						<label for="from">From:</label> <input id="datepickerFrom"
-							class="input" name="from" placeholder="Date" required="required" />
+						<label for="from"><spring:message code="from" />:</label> <input id="datepickerFrom"
+							class="input" name="from" placeholder="<spring:message code="date" />" required="required" />
 					</p>
 
 					<p>
-						<label for="to">To:</label> <input id="datepickerTo" class="input"
-							name="to" placeholder="Date" required="required" />
+						<label for="to"><spring:message code="to" />:</label> <input id="datepickerTo" class="input"
+							name="to" placeholder="<spring:message code="date" />" required="required" />
 					</p>
 
 					<p class="submit">
-						<input type="submit" name="commit" value="Find">
+						<input type="submit" name="commit" value="<spring:message code="find" />">
 					</p>
 
 				</form>
@@ -171,10 +172,10 @@ window.onload = function () {
 				<thead>
 					<tr style="height: 35px;">
 						<th><c:if test="${empty expenses }"><input name="selectALL" type="checkbox" value=""
-							id="main" />&nbsp;Select all<br /></c:if></th>
-						<th align="left">Category</th>
+							id="main" />&nbsp;<spring:message code="select.all" /><br /></c:if></th>
+						<th align="left"><spring:message code="category" /></th>
 						<th align="right">Amount</th>
-						<th>Repeat</th>
+						<th><spring:message code="repeat" /></th>
 						<th>Date</th>
 						<th align="left">Description</th>
 					</tr>
@@ -184,7 +185,7 @@ window.onload = function () {
 					<c:when test="${empty expenses }">
 						<tbody>
 							<caption>
-									<h2>All expenses</h2>
+									<h2><spring:message code="all.expense" /></h2>
 							</caption>
 							<p>
 								<form:form action="./deleteExpense">
@@ -192,11 +193,11 @@ window.onload = function () {
 										<tr>
 											<td align="center"><input type="checkbox" name="id"
 												id="${expense.id}" value="${expense.id}" /></td>
-											<td align="left"><c:out value="${expense.category}"></c:out>
+											<td align="left"><spring:message code="${expense.category}" />
 											</td>
 											<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
 											</td>
-											<td align="center"><c:out value="${expense.repeating}"></c:out></td>
+											<td align="center"><spring:message code="${expense.repeating}" /></td>
 											<td align="center"><c:out value="${expense.date}"></c:out>
 											</td>
 											<td align="left">(<c:out value="${expense.description}"></c:out>)
@@ -204,7 +205,7 @@ window.onload = function () {
 										</tr>
 									</c:forEach>
 									<input type="submit" id="delete" name="commit"
-										value="Delete selected">
+										value="<spring:message code="delete.selected" />">
 								</form:form>
 							</p>
 						</tbody>
