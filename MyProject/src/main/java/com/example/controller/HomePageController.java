@@ -48,11 +48,9 @@ public class HomePageController {
 		Cookie [] cookies = request.getCookies();
 		boolean foundCookie = false;
 		String userId = null;
-		for(int i = 0; i < cookies.length; i++)
-		{ 
+		for(int i = 0; i < cookies.length; i++){ 
 		    Cookie c = cookies[i];
-		    if (c.getName().equals("userId"))
-		    {
+		    if (c.getName().equals("userId")){
 		        userId = c.getValue();
 		        foundCookie = true;
 		    }

@@ -36,10 +36,11 @@ header {
 }
 
 /*style for the logo*/
-.logo {
+div.logo {
   float: left;
   padding-top: 0px;
   padding-left: 8px;
+  margin-top: 0px;
 }
 
 .title-text {
@@ -103,8 +104,9 @@ header {
 	padding-left: 5%;
 	position:relative;
 	display: inline-block;
-	margin-left: -19px;
-    margin-top: 25px;
+    margin-left: 133px;
+    margin-top: -20px;
+    font-size: 22px;
 }
 
 
