@@ -224,9 +224,9 @@ window.onload = function () {
 							<caption>
 								<h2>Result</h2>
 							</caption>
-							<c:forEach items="${expenses}" var="expense">
+							<c:forEach items="${expenses}" var="expense" varStatus="loop">
 								<tr>
-									<td align="center"></td>
+									<td align="center"><c:out value="${loop.index+1}"></c:out></td>
 									<td align="left"><c:out value="${expense.category}"></c:out>
 									</td>
 									<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
@@ -245,7 +245,7 @@ window.onload = function () {
 										amount:</strong></td>
 								<td align="right" style="padding-top: 14px"><strong>
 								<c:out value="${totalAmount}"></c:out> &nbsp;$ </strong> </td>
-
+								<td colspan="3" ></td>
 							</tr>
 						</tfoot>
 					</c:otherwise>

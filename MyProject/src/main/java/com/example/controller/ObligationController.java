@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.model.Obligation;
 import com.example.model.User;
 import com.example.model.UserHasObligationsDAO;
-import com.example.model.exceptions.PaymentException;
-import com.example.model.exceptions.UserException;
 
 @Controller
 @ContextConfiguration(classes = UserHasObligationsDAO.class)

@@ -8,8 +8,10 @@ import com.example.model.exceptions.PaymentException;
 
 public class Obligation extends Payment {
 
-	private static final String CHECK_IF_PERIOD_ID_EXISTS = "SELECT COUNT(period_id) FROM period WHERE period_id = ?;";
-
+	private static final int PERIOD_ID_FOR_YEARS = 4;
+	private static final int PERIOD_ID_FOR_MONTHS = 3;
+	private static final int PERIOD_ID_FOR_WEEKS = 2;
+	private static final int PERIOD_ID_FOR_DAYS = 1;
 	private int periodId;
 	private String period;
 	private int periodQuantity;
@@ -44,14 +46,11 @@ public class Obligation extends Payment {
 	}
 
 	public void setPeriodId(int periodId) throws ObligationException {
-		/*
-		 * checking if the database contains such a period
-		 */
-//		if (UserHasDAO.isContainedInDB(periodId, CHECK_IF_PERIOD_ID_EXISTS)) {
-			this.periodId = periodId;
-//		} else {
-//			throw new ObligationException("There is no such a period!");
-//		}
+		if (periodId <= 0){
+			throw new ObligationException("There is no such a period id!");
+		}
+		this.periodId = periodId;
+
 
 	}
 
@@ -68,22 +67,27 @@ public class Obligation extends Payment {
 		return super.toString() + ", Period=" + periodQuantity + " " + period;
 	}
 
+	/*
+	 * get the paid amount for obligation, by calculating
+	 * the payments from start date to date now and
+	 * calculating the payment frequency
+	 * */
 	public double getPaidAmount(){
 		LocalDate begin = super.getDate();
 		LocalDate end = null;
 		double payment = 0;
 		double amount = 0;
 		switch (this.periodId){
-			case 1:
+			case PERIOD_ID_FOR_DAYS:
 				end = begin.plusDays(this.periodQuantity);
 				break;
-			case 2:
+			case PERIOD_ID_FOR_WEEKS:
 				end = begin.plusWeeks(this.periodQuantity);
 				break;
-			case 3:
+			case PERIOD_ID_FOR_MONTHS:
 				end = begin.plusMonths(this.periodQuantity);
 				break;
-			case 4:
+			case PERIOD_ID_FOR_YEARS:
 				end = begin.plusYears(this.periodQuantity);
 				break;
 			default:

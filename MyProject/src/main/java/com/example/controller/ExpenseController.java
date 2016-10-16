@@ -17,7 +17,6 @@ import com.example.model.Expense;
 import com.example.model.Payment;
 import com.example.model.User;
 import com.example.model.UserHasExpensesDAO;
-import com.example.model.exceptions.PaymentException;
 import com.example.model.exceptions.UserException;
 
 @Controller

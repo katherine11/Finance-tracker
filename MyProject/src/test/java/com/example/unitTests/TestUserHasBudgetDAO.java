@@ -1,5 +1,7 @@
 package com.example.unitTests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -31,16 +33,16 @@ public class TestUserHasBudgetDAO {
 	public void test() throws PaymentException, BudgetException {
 		User user = new User(USER_ID, USERNAME, EMAIL, PASSWORD);
 		
-//		boolean isInserted = userHasBudgetsDAO.insertBudget
-//				(new Budget(USER_ID, EXSPENSE_ID, EXPENSE_TYPE, REPEATING_ID, REPEATING_TYPE, AMOUNT, DATE, BUDGET_DESCRIPTION));
-//		assertTrue(isInserted);
+		boolean isInserted = userHasBudgetsDAO.insertBudget
+				(USER_ID, new Budget(USER_ID, EXSPENSE_ID, EXPENSE_TYPE, REPEATING_ID, REPEATING_TYPE, AMOUNT, DATE, BUDGET_DESCRIPTION));
+		assertTrue(isInserted);
 		
 		userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
 		Set<Budget> budgets = user.getBudgets();
 		System.out.println("Budgets from " + user.getUsername());
 		printBudgets(budgets);
-//		boolean isDeleted = userHasBudgetsDAO.deleteBudget(USER_ID, EXSPENSE_ID);
-//		assertTrue(isDeleted);
+		boolean isDeleted = userHasBudgetsDAO.deleteBudget(USER_ID, EXSPENSE_ID);
+		assertTrue(isDeleted);
 		
 	}
 	

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.springframework.stereotype.Component;
 
@@ -20,6 +19,7 @@ public class UserDAO {
 	private static final String CHECK_IF_USER_ID_EXISTS = "SELECT COUNT(user_id) FROM users WHERE user_id = ?;";
 
 	public int registerUser(User user) throws UserException {
+		isUserNull(user);
 
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -44,6 +44,7 @@ public class UserDAO {
 	}
 
 	public User loginUser(User user) throws UserException {
+		isUserNull(user);
 
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -66,6 +67,7 @@ public class UserDAO {
 	}
 
 	public boolean deleteUser(User user) throws UserException {
+		isUserNull(user);
 
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -85,7 +87,16 @@ public class UserDAO {
 
 	}
 
+	private void isUserNull(User user) throws UserException {
+		if (user == null){
+			throw new UserException("Invalid user given!");
+		}
+	}
+
 	public static boolean containsUser(int userId) throws UserException {
+		if (userId <= 0){
+			throw new UserException("Invalid user id given!");
+		}
 
 		Connection connection = DBConnection.getInstance().getConnection();
 

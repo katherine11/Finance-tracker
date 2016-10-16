@@ -22,7 +22,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 
 	public int insertPayment(int userId, Payment income) throws PaymentException {
 		
-		if(income != null){
+		if(income != null && userId > 0){
 		
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -85,7 +85,7 @@ public class UserHasIncomesDAO implements UserHasDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new PaymentException("Incomes select failed!",e);
+			throw new PaymentException("Incomes select failed!");
 		}
 		
 		}
@@ -96,6 +96,10 @@ public class UserHasIncomesDAO implements UserHasDAO {
 	}
 
 	public boolean deletePayment(int id) throws PaymentException {
+		if (id <= 0) {
+			throw new IncomeException("Invalid id givenr!");
+		}
+		
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {

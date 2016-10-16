@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 import com.example.model.connections.DBConnection;
-import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.ObligationException;
 import com.example.model.exceptions.PaymentException;
 
@@ -23,7 +22,7 @@ public class UserHasObligationsDAO implements UserHasDAO {
 
 	public int insertPayment(int userId, Payment obligation) throws PaymentException {
 
-		if (obligation != null) {
+		if (obligation != null && userId > 0) {
 
 			Connection connection = DBConnection.getInstance().getConnection();
 
@@ -98,11 +97,15 @@ public class UserHasObligationsDAO implements UserHasDAO {
 				throw new PaymentException("Expenses select failed!", e);
 			}
 		} else {
-			throw new BudgetException("The budget given is not valid!");
+			throw new ObligationException("The obligation given is not valid!");
 		}
 	}
 
 	public boolean deletePayment(int id) throws PaymentException {
+		if (id <= 0) {
+			
+		}
+		
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -119,26 +122,5 @@ public class UserHasObligationsDAO implements UserHasDAO {
 			throw new PaymentException("Someting went wrong!", e);
 		}
 	}
-
-//	public static boolean containsPeriod(int periodId) {
-//
-//		Connection connection = DBConnection.getInstance().getConnection();
-//
-//		try {
-//			PreparedStatement ps = connection.prepareStatement(CHECK_IF_PERIOD_ID_EXISTS);
-//			ps.setInt(1, periodId);
-//			ResultSet rs = ps.executeQuery(CHECK_IF_PERIOD_ID_EXISTS);
-//			rs.next();
-//			int result = rs.getInt(1);
-//			if (result == 0) {
-//				return false;
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return true;
-//	}
 
 }
