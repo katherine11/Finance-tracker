@@ -63,7 +63,7 @@ window.onload = function () {
 	
 	<section class="section_home">	
 	
-	<div class="table" style="width:300px; margin-left: 565px;">
+	<div class="table" style="width:300px; margin-left: 537px;">
 			
 		<p class="total_money"><spring:message code="incomes" />:<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.incomes)}" />&nbsp;$</p>
 		<p class="total_money"><spring:message code="expenses"/>:<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.expenses)}" />&nbsp;$</p>

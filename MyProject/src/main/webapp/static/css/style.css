@@ -437,10 +437,7 @@ footer {
 .EN, .DE {
 	color: blue;
 	text-decoration: none;
+	font-style: italic;
+	font-weight: bold;	
 }
 
-a.EN{
-  left:50%;
-  -webkit-transform:translateX(-50%);
-          transform:translateX(-50%);
-}

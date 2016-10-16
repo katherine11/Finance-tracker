@@ -147,13 +147,13 @@ window.onload = function () {
 					</p>
 
 					<p>
-						<label for="from"><spring:message code="from" />:</label> <input id="datepickerFrom"
+						<label for="from"><spring:message code="from" />:</label> <input id="datepickerFrom" pattern="\d{1,2}/\d{1,2}/\d{4}"
 							class="input" name="from" placeholder='<spring:message code="date" />' required="required" />
 					</p>
 
 					<p>
 						<label for="to"><spring:message code="to" />:</label> <input id="datepickerTo" class="input"
-							name="to" placeholder='<spring:message code="date" />' required="required" />
+							name="to" placeholder='<spring:message code="date" />' required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"/>
 					</p>
 
 					<p class="submit">
@@ -308,7 +308,7 @@ window.onload = function () {
 					</p>
 					<p>
 						<form:label path="date"><spring:message code="date" />:</form:label>
-						<form:input id="datepicker" class="input" name="date" path="date"
+						<form:input id="datepicker" class="input" name="date" path="date" pattern="\d{1,2}/\d{1,2}/\d{4}"
 							placeholder='<spring:message code="date" />' required="required" />
 					</p>
 					<p>

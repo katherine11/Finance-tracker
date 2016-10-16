@@ -32,7 +32,7 @@
 		
 		<form:form commandName="user">
 			
-			<p><form:input type="email" id="email" class="input" path="email" placeholder="Email" required="required"/></p>
+			<p><form:input type="email" id="email" class="input" path="email" placeholder="Email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/></p>
 			<p><form:input id="username" class="input" path="username" placeholder="Username" minlength="4" maxlength="15" required="required"/></p>
 			<p><form:password id="password" class="input" path="password" placeholder="Password" minlength="4" maxlength="15" required="required"/></p>
 			
