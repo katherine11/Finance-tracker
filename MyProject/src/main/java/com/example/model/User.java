@@ -258,7 +258,7 @@ public class User {
 				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusDays(7)) {
 					totalPyments += payment.getAmount();
 					System.out.println("WEEKLY");
-				}
+			}
 				break;
 			case 4:
 				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusMonths(1)) {
@@ -322,8 +322,6 @@ public class User {
 	}
 	
 	public List<Payment> getPaymentsBy(String from, String to, int categoryId, Collection<Payment> payments) throws UserException {
-		
-		//must add a validation for category id!
 		
 		/*checking if the data given are valid 
 		 * then parsing the dates given to LocalDate

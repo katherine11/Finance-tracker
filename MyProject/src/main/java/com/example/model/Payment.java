@@ -15,12 +15,6 @@ public abstract class Payment implements Cloneable{
 	private LocalDate date;
 	private String description;
 	private int id;
-
-//	public static boolean containsCategory(int categoryId){
-//		return UserHasDAO.isContainedInDB(categoryId, sql1) ||
-//				UserHasDAO.isContainedInDB(categoryId, sql2) ||
-//				UserHasDAO.isContainedInDB(categoryId, sql3);
-//	}
 	
 	//to make validations for category!
 	public void setCategoryId(int categoryId) {

@@ -121,7 +121,7 @@ window.onload = function () {
 		<div id="myModal2" class="modal">
 
 			<div class="modal-content">
-				<span class="close2"><spring:message code="add.expense" /></span>
+				<span class="close2"><spring:message code="close" /></span>
 
 				<form class="Forms" action="./getExpensesBy" method="get">
 
@@ -148,12 +148,12 @@ window.onload = function () {
 
 					<p>
 						<label for="from"><spring:message code="from" />:</label> <input id="datepickerFrom"
-							class="input" name="from" placeholder="<spring:message code="date" />" required="required" />
+							class="input" name="from" placeholder='<spring:message code="date" />' required="required" />
 					</p>
 
 					<p>
 						<label for="to"><spring:message code="to" />:</label> <input id="datepickerTo" class="input"
-							name="to" placeholder="<spring:message code="date" />" required="required" />
+							name="to" placeholder='<spring:message code="date" />' required="required" />
 					</p>
 
 					<p class="submit">
@@ -174,10 +174,10 @@ window.onload = function () {
 						<th><c:if test="${empty expenses }"><input name="selectALL" type="checkbox" value=""
 							id="main" />&nbsp;<spring:message code="select.all" /><br /></c:if></th>
 						<th align="left"><spring:message code="category" /></th>
-						<th align="right">Amount</th>
+						<th align="right"><spring:message code="amount" /></th>
 						<th><spring:message code="repeat" /></th>
-						<th>Date</th>
-						<th align="left">Description</th>
+						<th><spring:message code="date" /></th>
+						<th align="left"><spring:message code="description" /></th>
 					</tr>
 				</thead>
 				
@@ -211,8 +211,8 @@ window.onload = function () {
 						</tbody>
 						<tfoot>
 							<tr>
-								<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
-										amount:</strong></td>
+								<td align="right" colspan="2" style="padding-top: 14px"><strong>
+										<spring:message code="total.amount" />:</strong></td>
 								<td align="right" style="padding-top: 14px"><strong>
 								<c:out value="${user.getTotalAmountFor(user.expenses)}"></c:out> &nbsp;$ </strong> </td>
 
@@ -222,16 +222,16 @@ window.onload = function () {
 					<c:otherwise>
 						<tbody>
 							<caption>
-								<h2>Result</h2>
+								<h2><spring:message code="result" /></h2>
 							</caption>
 							<c:forEach items="${expenses}" var="expense">
 								<tr>
 									<td align="center"></td>
-									<td align="left"><c:out value="${expense.category}"></c:out>
+									<td align="left"><spring:message code="${expense.category}" />
 									</td>
 									<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
 									</td>
-									<td align="center"><c:out value="${expense.repeating}"></c:out></td>
+									<td align="center"><spring:message code="${expense.repeating}" /></td>
 									<td align="center"><c:out value="${expense.date}"></c:out></td>
 									<td align="left">(<c:out value="${expense.description}"></c:out>)
 									</td>
@@ -241,8 +241,7 @@ window.onload = function () {
 						</tbody>
 						<tfoot>
 							<tr>
-								<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
-										amount:</strong></td>
+								<td align="right" colspan="2" style="padding-top: 14px"><strong><spring:message code="total.amount" />:</strong></td>
 								<td align="right" style="padding-top: 14px"><strong>
 								<c:out value="${totalAmount}"></c:out> &nbsp;$ </strong> </td>
 
@@ -257,69 +256,69 @@ window.onload = function () {
 	<c:otherwise>
 		<div id="welcome_text">
 		<br>
-		<h1><c:out value="${user.username}"></c:out>, here you can add expenses <br> </h1>
-		<button id="myBtn" style="float:initial; margin-left:600px;">Add expense</button>
-		<button id="myBtn2" style="display:none;">Get expenses by</button>
+		<h1><c:out value="${user.username}"></c:out>, <spring:message code="expense.welcome.message" /><br> </h1>
+		<button id="myBtn" style="float:initial; margin-left:600px;"><spring:message code="add.expense" /></button>
+		<button id="myBtn2" style="display:none;"><spring:message code="get.expense" /></button>
 		</div>
 	</c:otherwise>
 	</c:choose>
 	<div id="myModal" class="modal">
 
 			<div class="modal-content">
-				<span class="close">close</span>
+				<span class="close"><spring:message code="close" /></span>
 
 				<form:form commandName="expense" action="./expenses" method="POST">
 
 					<p>
-						<form:label path="categoryId">Category:</form:label>
+						<form:label path="categoryId"><spring:message code="category" />:</form:label>
 						<form:select id="categoryId" class="input" path="categoryId">
-							<form:option value="1">Food&Drinks</form:option>
+							<form:option value="1"><spring:message code="Food_&_Drinks" /></form:option>
 
-							<form:option value="2">Transport</form:option>
+							<form:option value="2"><spring:message code="Transport" /></form:option>
 
-							<form:option value="3">Education</form:option>
+							<form:option value="3"><spring:message code="Education" /></form:option>
 
-							<form:option value="4">Sport</form:option>
+							<form:option value="4"><spring:message code="Sport" /></form:option>
 
-							<form:option value="5">Bills</form:option>
+							<form:option value="5"><spring:message code="Taxes" /></form:option>
 
-							<form:option value="6">Other</form:option>
+							<form:option value="6"><spring:message code="Other" /></form:option>
 
 						</form:select>
 					</p>
 					<p>
-						<form:label path="amount">Sum:</form:label>
+						<form:label path="amount"><spring:message code="amount" />:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
-							path="amount" placeholder="Money" required="required" />
+							path="amount" placeholder='<spring:message code="money" />' required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Repeating:</form:label>
+						<form:label path="repeatingId"><spring:message code="repeating" />:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
-							<form:option value="1">Once</form:option>
-							<form:option value="2">Daily</form:option>
-							<form:option value="3">Weekly</form:option>
-							<form:option value="4">Monthly</form:option>
-							<form:option value="5">Yearly</form:option>
+							<form:option value="1"><spring:message code="Once" /></form:option>
+							<form:option value="2"><spring:message code="Daily" /></form:option>
+							<form:option value="3"><spring:message code="Weekly" /></form:option>
+							<form:option value="4"><spring:message code="Monthly" /></form:option>
+							<form:option value="5"><spring:message code="Yearly" /></form:option>
 
 						</form:select>
 
 					</p>
 					<p>
-						<form:label path="date">Date:</form:label>
+						<form:label path="date"><spring:message code="date" />:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder="Date" required="required" />
+							placeholder='<spring:message code="date" />' required="required" />
 					</p>
 					<p>
-						<form:label path="description">Description:</form:label>
+						<form:label path="description"><spring:message code="description" />:</form:label>
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Description" required="required" />
+							path="description" placeholder='<spring:message code="description" />' required="required" />
 					</p>
 
 					<p class="submit">
-						<input type="submit" name="commit" value="Add">
+						<input type="submit" name="commit" value="<spring:message code="add" />">
 					</p>
 
 				</form:form>
@@ -374,7 +373,7 @@ window.onload = function () {
 		
 	<footer>
 	<div id="footer">
-		<p>Webpage made by Vasil and Katerina, IT Talents Training Camp,
+		<p><spring:message code="footer" />, IT Talents Training Camp,
 			Java EE, 2016</p>
 	</div>
 	</footer>

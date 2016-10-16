@@ -48,7 +48,7 @@
 			</p>
 			
 			<p class="input_form">
-				<input type="submit" name="commit" value="<spring:message code="login" />">
+				<input type="submit" name="commit" value="<spring:message code="login.button" />">
 			</p>
 
 		</form:form>

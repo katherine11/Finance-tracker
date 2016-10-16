@@ -57,13 +57,13 @@ window.onload = function () {
 	<jsp:include page="home.header.jsp"></jsp:include> 
 	
 	<c:choose>
-		<c:when test="${user.getPaymentsForMonth(user.incomes) > 0 or user.getPaymentsForMonth(user.expenses) > 0}">
+		<c:when test="${(user.getPaymentsForMonth(user.incomes) > 0) || (user.getPaymentsForMonth(user.expenses) > 0)}">
 			<div id="chartContainer2" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 		
 	
 	<section class="section_home">	
 	
-	<div class="table" style="width:300px; margin-left: 565px;">
+	<div class="table" style="width:300px; margin-left: 485px;">
 			
 		<p class="total_money"><spring:message code="incomes" />:<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.incomes)}" />&nbsp;$</p>
 		<p class="total_money"><spring:message code="expenses"/>:<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${user.getPaymentsForMonth(user.expenses)}" />&nbsp;$</p>
