@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.model.Budget;
 import com.example.model.User;
 import com.example.model.UserHasBudgetsDAO;
-import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.PaymentException;
-import com.example.model.exceptions.UserException;
 
 @Controller
 @ContextConfiguration(classes = UserHasBudgetsDAO.class)
@@ -35,10 +33,12 @@ public class BudgetController {
 			}
 
 			User user = (User) request.getSession().getAttribute("user");
-			model.addAttribute("budget", userHasBudgetsDAO.insertBudget(user.getUserId(), budget));
+			userHasBudgetsDAO.insertBudget(user.getUserId(), budget);
 			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
+			model.addAttribute(new Budget());
 		} catch (PaymentException e) {
 			model.addAttribute("insertFail", "Already exist budget for this category");
+			model.addAttribute(new Budget());
 			return "redirect:/budgets";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,6 +66,7 @@ public class BudgetController {
 					}
 				}
 				userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(user);
+				model.addAttribute(new Budget());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

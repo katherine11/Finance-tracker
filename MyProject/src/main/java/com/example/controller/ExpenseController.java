@@ -37,7 +37,7 @@ public class ExpenseController {
 			}
 
 			User user = (User) request.getSession().getAttribute("user");
-			model.addAttribute("expense", userHasExpensesDAO.insertPayment(user.getUserId(), expense));
+			userHasExpensesDAO.insertPayment(user.getUserId(), expense);
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 
 		} catch (Exception e) {

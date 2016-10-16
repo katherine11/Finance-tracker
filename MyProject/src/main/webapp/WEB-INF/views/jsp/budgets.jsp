@@ -84,7 +84,7 @@
 	<section class="">
 	
 	<c:choose>
-		<c:when test="${not empty user.budgets }">
+		<c:when test="${not empty user.budgets}">
 	<div id="chartContainer" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 	
 	<div class="">
@@ -92,6 +92,16 @@
 		
 		
 		<button id="myBtn">Add budget</button>
+		
+		
+		<c:if test="${ not empty insertFail }">
+			<div>
+				<p class="invalid_input">
+					<c:out value="${insertFail}"></c:out>
+				<p>
+			</div>
+		</c:if>
+		
 		
 		<div class="Tables">
 			<table class="table" name="budget_table" cellspacing="0"
@@ -159,7 +169,7 @@
 			<div class="modal-content">
 				<span class="close">close</span>
 
-				<form:form commandName="budget">
+				<form:form commandName="budget" action="./budgets" method="POST">
 
 				<p>
 						<form:label path="expenseId">Category:</form:label>
@@ -219,14 +229,9 @@
 			</div>
 
 		</div>
-
+		
 		<script type="text/javascript" src="<c:url value='js/modal.js'/>"></script>
 
-	<c:if test="${ not empty insertFail }">
-			<p class="invalid_input">
-				<c:out value="${insertFail}"></c:out>
-			<p>
-		</c:if>
 	</section>
 
 	<jsp:include page="footer.jsp"></jsp:include>

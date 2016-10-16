@@ -57,7 +57,7 @@ window.onload = function () {
 	<jsp:include page="home.header.jsp"></jsp:include> 
 	
 	<c:choose>
-		<c:when test="${(user.getPaymentsForMonth(user.incomes) > 0) || (user.getPaymentsForMonth(user.expenses) > 0)}">
+		<c:when test="${user.getPaymentsForMonth(user.incomes) > 0 or user.getPaymentsForMonth(user.expenses) > 0}">
 			<div id="chartContainer2" style="height: 400px; width: 97%; margin-left: 20px;"></div>
 		
 	
