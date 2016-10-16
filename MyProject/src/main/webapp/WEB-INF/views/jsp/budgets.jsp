@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="false"%>
 
@@ -59,11 +60,11 @@
 				var expenseId = budget.expenseId;
 				var remain = budget.remaindAmount; 
 				array.push({y: budget.amount, label: budget.expense });
-				array.push({y: remain, label: "Remain" });
+				array.push({y: remain, label: "<spring:message code="remaining" />" });
 			}
 			var chart = new CanvasJS.Chart("chartContainer", {
 				title: {
-					text: "Budget amount and remain amount"
+					text: "<spring:message code="budget.vs.remained" />"
 				},
 				animationEnabled : true,
 				data: [{
@@ -74,7 +75,7 @@
 			chart.render();
 		}
 	</script>
-<title>My budgets</title>
+<title><spring:message code="my.budgets" /></title>
 
 </head>
 <body>
@@ -91,7 +92,7 @@
 		
 		
 		
-		<button id="myBtn">Add budget</button>
+		<button id="myBtn"><spring:message code="add.budget" /></button>
 		
 		
 		<c:if test="${ not empty insertFail }">
@@ -109,17 +110,17 @@
 				<thead>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
-							id="main" />&nbsp;Select all<br /></th>
-						<th align="left">Category</th>
-						<th align="right">Amount</th>
-						<th align="right">Remain</th>
-						<th>Repeating</th>
-						<th align="left">Description</th>
+							id="main" />&nbsp;<spring:message code="select.all" /><br /></th>
+						<th align="left"><spring:message code="category" /></th>
+						<th align="right"><spring:message code="amount" /></th>
+						<th align="right"><spring:message code="remaining" /></th>
+						<th><spring:message code="repeating" /></th>
+						<th align="left"><spring:message code="description" /></th>
 					</tr>
 				</thead>
 				<tbody>
 				<caption>
-					<h2>Budgets</h2>
+					<h2><spring:message code="budgets" /></h2>
 				</caption>
 		<p>
 			<form:form action="./deleteBudget">
@@ -129,29 +130,19 @@
 					<tr>
 						<td align="center"><input type="checkbox" name="id"
 									id="${budget.expenseId}" value="${budget.expenseId}" /></td>
-						<td align="left"><c:out value="${budget.expense}"></c:out></td>
+						<td align="left"><spring:message code="${budget.expense}" /></td>
 						<td align="right"><c:out value="${budget.amount}"></c:out>&nbsp;$</td>
 						<td align="right" id="remainAmount"><c:out value="${user.getRemainAmountForBudget(budget.expenseId)}"></c:out>&nbsp;$</td>
-						<td align="center"><c:out value="${budget.repeating}"></c:out></td>
+						<td align="center"><spring:message code="${budget.repeating}" /></td>
 						<td align="left">(<c:out value="${budget.description}"></c:out>)
 								</td>
 					</tr>
 				</c:forEach>
-				<input type="submit" id="delete" name="commit" value="Delete selected">
+				<input type="submit" id="delete" name="commit" value="<spring:message code="delete.selected" />">
 			</form:form>
 		</p>
 
 		</tbody>
-				<%-- <tfoot>
-					<tr>
-						<td align="right" colspan="2" style="padding-top: 14px"><strong>Total
-								amount:</strong></td>
-						<td align="right" style="padding-top: 14px"><strong>
-								<c:out value="${user.totalBudgets}"></c:out> &nbsp;$
-						</strong></td>
-
-					</tr>
-				</tfoot> --%>
 			</table>
 		</div>
 		</div>
@@ -159,69 +150,72 @@
 		<c:otherwise>
 			<div id="welcome_text">
 			<br>
-			<h1><c:out value="${user.username}"></c:out>, here you can add budgets <br> </h1>
-			<button id="myBtn" style="float: inherit; margin-left: 600px;">Add budget</button>
+			<h1><c:out value="${user.username}"></c:out>, <spring:message code="budget.welcome.message" /><br> </h1>
+			<button id="myBtn" style="float: inherit; margin-left: 600px;"><spring:message code="add.budget" /></button>
 			</div>
 		</c:otherwise>
 		</c:choose>
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
-				<span class="close">close</span>
+				<span class="close"><spring:message code="close" /></span>
 
 				<form:form commandName="budget" action="./budgets" method="POST">
 
 				<p>
-						<form:label path="expenseId">Category:</form:label>
+						<form:label path="expenseId"><spring:message code="category" />:</form:label>
 						<form:select id="expenseId" class="input" path="expenseId">
-							<form:option value="1">Food&Drinks</form:option>
+							<form:option value="1"><spring:message code="Food_&_Drinks" /></form:option>
 
-							<form:option value="2">Transport</form:option>
+							<form:option value="2"><spring:message code="Transport" /></form:option>
 
-							<form:option value="3">Education</form:option>
+							<form:option value="3"><spring:message code="Education" /></form:option>
 
-							<form:option value="4">Sport</form:option>
+							<form:option value="4"><spring:message code="Sport" /></form:option>
 
-							<form:option value="5">Bills</form:option>
+							<form:option value="5"><spring:message code="Taxes" /></form:option>
 
-							<form:option value="6">Other</form:option>
+							<form:option value="6"><spring:message code="Other" /></form:option>
 
 						</form:select>
 					</p>
 					
 					<p>
-						<form:label path="amount">Sum:</form:label>
+						<form:label path="amount"><spring:message code="amount" />:</form:label>
+						<spring:message code="money" var="money1"/>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
-							path="amount" placeholder="Money" required="required" />
+							path="amount" placeholder="${money1}" required="required" />
 					</p>
 					<p>
-						<form:label path="repeatingId">Repeating:</form:label>
+						<form:label path="repeatingId"><spring:message code="repeating" />:</form:label>
 						<form:select id="repeatingId" class="input" name="repeatingId"
 							path="repeatingId">
 
-							<form:option value="1">Once</form:option>
-							<form:option value="2">Daily</form:option>
-							<form:option value="3">Weekly</form:option>
-							<form:option value="4">Monthly</form:option>
-							<form:option value="5">Year</form:option>
+							<form:option value="1"><spring:message code="Once" /></form:option>
+							<form:option value="2"><spring:message code="Daily" /></form:option>
+							<form:option value="3"><spring:message code="Weekly" /></form:option>
+							<form:option value="4"><spring:message code="Monthly" /></form:option>
+							<form:option value="5"><spring:message code="Yearly" /></form:option>
 
 						</form:select>
 
 					</p>
 					<p>
-						<form:label path="date">Date:</form:label>
+						<form:label path="date"><spring:message code="date" />:</form:label>
+						<spring:message code="date" var="date1"/>
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder="Date" required="required" />
+							placeholder="${date1}" required="required" />
 					</p>
 					<p>
-						<form:label path="description">Description:</form:label>
+						<form:label path="description"><spring:message code="description" />:</form:label>
+						<spring:message code="description" var="description1" />
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder="Description" required="required" />
+							path="description" placeholder="${description1}" required="required" />
 					</p>
 
 					<p class="submit">
-						<input type="submit" name="commit" value="Add">
+						<input type="submit" name="commit" value="<spring:message code="add" />">
 					</p>
 
 				</form:form>
