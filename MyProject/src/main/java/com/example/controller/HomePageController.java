@@ -29,7 +29,7 @@ import com.example.model.exceptions.UserException;
 @ContextConfiguration(classes = UserDAO.class)
 public class HomePageController {
 
-	private static final int REMEMBER_ME_COOKIE_TIME = 30*24*60*60;
+	private static final int REMEMBER_ME_COOKIE_TIME = 30 * 24 * 60 * 60;
 	private static final int SESSION_TIME_IN_SECONDS = 60 * 60;
 	@Autowired
 	private UserDAO userDAO;
@@ -45,29 +45,31 @@ public class HomePageController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
 		try {
-		Cookie [] cookies = request.getCookies();
-		boolean foundCookie = false;
-		String userId = null;
-		for(int i = 0; i < cookies.length; i++){ 
-		    Cookie c = cookies[i];
-		    if (c.getName().equals("userId")){
-		        userId = c.getValue();
-		        foundCookie = true;
-		    }
-		}  
-		if (foundCookie) {
-			int id = Integer.parseInt(userId);
-			User loggedUser = new User(id, "usernam", "email@mail.com", "password");
-			HttpSession session = request.getSession();
-			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
-			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
-			userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
-			userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(loggedUser);
-			session.setAttribute("user", loggedUser);
-			session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
-			model.addAttribute("user", loggedUser);
-			return "redirect:/home";
-		}
+			Cookie[] cookies = request.getCookies();
+			boolean foundCookie = false;
+			String userId = null;
+			if (cookies != null) {
+				for (int i = 0; i < cookies.length; i++) {
+					Cookie c = cookies[i];
+					if (c.getName().equals("userId")) {
+						userId = c.getValue();
+						foundCookie = true;
+					}
+				}
+			}
+			if (foundCookie) {
+				int id = Integer.parseInt(userId);
+				User loggedUser = new User(id, "usernam", "email@mail.com", "password");
+				HttpSession session = request.getSession();
+				userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+				userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+				userHasObligationsDAO.selectAndAddAllPaymentsOfUser(loggedUser);
+				userHasBudgetsDAO.selectAndAddAllBudgetsOfUser(loggedUser);
+				session.setAttribute("user", loggedUser);
+				session.setMaxInactiveInterval(SESSION_TIME_IN_SECONDS);
+				model.addAttribute("user", loggedUser);
+				return "redirect:/home";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
@@ -94,17 +96,17 @@ public class HomePageController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute User user, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String login(@ModelAttribute User user, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		try {
 			HttpSession session = request.getSession();
 			User loggedUser = userDAO.loginUser(user);
 			String rememberMe = request.getParameter("remember_me");
-			if(rememberMe != null && rememberMe.equals("on"))
-			{
-			    Cookie remember = new Cookie("userId", new Integer(loggedUser.getUserId()).toString());
-			    remember.setMaxAge(REMEMBER_ME_COOKIE_TIME);
-			    response.addCookie(remember);
+			if (rememberMe != null && rememberMe.equals("on")) {
+				Cookie remember = new Cookie("userId", new Integer(loggedUser.getUserId()).toString());
+				remember.setMaxAge(REMEMBER_ME_COOKIE_TIME);
+				response.addCookie(remember);
 			}
 			userHasExpensesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
 			userHasIncomesDAO.selectAndAddAllPaymentsOfUser(loggedUser);
@@ -165,6 +167,6 @@ public class HomePageController {
 			return "error";
 		}
 		return "redirect:/";
-	}	
+	}
 
 }

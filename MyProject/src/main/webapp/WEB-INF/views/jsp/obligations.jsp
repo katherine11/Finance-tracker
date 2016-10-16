@@ -96,6 +96,7 @@
 				<thead>
 					<tr style="height: 35px;">
 						<th><input name="selectALL" type="checkbox" value=""
+<<<<<<< HEAD
 							id="main" />&nbsp;<spring:message code = "select.all" /><br /></th>
 						<th align="left"><spring:message code = "category" /></th>
 						<th align="right"><spring:message code = "amount" /></th>
@@ -106,6 +107,20 @@
 						<th align="left"><spring:message code = "description" /></th>
 						<th align="right"></th>
 						<th align="left"><spring:message code = "period" /></th>
+=======
+							id="main" />&nbsp;Select all<br /></th>
+						<th align="left">Category</th>
+						<th align="right">Amount</th>
+						<th>Paid</th>
+						<th>Remain</th>
+						<th>Date</th>
+						<th>Installment</th>
+						<th align="left">Description</th>
+						<th align="center" colspan="2">Period</th>
+<<<<<<< HEAD
+>>>>>>> bbed1009ce38e85b474db6f30a58fdb6d4036e21
+=======
+>>>>>>> bbed1009ce38e85b474db6f30a58fdb6d4036e21
 					</tr>
 				</thead>
 				<tbody>
@@ -130,9 +145,21 @@
 						<td align="center"><c:out value="${obligation.date}"></c:out></td>
 						<td align="center"><spring:message code = "${obligation.repeating}" /></td>
 						<td align="left">(<c:out value="${obligation.description}"></c:out>)
+<<<<<<< HEAD
+<<<<<<< HEAD
 						<td align="right"><c:out value="${obligation.periodQuantity}"></c:out></td>
 						<td align="left"><spring:message code = "${obligation.period}" />
 						</td>
+=======
+						<td align="right" colspan="2"><c:out value="${obligation.periodQuantity}"></c:out> 
+											<c:out value="${obligation.period}"></c:out></td>
+						
+>>>>>>> bbed1009ce38e85b474db6f30a58fdb6d4036e21
+=======
+						<td align="right" colspan="2"><c:out value="${obligation.periodQuantity}"></c:out> 
+											<c:out value="${obligation.period}"></c:out></td>
+						
+>>>>>>> bbed1009ce38e85b474db6f30a58fdb6d4036e21
 					</tr>
 				</c:forEach>
 				<input type="submit" id="delete" name="commit" value="<spring:message code = "delete.selected" />">
@@ -149,6 +176,7 @@
 								maxFractionDigits="2" value="${user.totalPaidObligations}" />&nbsp;$</td>
 						<td align="right" style="padding-top: 14px"><fmt:formatNumber type="number" minFractionDigits="2" 
 								maxFractionDigits="2" value="${user.totalRemainObligations}" />&nbsp;$</td>
+						<td colspan="4" ></td>
 
 					</tr>
 				</tfoot>
