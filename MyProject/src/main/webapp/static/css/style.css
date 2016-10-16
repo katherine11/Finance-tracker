@@ -174,9 +174,15 @@ a.space{
 .navigation_buttons {
 	display: inline-block;
 	float: left;
-	margin-left: -241px;
-    margin-top: 83px;
-   padding-left: 240px;
+	/* margin-left: -241px;
+    margin-top: 0px; */
+   /*  margin-bottom:13px; */
+   
+    margin-left: 0px;
+    margin-top: 66px;
+    margin-bottom: 4px
+   
+   padding-left: -302px;
 }
 
 .n_button {
@@ -199,7 +205,7 @@ a.space{
 	cursor:pointer;
 	color:#000000;
 	font-family:Arial;
-	font-size:19px;
+	font-size:16px;
 	font-weight:bold;
 	padding:7px 26px;
 	text-decoration:none;
@@ -269,26 +275,8 @@ h1 {
       vertical-align: middle;
     }
   }
-/* 
-  p.submit { text-align: right; } */
+
 }
-
-/*style for login help*/
-
-/* .login-help {
-  margin: 20px 0;
-  font-size: 11px;
-  color: blackS;
-  text-align: center;
-  text-shadow: 0 1px #2a85a1;
-
-  a {
-    color: #cce7fa;
-    text-decoration: none;
-
-    &:hover { text-decoration: underline; }
-  }
-} */
 
 :-moz-placeholder {
   color: #c9c9c9 !important;
@@ -332,7 +320,6 @@ input, .input {
 
 select#periodId.input{
 	margin-left: 30px;
-   /*  margin-top: -40px; */
 }
 
 select#categoryId.input, select#expenseId.input{
