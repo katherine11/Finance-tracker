@@ -58,9 +58,19 @@ $(document).ready(function() {
 </script> -->
 </head>
 <body>
+	<div class="language">
+			<a href="?language=en" class="EN">
+					EN
+				</a>
+				
+				<a href="?language=de" class="DE">
+					DE
+				</a>
+		</div>
 	<header>
 		<div class="logo">
 			<img alt="logo" src="img/logo.jpg">
 		</div>
-		<div class="title-text">
-		</div>
+		
+			
+	

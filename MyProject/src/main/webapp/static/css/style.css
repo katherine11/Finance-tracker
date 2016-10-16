@@ -440,3 +440,20 @@ p.input.hasDatePicker, p.input, p.select.input{
 footer {
       padding-left: 15px;
 }
+
+.language {
+	float: right;
+    margin-right: 20px;
+    font-size: 1.2em;
+}
+
+.EN, .DE {
+	color: blue;
+	text-decoration: none;
+}
+
+a.EN{
+  left:50%;
+  -webkit-transform:translateX(-50%);
+          transform:translateX(-50%);
+}

@@ -104,8 +104,7 @@
 						<th><spring:message code = "date" /></th>
 						<th><spring:message code = "installment" /></th>
 						<th align="left"><spring:message code = "description" /></th>
-						<th align="right"></th>
-						<th align="left"><spring:message code = "period" /></th>
+						<th align="center" colspan="2"><spring:message code = "period" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -130,8 +129,7 @@
 						<td align="center"><c:out value="${obligation.date}"></c:out></td>
 						<td align="center"><spring:message code = "${obligation.repeating}" /></td>
 						<td align="left">(<c:out value="${obligation.description}"></c:out>)
-						<td align="right"><c:out value="${obligation.periodQuantity}"></c:out></td>
-						<td align="left"><spring:message code = "${obligation.period}" />
+						<td align=center colspan="2"><c:out value="${obligation.periodQuantity}"></c:out> <spring:message code = "${obligation.period}" />
 						</td>
 
 					</tr>

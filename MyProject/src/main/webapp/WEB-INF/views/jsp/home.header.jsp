@@ -15,7 +15,15 @@
 		response.sendRedirect("./login");
 %>
 
-
+<div class="language">
+			<a href="?language=en" class="EN">
+					EN
+				</a>
+				
+				<a href="?language=de" class="DE">
+					DE
+				</a>
+</div>
 <header>
 	<div class="logo">
 		<img alt="logo" src="img/logo.jpg">

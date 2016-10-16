@@ -10,12 +10,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <div class="header_buttons">
-	<a href="?language=en">
-		English
-	</a>
-	<a href="?language=de">
-		Deutsch
-	</a>
+	
 	<a href="./login"><button type="submit" class="h_butt"><spring:message code="login" /></button></a>
 	<a href="./register"><button type="submit" class="h_butt"><spring:message code="register" /></button></a>
 	<a href="http://www.dnes.bg/"><button type="submit" class="h_butt"><spring:message code="news" /></button></a>
