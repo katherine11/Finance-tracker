@@ -30,7 +30,7 @@
 <section class="section">
 <div class="front_page">
 	<div class="main_heading">
-		<h2><spring:message code="welcome.message" /></h2>
+		<h2 style="padding-top: 20px;"><spring:message code="welcome.message" /></h2>
 	</div>
 
 	<div class="sub_heading">
