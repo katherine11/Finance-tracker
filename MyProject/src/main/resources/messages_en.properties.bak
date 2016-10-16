@@ -54,9 +54,7 @@ paid = Paid
 remaining = Remaining
 period = Period
 obligations = Obligations
-for.period = For
-period.of = Period of
-obligation.period = 
+
 repeating = Repeating
 find = find
 close = close

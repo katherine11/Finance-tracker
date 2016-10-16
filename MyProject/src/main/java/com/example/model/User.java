@@ -35,7 +35,7 @@ public class User {
 	private static final int MONTHLY_REP_ID = 4;
 	private static final int WEEKLY_REP_ID = 3;
 	private static final int DAILY_REP_ID = 2;
-	
+
 	private int userId;
 	private String username;
 	private String password;
@@ -275,6 +275,7 @@ public class User {
 			case WEEKLY_REP_ID:
 				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusDays(7)) {
 					totalPyments += payment.getAmount();
+
 				}
 				break;
 			case MONTHLY_REP_ID:
@@ -350,11 +351,12 @@ public class User {
 		 * initial and the end date by a specific category given
 		 */
 
-		if (payments == null || payments.size() == 0 || categoryId < 0 || from.isEmpty() || to.isEmpty()) {
+		if (payments == null || payments.size() == 0 || categoryId < 0) {
 			return new ArrayList<Payment>();
 		}
 
 		if (UserHasDAO.isValidString(from) && UserHasDAO.isValidString(to)) {
+
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 			LocalDate parsedDateFrom = LocalDate.parse(from, formatter);
 			LocalDate parsedDateTo = LocalDate.parse(to, formatter);
@@ -491,7 +493,7 @@ public class User {
 	 * getting the total amount of money for payments having a given category
 	 */
 	public double getAmoutByPaymentCategoryId(int categoryId, Collection<Payment> payments) {
-		if (payments == null || payments.size() == 0 || categoryId <0){
+		if (payments == null || payments.size() == 0 || categoryId < 0) {
 			return 0;
 		}
 		List<Payment> paymentsByCategory = new LinkedList<>();
@@ -514,7 +516,7 @@ public class User {
 	 * money given as expenses
 	 */
 	public double getRemainAmountForBudget(int expenseId) {
-		if (expenseId <= 0){
+		if (expenseId <= 0) {
 			return 0;
 		}
 		double amount = 0;
@@ -537,7 +539,7 @@ public class User {
 	 * getting all money for payments for the current month
 	 */
 	public double getPaymentsForMonth(Collection<Payment> payments) {
-		if (payments == null || payments.size() == 0){
+		if (payments == null || payments.size() == 0) {
 			return 0;
 		}
 		LocalDate now = LocalDate.now();
