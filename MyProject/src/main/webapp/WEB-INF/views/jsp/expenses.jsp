@@ -215,7 +215,7 @@ window.onload = function () {
 										amount:</strong></td>
 								<td align="right" style="padding-top: 14px"><strong>
 								<c:out value="${user.getTotalAmountFor(user.expenses)}"></c:out> &nbsp;$ </strong> </td>
-
+								<td colspan="4" ></td>
 							</tr>
 						</tfoot>
 					</c:when>

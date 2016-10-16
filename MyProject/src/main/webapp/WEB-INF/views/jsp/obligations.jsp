@@ -104,8 +104,7 @@
 						<th>Date</th>
 						<th>Installment</th>
 						<th align="left">Description</th>
-						<th align="right"></th>
-						<th align="left">Period</th>
+						<th align="center" colspan="2">Period</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -130,9 +129,9 @@
 						<td align="center"><c:out value="${obligation.date}"></c:out></td>
 						<td align="center"><c:out value="${obligation.repeating}"></c:out></td>
 						<td align="left">(<c:out value="${obligation.description}"></c:out>)
-						<td align="right"><c:out value="${obligation.periodQuantity}"></c:out></td>
-						<td align="left"><c:out value="${obligation.period}"></c:out>
-						</td>
+						<td align="right" colspan="2"><c:out value="${obligation.periodQuantity}"></c:out> 
+											<c:out value="${obligation.period}"></c:out></td>
+						
 					</tr>
 				</c:forEach>
 				<input type="submit" id="delete" name="commit" value="Delete selected">
@@ -149,6 +148,7 @@
 								maxFractionDigits="2" value="${user.totalPaidObligations}" />&nbsp;$</td>
 						<td align="right" style="padding-top: 14px"><fmt:formatNumber type="number" minFractionDigits="2" 
 								maxFractionDigits="2" value="${user.totalRemainObligations}" />&nbsp;$</td>
+						<td colspan="4" ></td>
 
 					</tr>
 				</tfoot>

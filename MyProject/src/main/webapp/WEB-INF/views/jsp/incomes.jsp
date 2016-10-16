@@ -149,7 +149,7 @@
 						<td align="right" style="padding-top: 14px"><strong>
 								<c:out value="${user.getTotalAmountFor(user.incomes)}"></c:out> &nbsp;$
 						</strong></td>
-
+						<td colspan="4" ></td>
 					</tr>
 				</tfoot>
 			</table>
