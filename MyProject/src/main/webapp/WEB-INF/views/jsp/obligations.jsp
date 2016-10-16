@@ -133,8 +133,7 @@
 						<td align="right"><c:out value="${obligation.periodQuantity}"></c:out></td>
 						<td align="left"><spring:message code = "${obligation.period}" />
 						</td>
-						<td align="right" colspan="2"><c:out value="${obligation.periodQuantity}"></c:out> 
-											<c:out value="${obligation.period}"></c:out></td>
+
 					</tr>
 				</c:forEach>
 				<input type="submit" id="delete" name="commit" value="<spring:message code = "delete.selected" />">
@@ -208,9 +207,10 @@
 
 					</p>
 					<p>
+						<spring:message code = "date" var="date1" />
 						<form:label path="date"><spring:message code = "date" />:</form:label>
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder='<spring:message code = "date" />' required="required" />
+							placeholder="${date1}" required="required" />
 					</p>
 					
 					<p>
@@ -235,9 +235,10 @@
 					</p>
 					
 					<p>
+						<spring:message code = "description" var="description1" />
 						<form:label path="description"><spring:message code = "description" />:</form:label>
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder='<spring:message code = "description" />' required="required" />
+							path="description" placeholder="${description1}" required="required" />
 					</p>
 
 					<p class="submit">
