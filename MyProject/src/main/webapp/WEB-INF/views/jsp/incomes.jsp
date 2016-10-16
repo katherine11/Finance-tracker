@@ -191,7 +191,7 @@
 						<form:label path="amount"><spring:message code="amount" />:</form:label>
 						<form:input type="number" min="0.01" step="0.01" value="1.00"
 							max="1000000" id="amount" class="input" name="amount"
-							path="amount" placeholder='<spring:message code="money" />' required="required" />
+							path="amount" required="required" />
 					</p>
 					<p>
 						<form:label path="repeatingId"><spring:message code="repeating" />:</form:label>
@@ -209,13 +209,15 @@
 					</p>
 					<p>
 						<form:label path="date"><spring:message code="date" />:</form:label>
+						<spring:message code="date" var="date1" />
 						<form:input id="datepicker" class="input" name="date" path="date"
-							placeholder='<spring:message code="date" />' required="required" />
+							placeholder="${date1}" required="required" />
 					</p>
 					<p>
 						<form:label path="description"><spring:message code="description" />:</form:label>
+						<spring:message code="description" var="description1" />
 						<form:textarea id="description" class="input" name="description"
-							path="description" placeholder='<spring:message code="description" />' required="required" />
+							path="description" placeholder="${description1}" required="required" />
 					</p>
 
 					<p class="submit">

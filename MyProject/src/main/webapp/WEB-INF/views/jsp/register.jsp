@@ -31,10 +31,12 @@
 		<h1><spring:message code="register" /></h1>
 		
 		<form:form commandName="user">
-			
-			<p><form:input type="email" id="email" class="input" path="email" placeholder="Email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/></p>
-			<p><form:input id="username" class="input" path="username" placeholder="Username" minlength="4" maxlength="15" required="required"/></p>
-			<p><form:password id="password" class="input" path="password" placeholder="Password" minlength="4" maxlength="15" required="required"/></p>
+			<spring:message code="email" var="email1" />
+			<p><form:input type="email" id="email" class="input" path="email" placeholder="${email1}" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/></p>
+			<spring:message code="username" var="username1" />
+			<p><form:input id="username" class="input" path="username" placeholder="${username1}" minlength="4" maxlength="15" required="required"/></p>
+			<spring:message code="password" var="password1" />
+			<p><form:password id="password" class="input" path="password" placeholder="${password1}" minlength="4" maxlength="15" required="required"/></p>
 			
 			<p class="submit" style='margin-top: 20px;'><input type="submit" name="commit" value="<spring:message code="button.register" />"></p>
 			

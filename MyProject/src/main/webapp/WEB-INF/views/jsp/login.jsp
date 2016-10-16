@@ -34,12 +34,14 @@
 		<form:form commandName="user">
 
 			<p class="input_form">
+				<spring:message code="username" var="username1" />
 				<form:input id="username" class="input" path="username"
-					placeholder="Username" minlength="4" maxlength="15" required="required"/>
+					placeholder="${username1}" minlength="4" maxlength="15" required="required"/>
 			</p>
 			<p class="input_form" >
+				<spring:message code="password" var="password1" />
 				<form:password id="password" class="input" name="password"
-					path="password" placeholder="Password" minlength="4" maxlength="15" required="required"/>
+					path="password" placeholder="${password1}" minlength="4" maxlength="15" required="required"/>
 			</p>
 
 			<p class="input_form">
@@ -52,12 +54,7 @@
 			</p>
 
 		</form:form>
-
-		<!-- <div class="login-help">
-			<p>
-				Password forgotten? <a href="./forgottenPassword">Click here to reset it</a>.
-			</p>
-		</div> -->
+		
 	</div>
 
 	</section>
