@@ -25,8 +25,8 @@ public class TestUserDAO {
 		user = this.userDAO.loginUser(user);
 		assertTrue(user.getUserId() != 0);
 		
-//		boolean isDeleted = this.userDAO.deleteUser(user);
-//		assertTrue(isDeleted);
+		boolean isDeleted = this.userDAO.deleteUser(user);
+		assertTrue(isDeleted);
 		
 	}
 

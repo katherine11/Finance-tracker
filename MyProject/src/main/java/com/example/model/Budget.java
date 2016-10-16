@@ -7,9 +7,6 @@ import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.UserException;
 
 public class Budget {
-	
-	private static final String CHECK_IF_EXPENSE_ID_EXISTS = "SELECT COUNT(expenses_id) FROM expenses WHERE expenses_id = ?;";
-	private static final String CHECK_IF_REPEATING_ID_EXISTS = "SELECT COUNT(repeating_id) FROM repeatings WHERE repeating_id = ?;";
 
 	private int userId;
 	private int expenseId;
@@ -100,15 +97,10 @@ public class Budget {
 	}
 
 	public void setExpenseId(int expenseId) throws BudgetException {
-		/*
-		 * checking if the database contains
-		 * expense with the expense id given
-		 * */
-//		if (UserHasDAO.isContainedInDB(expenseId,CHECK_IF_EXPENSE_ID_EXISTS)) {
+			if (expenseId <= 0){
+				throw new BudgetException("Invalid expense id!");
+			}
 			this.expenseId = expenseId;
-//		} else {
-//			throw new BudgetException("Such an expense does not exist!");
-//		}
 
 	}
 
@@ -121,15 +113,11 @@ public class Budget {
 	}
 
 	public void setRepeatingId(int repeatingId) throws BudgetException {
-		/*
-		 * checking if the database contains
-		 * repeating with the repeating id given
-		 * */
-//		if (UserHasDAO.isContainedInDB(repeatingId, CHECK_IF_REPEATING_ID_EXISTS)) {
+			if (repeatingId <= 0){
+				throw new BudgetException("Invalid repeating id!");
+			}
 			this.repeatingId = repeatingId;
-//		} else {
-//			throw new BudgetException("There is not such a repeating!");
-//		}
+
 	}
 
 	public void setRepeating(String repeating) throws BudgetException {
@@ -196,7 +184,10 @@ public class Budget {
 				+ ", description=" + description + "]";
 	}
 	
-	public double getRemainedAmount(User user, int expenseId) {
+	public double getRemainedAmount(User user, int expenseId) throws BudgetException {
+		if (user == null || expenseId <= 0){
+			throw new BudgetException("Not a correct date given");
+		}
 		this.remaindAmount = user.getRemainAmountForBudget(expenseId);
 		return remaindAmount;
 	}

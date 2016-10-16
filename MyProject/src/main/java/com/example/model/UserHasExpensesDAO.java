@@ -1,7 +1,5 @@
 package com.example.model;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,7 +22,7 @@ public class UserHasExpensesDAO implements UserHasDAO {
 
 	public int insertPayment(int userId, Payment expense) throws PaymentException {
 
-		if (expense != null) {
+		if (expense != null && userId > 0) {
 			Connection connection = DBConnection.getInstance().getConnection();
 
 			try {
@@ -94,6 +92,9 @@ public class UserHasExpensesDAO implements UserHasDAO {
 	}
 
 	public boolean deletePayment(int id) throws PaymentException {
+		if (id <= 0){
+			throw new PaymentException("Invalid id given");
+		}
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {

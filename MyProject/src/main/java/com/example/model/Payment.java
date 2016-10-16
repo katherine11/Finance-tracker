@@ -16,13 +16,49 @@ public abstract class Payment implements Cloneable{
 	private String description;
 	private int id;
 	
-	//to make validations for category!
+	public Payment(int categoryId, String category, String repeating, int reapeatingId, double amount, LocalDate date,
+													String description, int id) throws PaymentException {
+		setCategoryId(categoryId);
+		setRepeatingId(reapeatingId);
+		setAmount(amount);
+		setDescription(description);
+		if(id >= 0){
+			this.id = id;
+		}
+		else{
+			throw new PaymentException("Invalid id given!");
+		}
+		
+		if(UserHasDAO.isValidString(category)){
+			this.category = category;
+		}
+		else{
+			throw new PaymentException("The category given is not valid!");
+		}
+		
+		if(UserHasDAO.isValidString(repeating)){
+			this.repeating = repeating;
+		}
+		else{
+			throw new PaymentException("The repeating given is not valid!");
+		}
+		
+		if(date != null){
+			this.date = date;
+		}
+		else{
+			throw new PaymentException("Invalid date given!");
+		}
+	}
+	
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
 
-	//to make validations for repeating!
-	public void setRepeatingId(int repeatingId) {
+	public void setRepeatingId(int repeatingId) throws PaymentException {
+		if (repeatingId <= 0){
+			throw new PaymentException("Invalid repeating id given!");
+		}
 		this.repeatingId = repeatingId;
 	}
 
@@ -60,40 +96,7 @@ public abstract class Payment implements Cloneable{
 
 	}
 
-	public Payment(int categoryId, String category, String repeating, int reapeatingId, double amount, LocalDate date,
-			String description, int id) throws PaymentException {
-		setCategoryId(categoryId);
-		setRepeatingId(reapeatingId);
-		setAmount(amount);
-		setDescription(description);
-		if(id >= 0){
-			this.id = id;
-		}
-		else{
-			throw new PaymentException("Invalid id given!");
-		}
-		
-		if(UserHasDAO.isValidString(category)){
-			this.category = category;
-		}
-		else{
-			throw new PaymentException("The category given is not valid!");
-		}
-		
-		if(UserHasDAO.isValidString(repeating)){
-			this.repeating = repeating;
-		}
-		else{
-			throw new PaymentException("The repeating given is not valid!");
-		}
-		
-		if(date != null){
-			this.date = date;
-		}
-		else{
-			throw new PaymentException("Invalid date given!");
-		}
-	}
+	
 
 	public int getId() {
 		return id;

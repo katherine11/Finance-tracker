@@ -3,11 +3,11 @@ package com.example.unitTests;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
+import com.example.model.Expense;
 import com.example.model.Income;
 import com.example.model.Obligation;
 import com.example.model.Payment;
@@ -51,15 +51,11 @@ public class TestUserHasPaymentDAO {
 		
 		testUserHasObligations(user);
 		
-//		List<Payment> exp = user.getExpensesBy("09/01/2016", "10/31/2016", 1);
-//		for (Payment expense : exp){
-//			System.out.println(expense);
-//		}
-//		System.out.println(user.getTotalExpenses(null));
 		
 		System.out.println(user.getPaymentsForMonth(user.getExpenses()));
 		
 		System.out.println(user.getUpcomingPaymentsForMonth(user.getExpenses()));
+		
 
 	}
 
@@ -75,23 +71,23 @@ public class TestUserHasPaymentDAO {
 	}
 
 	void testUserHasIncomes(User user) throws PaymentException {
-//		int iId = userHasIncomesDAO.insertPayment(USER_ID, new Income(INCOME_ID, "???", "???", REPEATING_ID, INCOME_AMOUNT , LocalDate.now(), INCOME_DESCRIPTION, ID_AUTO_INCREMENT));
-//		assertTrue(iId != 0);
+		int iId = userHasIncomesDAO.insertPayment(USER_ID, new Income(INCOME_ID, "???", "???", REPEATING_ID, INCOME_AMOUNT , LocalDate.now(), INCOME_DESCRIPTION, ID_AUTO_INCREMENT));
+		assertTrue(iId != 0);
 		userHasIncomesDAO.selectAndAddAllPaymentsOfUser(user);
 		Set<Payment> incomes = user.getIncomes();
 		System.out.println("Incomes from " + user.getUsername());
 		printPayments(incomes);
-//		userHasIncomesDAO.deletePayment(iId);
+		userHasIncomesDAO.deletePayment(iId);
 	}
 
 	void testUserHasExpenses(User user) throws PaymentException {
-//		int eId = userHasExpensesDAO.insertPayment(USER_ID, new Expense(EXPENSE_ID, "???", "???", REPEATING_ID, AMOUNT_EXPENSE, LocalDate.now(), EXPENSE_DESCRIPTION, ID_AUTO_INCREMENT));
-//		assertTrue(eId != 0);
+		int eId = userHasExpensesDAO.insertPayment(USER_ID, new Expense(EXPENSE_ID, "???", "???", REPEATING_ID, AMOUNT_EXPENSE, LocalDate.now(), EXPENSE_DESCRIPTION, ID_AUTO_INCREMENT));
+		assertTrue(eId != 0);
 		userHasExpensesDAO.selectAndAddAllPaymentsOfUser(user);
 		Set<Payment> expenses = user.getExpenses();
 		System.out.println("Expenses from " + user.getUsername());
 		printPayments(expenses);
-//		userHasExpensesDAO.deletePayment(eId);
+		userHasExpensesDAO.deletePayment(eId);
 	}
 
 	void printPayments(Set<Payment> payments) {

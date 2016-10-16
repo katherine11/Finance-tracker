@@ -2,6 +2,7 @@ package com.example.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,14 +19,23 @@ import com.example.model.exceptions.BudgetException;
 import com.example.model.exceptions.ExpenseException;
 import com.example.model.exceptions.IncomeException;
 import com.example.model.exceptions.ObligationException;
+import com.example.model.exceptions.PaymentException;
 import com.example.model.exceptions.UserException;
 import com.google.gson.Gson;
 
 public class User {
 
-	private static final int DAYS_OF_THE_WEEK = 7;
-	private static final int MAX_REPEATING_ID = 5;
-	private static final int MIN_REPEATING_ID = 1;
+	private static final int YEARS = 1;
+	private static final int MONTHS = 1;
+	private static final int WEEKS = 1;
+	private static final int DAYS = 1;
+	private static final int NO_CAT_ID = 0;
+	private static final int ONCE_REP_ID = 1;
+	private static final int YEARLY_REP_ID = 5;
+	private static final int MONTHLY_REP_ID = 4;
+	private static final int WEEKLY_REP_ID = 3;
+	private static final int DAILY_REP_ID = 2;
+
 	private int userId;
 	private String username;
 	private String password;
@@ -105,7 +115,6 @@ public class User {
 
 	public boolean addExpense(Expense expense) throws ExpenseException {
 		if (expense != null) {
-			// this.balance -= expense.getAmount();
 			return this.expenses.add(expense);
 		} else {
 			throw new ExpenseException("Invalid expense given!");
@@ -236,40 +245,47 @@ public class User {
 	}
 
 	public double getBalance() {
-		return getTotalAmountFor(this.incomes) - getTotalAmountFor(this.expenses);	
+		try {
+			return getTotalAmountFor(this.incomes) - getTotalAmountFor(this.expenses);
+		} catch (UserException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	/*
-	 * getting the total amount of money for payments
+	 * calculating the total amount of money for collection of payments
+	 * calculating the total amount from payment date to now by repeating
+	 * payments
 	 */
-	public double getTotalAmountFor(Collection<Payment> payments) {
+	public double getTotalAmountFor(Collection<Payment> payments) throws UserException {
+		if (payments == null || payments.size() == 0) {
+			return 0;
+		}
 		LocalDate now = LocalDate.now();
 		double totalPyments = 0;
 		for (Payment payment : payments) {
 			LocalDate paymentDate = payment.getDate();
 			switch (payment.getRepeatingId()) {
-			case 2:
+			case DAILY_REP_ID:
 				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusDays(1)) {
 					totalPyments += payment.getAmount();
-					System.out.println("DAILY");
 				}
 				break;
-			case 3:
+			case WEEKLY_REP_ID:
 				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusDays(7)) {
 					totalPyments += payment.getAmount();
-					System.out.println("WEEKLY");
-			}
-				break;
-			case 4:
-				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusMonths(1)) {
-					totalPyments += payment.getAmount();
-					System.out.println("MONTHLY");
+
 				}
 				break;
-			case 5:
+			case MONTHLY_REP_ID:
+				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusMonths(1)) {
+					totalPyments += payment.getAmount();
+				}
+				break;
+			case YEARLY_REP_ID:
 				for (LocalDate date = paymentDate; !date.isAfter(now); date = date.plusYears(1)) {
 					totalPyments += payment.getAmount();
-					System.out.println("YEARLY");
 				}
 				break;
 			default:
@@ -295,6 +311,7 @@ public class User {
 		}
 		return totalAmount;
 	}
+
 	public double getTotalPaidObligations() {
 		double totalAmount = 0;
 		for (Payment obligation : this.obligations) {
@@ -302,6 +319,7 @@ public class User {
 		}
 		return totalAmount;
 	}
+
 	public double getTotalRemainObligations() {
 		double totalAmount = 0;
 		for (Payment obligation : this.obligations) {
@@ -310,144 +328,164 @@ public class User {
 		return totalAmount;
 	}
 
-	public List<Payment> getUpcomingPaymentsForMonth(Collection<Payment> payments) throws UserException{
+	public List<Payment> getUpcomingPaymentsForMonth(Collection<Payment> payments) throws UserException {
+		if (payments == null || payments.size() == 0) {
+			return new ArrayList<Payment>();
+		}
 		LocalDate now = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		String from = now.format(formatter);
 		int remainingDays = now.lengthOfMonth() - now.getDayOfMonth();
 		now = now.plusDays(remainingDays);
 		String to = now.format(formatter);
-				
+
 		return this.getPaymentsBy(from, to, 0, payments);
 	}
-	
-	public List<Payment> getPaymentsBy(String from, String to, int categoryId, Collection<Payment> payments) throws UserException {
-		
-		/*checking if the data given are valid 
-		 * then parsing the dates given to LocalDate
-		 * in order to find the expenses which date is
-		 * between the initial and the end date
-		 * by a specific category given 
-		 * */
-		
-		if(UserHasDAO.isValidString(from) && UserHasDAO.isValidString(to)){
+
+	public List<Payment> getPaymentsBy(String from, String to, int categoryId, Collection<Payment> payments)
+			throws UserException {
+
+		/*
+		 * checking if the data given are valid then parsing the dates given to
+		 * LocalDate in order to find the expenses which date is between the
+		 * initial and the end date by a specific category given
+		 */
+
+		if (payments == null || payments.size() == 0 || categoryId < 0) {
+			return new ArrayList<Payment>();
+		}
+
+		if (UserHasDAO.isValidString(from) && UserHasDAO.isValidString(to)) {
+
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 			LocalDate parsedDateFrom = LocalDate.parse(from, formatter);
 			LocalDate parsedDateTo = LocalDate.parse(to, formatter);
 			List<Payment> paymentsBy = new LinkedList<Payment>();
 			for (Payment payment : payments) {
 				LocalDate paymentDate = payment.getDate();
-				if ((!paymentDate.isBefore(parsedDateFrom) || payment.getRepeatingId() > 1)
+				if ((!paymentDate.isBefore(parsedDateFrom) || payment.getRepeatingId() > ONCE_REP_ID)
 						&& !paymentDate.isAfter(parsedDateTo)) {
-					if (payment.getRepeatingId() == 1) {
-						if (categoryId != 0) {
-							if (payment.getCategoryId() == categoryId) {
-								paymentsBy.add(payment);
-							}
-							continue;
-						}
-						paymentsBy.add(payment);
-						continue;
-					}
-					if (payment.getRepeatingId() == 2) {
-						Payment paymentToAdd = null;
-						for (LocalDate date = paymentDate; !date.isAfter(parsedDateTo); date = date.plusDays(1)) {
-							if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
-								try {
-									paymentToAdd = (Payment) payment.getCopy();
-									paymentToAdd.setLocalDate(date);
-									paymentToAdd.setRepeatingId(1);
-								} catch (CloneNotSupportedException e) {
-									e.printStackTrace();
-								}
-								if (categoryId != 0) {
-									if (payment.getCategoryId() == categoryId) {
-										paymentsBy.add(paymentToAdd);
-									}
-									continue;
-								}
-								paymentsBy.add(paymentToAdd);
-							}
-						}
-						continue;
-					}
-					if (payment.getRepeatingId() == 3) {
-						Payment paymentToAdd = null;
-						for (LocalDate date = paymentDate; !date.isAfter(parsedDateTo); date = date.plusDays(7)) {
-							if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
-								try {
-									paymentToAdd = (Payment) payment.getCopy();
-									paymentToAdd.setLocalDate(date);
-									paymentToAdd.setRepeatingId(1);
-								} catch (CloneNotSupportedException e) {
-									e.printStackTrace();
-								}
-								if (categoryId != 0) {
-									if (payment.getCategoryId() == categoryId) {
-										paymentsBy.add(paymentToAdd);
-									}
-									continue;
-								}
-								paymentsBy.add(paymentToAdd);
-							}
-						}
-						continue;
-					}
-					if (payment.getRepeatingId() == 4) {
-						Payment paymentToAdd = null;
-						for (LocalDate date = paymentDate; !date.isAfter(parsedDateTo); date = date.plusMonths(1)) {
-							if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
-								try {
-									paymentToAdd = (Payment) payment.getCopy();
-									paymentToAdd.setLocalDate(date);
-									paymentToAdd.setRepeatingId(1);
-								} catch (CloneNotSupportedException e) {
-									e.printStackTrace();
-								}
-								if (categoryId != 0) {
-									if (payment.getCategoryId() == categoryId) {
-										paymentsBy.add(paymentToAdd);
-									}
-									continue;
-								}
-								paymentsBy.add(paymentToAdd);
-						
-							}
-						}
-						continue;
-					}
-					if (payment.getRepeatingId() == 5) {
-						Payment paymentToAdd = null;
-						for (LocalDate date = paymentDate; date.isAfter(parsedDateTo); date = date.plusYears(1)) {
-							if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
-								try {
-									paymentToAdd = (Payment) payment.getCopy();
-									paymentToAdd.setLocalDate(date);
-									paymentToAdd.setRepeatingId(1);
-								} catch (CloneNotSupportedException e) {
-									e.printStackTrace();
-								}
-								if (categoryId != 0) {
-									if (payment.getCategoryId() == categoryId) {
-										paymentsBy.add(paymentToAdd);
-									}
-									continue;
-								}
-								paymentsBy.add(paymentToAdd);
-							}
-						}
-					}
+					calculateAndAddRepeatingPayments(categoryId, parsedDateFrom, parsedDateTo, paymentsBy, payment,
+							paymentDate);
 				}
 			}
-			Collections.sort(paymentsBy, new Comparator<Payment>() {
-				  public int compare(Payment o1, Payment o2) {
-				      return o1.getDate().compareTo(o2.getDate());
-				  }
-				});
-			return paymentsBy;
-		}
-		else{
+			return sortCollectionByDate(paymentsBy);
+		} else {
 			throw new UserException("Invalid data given!");
+		}
+	}
+
+	private List<Payment> sortCollectionByDate(List<Payment> paymentsBy) {
+		Collections.sort(paymentsBy, new Comparator<Payment>() {
+			public int compare(Payment o1, Payment o2) {
+				return o1.getDate().compareTo(o2.getDate());
+			}
+		});
+		return paymentsBy;
+	}
+
+	private void calculateAndAddRepeatingPayments(int categoryId, LocalDate parsedDateFrom, LocalDate parsedDateTo,
+			List<Payment> paymentsBy, Payment payment, LocalDate paymentDate) {
+		Payment paymentToAdd = null;
+		switch (payment.getRepeatingId()) {
+		case ONCE_REP_ID:
+			if (categoryId != NO_CAT_ID) {
+				if (payment.getCategoryId() == categoryId) {
+					paymentsBy.add(payment);
+				}
+				return;
+			}
+			paymentsBy.add(payment);
+			return;
+		case DAILY_REP_ID:
+			for (LocalDate date = paymentDate; !date.isAfter(parsedDateTo); date = date.plusDays(DAYS)) {
+				if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+					try {
+						paymentToAdd = (Payment) payment.getCopy();
+						paymentToAdd.setLocalDate(date);
+						paymentToAdd.setRepeatingId(1);
+					} catch (CloneNotSupportedException e) {
+						e.printStackTrace();
+					} catch (PaymentException e) {
+						e.printStackTrace();
+					}
+					if (categoryId != NO_CAT_ID) {
+						if (payment.getCategoryId() == categoryId) {
+							paymentsBy.add(paymentToAdd);
+						}
+						continue;
+					}
+					paymentsBy.add(paymentToAdd);
+				}
+			}
+			break;
+		case WEEKLY_REP_ID:
+			for (LocalDate date = paymentDate; !date.isAfter(parsedDateTo); date = date.plusWeeks(WEEKS)) {
+				if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+					try {
+						paymentToAdd = (Payment) payment.getCopy();
+						paymentToAdd.setLocalDate(date);
+						paymentToAdd.setRepeatingId(1);
+					} catch (CloneNotSupportedException e) {
+						e.printStackTrace();
+					} catch (PaymentException e) {
+						e.printStackTrace();
+					}
+					if (categoryId != NO_CAT_ID) {
+						if (payment.getCategoryId() == categoryId) {
+							paymentsBy.add(paymentToAdd);
+						}
+						continue;
+					}
+					paymentsBy.add(paymentToAdd);
+				}
+			}
+			break;
+		case MONTHLY_REP_ID:
+			for (LocalDate date = paymentDate; !date.isAfter(parsedDateTo); date = date.plusMonths(MONTHS)) {
+				if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+					try {
+						paymentToAdd = (Payment) payment.getCopy();
+						paymentToAdd.setLocalDate(date);
+						paymentToAdd.setRepeatingId(1);
+					} catch (CloneNotSupportedException e) {
+						e.printStackTrace();
+					} catch (PaymentException e) {
+						e.printStackTrace();
+					}
+					if (categoryId != NO_CAT_ID) {
+						if (payment.getCategoryId() == categoryId) {
+							paymentsBy.add(paymentToAdd);
+						}
+						continue;
+					}
+					paymentsBy.add(paymentToAdd);
+
+				}
+			}
+			break;
+		case YEARLY_REP_ID:
+			for (LocalDate date = paymentDate; date.isAfter(parsedDateTo); date = date.plusYears(YEARS)) {
+				if (!date.isBefore(parsedDateFrom) && !date.isAfter(parsedDateTo)) {
+					try {
+						paymentToAdd = (Payment) payment.getCopy();
+						paymentToAdd.setLocalDate(date);
+						paymentToAdd.setRepeatingId(1);
+					} catch (CloneNotSupportedException e) {
+						e.printStackTrace();
+					} catch (PaymentException e) {
+						e.printStackTrace();
+					}
+					if (categoryId != NO_CAT_ID) {
+						if (payment.getCategoryId() == categoryId) {
+							paymentsBy.add(paymentToAdd);
+						}
+						continue;
+					}
+					paymentsBy.add(paymentToAdd);
+				}
+			}
+			break;
 		}
 	}
 
@@ -455,13 +493,21 @@ public class User {
 	 * getting the total amount of money for payments having a given category
 	 */
 	public double getAmoutByPaymentCategoryId(int categoryId, Collection<Payment> payments) {
+		if (payments == null || payments.size() == 0 || categoryId < 0) {
+			return 0;
+		}
 		List<Payment> paymentsByCategory = new LinkedList<>();
-		for (Payment payment : payments){
-			if (payment.getCategoryId() == categoryId){
+		for (Payment payment : payments) {
+			if (payment.getCategoryId() == categoryId) {
 				paymentsByCategory.add(payment);
 			}
 		}
-		return this.getTotalAmountFor(paymentsByCategory);
+		try {
+			return this.getTotalAmountFor(paymentsByCategory);
+		} catch (UserException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	/*
@@ -470,14 +516,17 @@ public class User {
 	 * money given as expenses
 	 */
 	public double getRemainAmountForBudget(int expenseId) {
+		if (expenseId <= 0) {
+			return 0;
+		}
 		double amount = 0;
-		List<Payment> budgetExpenses = new LinkedList<>();	
+		List<Payment> budgetExpenses = new LinkedList<>();
 		for (Budget budget : this.budgets) {
 			if (budget.getExpenseId() == expenseId) {
 				amount += budget.getAmount();
 			}
 		}
-		
+
 		for (Payment expense : this.expenses) {
 			if (expense.getCategoryId() == expenseId) {
 				budgetExpenses.add(expense);
@@ -490,12 +539,15 @@ public class User {
 	 * getting all money for payments for the current month
 	 */
 	public double getPaymentsForMonth(Collection<Payment> payments) {
+		if (payments == null || payments.size() == 0) {
+			return 0;
+		}
 		LocalDate now = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		LocalDate firstDay = now.minusDays(now.getDayOfMonth()-1);
+		LocalDate firstDay = now.minusDays(now.getDayOfMonth() - 1);
 		String to = now.format(formatter);
 		String from = firstDay.format(formatter);
-		
+
 		List<Payment> paymentsForMonths = null;
 		try {
 			paymentsForMonths = this.getPaymentsBy(from, to, 0, payments);
@@ -503,8 +555,8 @@ public class User {
 			e.printStackTrace();
 		}
 		double paymentsForMonth = 0;
-		
-		for (Payment income : paymentsForMonths){
+
+		for (Payment income : paymentsForMonths) {
 			paymentsForMonth += income.getAmount();
 		}
 		return paymentsForMonth;
@@ -513,19 +565,19 @@ public class User {
 	public double getBalanceForMonth() {
 		return getPaymentsForMonth(this.incomes) - getPaymentsForMonth(this.expenses);
 	}
-	
-	public String getObligationsJson(){
-		for (Obligation obligation : obligations){
+
+	public String getObligationsJson() {
+		for (Obligation obligation : obligations) {
 			obligation.getRemainedAmount();
 		}
-		return new Gson().toJson(obligations);	
+		return new Gson().toJson(obligations);
 	}
-	
-	public String getBudgetsJson(){
-		for (Budget budget : budgets){
+
+	public String getBudgetsJson() throws BudgetException {
+		for (Budget budget : budgets) {
 			budget.getRemainedAmount(this, budget.getExpenseId());
 		}
-		return new Gson().toJson(budgets);	
+		return new Gson().toJson(budgets);
 	}
 
 }

@@ -20,7 +20,7 @@ public class UserHasBudgetsDAO {
 	private static final String DELETE_BUDGET_SQL = "DELETE FROM users_has_budgets WHERE user_id = ? AND expense_id = ?;";
 	private static final String INSERT_BUDGET_SQL = "INSERT INTO users_has_budgets VALUES (?, ?, ?, ?, ?, ?)";
 	public boolean insertBudget(int userId, Budget budget) throws PaymentException {
-		if (budget != null) {
+		if (budget != null && userId > 0) {
 			Connection connection = DBConnection.getInstance().getConnection();
 
 			try {
@@ -87,6 +87,10 @@ public class UserHasBudgetsDAO {
 	}
 
 	public boolean deleteBudget(int userID, int expenseId) throws PaymentException {
+		if (userID <= 0 || expenseId <= 0){
+			throw new BudgetException("The user id or expense id given is not valid!");
+		}
+		
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -106,46 +110,5 @@ public class UserHasBudgetsDAO {
 			throw new PaymentException("Someting went wrong!");
 		}
 	}
-
-//	public static boolean constainsExpense(int expenseId) {
-//
-//		Connection connection = DBConnection.getInstance().getConnection();
-//
-//		try {
-//			PreparedStatement ps = connection.prepareStatement(CHECK_IF_EXPENSE_ID_EXISTS);
-//			ps.setInt(1, expenseId);
-//			ResultSet rs = ps.executeQuery(CHECK_IF_EXPENSE_ID_EXISTS);
-//			rs.next();
-//			int result = rs.getInt(1);
-//			if (result == 0) {
-//				return false;
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return true;
-//	}
-//
-//	public static boolean containsRepeating(int repeatingId) {
-//		Connection connection = DBConnection.getInstance().getConnection();
-//
-//		try {
-//			PreparedStatement ps = connection.prepareStatement(CHECK_IF_REPEATING_ID_EXISTS);
-//			ps.setInt(1, repeatingId);
-//			ResultSet rs = ps.executeQuery(CHECK_IF_REPEATING_ID_EXISTS);
-//			rs.next();
-//			int result = rs.getInt(1);
-//			if (result == 0) {
-//				return false;
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return true;
-//	}
 
 }

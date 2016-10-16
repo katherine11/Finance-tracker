@@ -224,9 +224,9 @@ window.onload = function () {
 							<caption>
 								<h2><spring:message code="result" /></h2>
 							</caption>
-							<c:forEach items="${expenses}" var="expense">
+							<c:forEach items="${expenses}" var="expense" varStatus="loop">
 								<tr>
-									<td align="center"></td>
+									<td align="center"><c:out value="${loop.index+1}"></c:out></td>
 									<td align="left"><spring:message code="${expense.category}" />
 									</td>
 									<td align="right"><c:out value="${expense.amount}"></c:out>&nbsp;$
@@ -244,7 +244,7 @@ window.onload = function () {
 								<td align="right" colspan="2" style="padding-top: 14px"><strong><spring:message code="total.amount" />:</strong></td>
 								<td align="right" style="padding-top: 14px"><strong>
 								<c:out value="${totalAmount}"></c:out> &nbsp;$ </strong> </td>
-
+								<td colspan="3" ></td>
 							</tr>
 						</tfoot>
 					</c:otherwise>
