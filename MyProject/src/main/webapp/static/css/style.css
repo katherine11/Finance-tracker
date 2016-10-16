@@ -435,7 +435,7 @@ footer {
 }
 
 .EN, .DE {
-	color: blue;
+	color: #004080;
 	text-decoration: none;
 	font-style: italic;
 	font-weight: bold;	

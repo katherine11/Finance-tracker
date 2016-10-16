@@ -8,6 +8,11 @@ import com.example.model.exceptions.PaymentException;
 
 public class Obligation extends Payment {
 
+	private static final int YEARLY_REP_ID = 5;
+	private static final int MONTHLY_REP_ID = 4;
+	private static final int WEEKLY_REP_ID = 3;
+	private static final int DAILY_REP_ID = 2;
+	private static final int ONCE_REP_ID = 1;
 	private static final int PERIOD_ID_FOR_YEARS = 4;
 	private static final int PERIOD_ID_FOR_MONTHS = 3;
 	private static final int PERIOD_ID_FOR_WEEKS = 2;
@@ -100,13 +105,13 @@ public class Obligation extends Payment {
 		long years = ChronoUnit.YEARS.between(begin, end);
 		LocalDate now = LocalDate.now();
 		switch (super.getRepeatingId()){
-			case 1:
+			case ONCE_REP_ID:
 				payment = super.getAmount();
 				if (end.isBefore(now)){
 					amount = payment;
 				}
 				break;
-			case 2:
+			case DAILY_REP_ID:
 				payment = super.getAmount()/days;
 				if (end.isBefore(now)){
 					amount = payment;
@@ -114,7 +119,7 @@ public class Obligation extends Payment {
 					amount = payment*ChronoUnit.DAYS.between(begin, now);
 				}
 				break;
-			case 3:
+			case WEEKLY_REP_ID:
 				payment = super.getAmount()/weeks;
 				if (end.isBefore(now)){
 					amount = payment;
@@ -122,7 +127,7 @@ public class Obligation extends Payment {
 					amount = payment*ChronoUnit.WEEKS.between(begin, now);
 				}
 				break;
-			case 4:
+			case MONTHLY_REP_ID:
 				payment = super.getAmount()/months;
 				if (end.isBefore(now)){
 					amount = payment;
@@ -130,7 +135,7 @@ public class Obligation extends Payment {
 					amount = payment*ChronoUnit.MONTHS.between(begin, now);
 				}
 				break;
-			case 5:
+			case YEARLY_REP_ID:
 				payment = super.getAmount()/years;
 				if (end.isBefore(now)){
 					amount = payment;
